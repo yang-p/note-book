@@ -1,0 +1,14 @@
+第一步，在搭建vue-cli时，是下载好了vue-router
+第二步，在src文件夹下创建router文件夹，然后创建index.js文件
+第三步，在index.js文件中，引入vue、vue-router
+第四步，在vue中注入该插件，Vue.use(vueRouter)
+第五步，实例化该插件 new vueRouter({})
+第六步，导出实例化VueRouter对象 export default new VueRouter({})
+
+第七歩，给该对象进行参数配置
+		export default new VueRouter({
+				routes:[
+					path:'/home',
+					component:Home
+				]
+		})

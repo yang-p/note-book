@@ -1,0 +1,25 @@
+map组件：
+		作用：提供地图
+		属性：
+			参考https://developers.weixin.qq.com/miniprogram/dev/component/map.html#map
+
+获取地图的API：
+				getLocation
+				作用：根据当前设备的ip地址，获取经纬度信息
+
+				使用方法：
+							该方法的参数是一个对象，对象里面有两个回调函数，
+							第一个函数是成功的回调函数，第二个是失败的回调函数。
+
+		wx.getLocation({
+			success: (res){
+				this.setData({
+			         longitude : res.longitude,
+         			 latitude : res.latitude
+				})
+			}
+		})
+
+
+map组件的注意点：
+				1. map组件默认在页面的最顶层

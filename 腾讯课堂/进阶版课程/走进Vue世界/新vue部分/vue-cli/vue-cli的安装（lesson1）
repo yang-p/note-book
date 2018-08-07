@@ -1,0 +1,6 @@
+全局安装vue-cli:	npm install vue-cli -g
+验证vue-cli是否安装成功：vue -V
+
+通过vue list 指令，可以看到有四种创建vue项目的方式，这里我们选择webpack创建项目
+
+创建vue项目：	vue init webpack [项目名称]

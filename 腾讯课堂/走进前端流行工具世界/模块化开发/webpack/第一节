@@ -1,0 +1,78 @@
+模块化简介：
+			具有相同属性和事物的集合，在前端中将属性和行为类似的内容放在同一个js文件中，
+			此时该js文件就称为模块。
+			简单来说，就是一个js文件只负责实现一个功能，而需要实现该功能的代码放在该js文件里面。
+			这样的好处是，遇到新的需求时，只需要改动相应的js文件，而不会影响其他js文件的正常运行。
+
+模块化的发展：
+				1.函数：
+						将实现某一功能的方法封装在函数里面。
+				2.对象：
+						将函数和变量放在对象中，但是对象中的属性可以在外部更改。
+				3.匿名函数：
+						将属性进行私有化，通过return可以留出接口。
+				4.依赖：
+						jQuery的源码写法
+
+commonJS：
+			核心思想：通过require方法同步加载所要依赖的其他js模块，然后通过exports或者
+						module.exports来导出需要暴露的接口。
+			直白来说：
+						比如index.js的运行依赖module.js文件，因此在index.js文件里面
+						var module = require('module.js');
+						此时在module.js文件里面通过exports方法暴露接口
+						module.exports = {
+							aa: function(){}
+						}
+						最后再index.js文件里面通过，module.aa()。
+
+			浏览器不兼容commonJS，因为浏览器不能识别require、exports、module、global四个环境变量。
+			并且由于commonJS是同步加载，适合放在服务器，而浏览器向服务器发送请求是需要异步加载。
+
+AMD：
+		如果说commonJS是为服务器而生，那么AMD是为了解决同步加载问题为浏览器而生。
+		核心思想：
+				 通过defined来定义模块，然后使用require来加载一个模块。
+		AMD用法：
+				1.需要引入requireJS文件
+				2.然后在html页面加上<script src="js/require.js" data-main="main.js"></script>
+				3.由于第二步中的data-main属性声明了main.js为主模块，
+				  在main.js模块里面，require(['模块名1', '模块名2', ...], function (){})。
+				4.第三步中，只写模块名，表示该模块与主模块main同级，如果不是同一级，			  
+				  那么需要先通过require.config方法配置路径，
+				  两种写法：
+				  			1. require.config({
+				  				paths: {
+					  					'jquery': 'js/tool/query',
+				  						'module': 'js/tool/module'
+				  					}
+				  			})
+
+				  			2. require.config({
+				  				baseUrl: './js/tool',
+				  				paths: {
+				  						'jquery': 'jquery',
+				  						'module': 'module'
+				  				}
+				  			})
+				4.对于自定义的模块需要define方法导出，在要定义的那个模块里面写上define()。
+
+				5.对于自定义的模块由于还依赖其他模块，所以在定义时，需要define(['模块名'],function(){})
+				6.第三步的详细讲解，只有模块加载完了，才会执行后面的函数，并且要想执行某个模块的
+					方法，比如test1模块的aa方法，那么需要写成test1.aa()
+
+
+CMD:	AMD是先加载模块在执行后面的函数，而CMD可以在执行函数时按需加载模块
+		核心思想：
+					通过define来加载一个模块
+
+		CMD的使用方法：
+						1. 在html页面引入sea.js文件，然后在创建一个script标签声明主模块
+							<script> seajs.use('main.js')</script>
+						2.在主模块里面
+
+
+ES6：
+		ES6自带模块化，使用import引入模块，export导出模块，
+		功能相对于前面的要强大，但是ES6目前无法在浏览器中执行，但是通过Babe可以将不被支持的import
+		转换为流行的require。

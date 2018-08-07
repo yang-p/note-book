@@ -1,0 +1,13 @@
+
+在react中，并没有带交互的库，所以react可以配合其他交互库使用。
+
+————————————————————————————————————————————————————————————————————————
+交互库之原生fetch的使用：
+			语法 ： fetch(url,[options]).then(res=>{
+				return res.json();
+			}).then(result=>{}).catch(err=>err)
+
+
+交互之fetch-jsonp的使用:
+			下载 fetch-jsonp
+				在js文件中引入fetch-jsonp

@@ -1,0 +1,75 @@
+transform
+		旋转属性rotate
+		rotateX(xxdeg)、rotateY()、rotateZ()如果只写rotate()那么默认是沿Z轴旋转。
+		rotate3d(x, y, z, 旋转角度) x、y、z代表该物体在X轴，Y轴，Z轴所在的位置。
+		注意点：当沿X、Y轴旋转时，Z轴会随之变化。
+
+		缩放属性scale
+		scale(x, y) x和y表示缩放的倍数，没有单位，可以正负，当值的绝对值比1大，就是放大，
+					若scale只有一个参数那么第二个参数默认和第一个参数值一样，即等比例缩放。
+		scaleX()、 scaleY()、 scaleZ()单独为宽度、高度进行缩放，scaleZ无用。
+		scale3d(x,y,z)
+
+		扭曲属性skey
+		skewX() 沿X轴方向扭曲，物体的宽度不变
+		skewY()	沿Y轴方向扭曲，物体的高度不变
+		skew(x, y) 如果只有一个参数，那么第二个参数默认为0。
+
+		平移属性translate
+		translate(x,y,z)
+		translateX()
+		translateY()
+		translateZ()
+		注意点：平移单位可以是百分比，当为百分比时是移动的相对于目标元素的宽高的百分比的距离。
+
+		旋转平移缩放的中心点：translate-origin
+
+
+transition过渡动画
+
+		transition-property 	     指定过度或动态模拟的css属性
+		transition-duration			 指定过渡所需要的时间
+		transition-timing-function	 指定过渡函数
+		transition-delay 		     指定开始出现的延迟时间
+
+		translation: css属性1 动画时间 速率 延迟时间,css属性2 动画时间 速率 延迟时间...;
+		translation: all 动画时间 速率 延迟时间; //all只对css属性的状态变化有效。
+		注意点： 动画时间必须要有单位。
+		速率：
+				linear匀速
+				ease 由慢到快再到慢
+				ease-in 以慢速开始
+				ease-out 以慢速结束
+				ease-in-out以慢速开始和结束
+				cubic-bezier(x1, y1, x2, y2) x和y的取值范围为0到1
+
+
+animation 动画
+			@keyframes 关键帧
+			animation: name duration timing-function delay direction 循环次数
+			animation-name 执行动画的名称，比如 @keyframes move {}	
+			animation-duration 动画执行时间
+			animation-timing-function 过度函数的速率
+			animation-delay 延迟时间
+			animation-play-state 控制元素的当前播放状态效果
+								属性值：running 播放
+										paused  暂停
+										通过js就可以是实现暂停和播放效果。
+			animation-fill-mode
+							属性值：none 默认值，当运动到最后一帧时又回到第一帧。
+									forwards  动画结束后停在最后一帧
+									backwards 动画结束后停在第一帧
+									both	  动画从第一帧开始到结束后停在最后一帧。
+
+			animation-direction    运动方向
+							属性值：normal 动画按正常方向播放
+									reverse 动画从终点向起点状态播放。
+									alternate动画在奇数次正向播放，偶数次反向播放
+									alternate-reverse 奇数次反向偶数次正向。
+			注意点： 
+					如果执行动画里面只有0%和100%两个状态，那么可以用
+					from-to代替，有时from可以省略不写，那么会以目标元素
+					原本的状态开始执行动画。如果写了form那么就以from的状态
+					开始执行动画。
+					第一帧和元素原始状态的区别：当设置了第一帧那么初始状态就以第一帧为主。
+					延迟属性是在0%状态之前执行，在0%到100%之间延迟属性无效。			

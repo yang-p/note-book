@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS3选项卡</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		
+		.wrapper-tab {
+			position: relative;
+			width: 50%;
+			height: 250px;
+			margin: 10px auto;
+		}
+
+		.wrapper-tab
+		.tab-group {
+			float: left;
+			width: 25%;
+			height: 29px;
+			margin-right: -1px;
+		}
+
+		.wrapper-tab
+		.tab-group
+		.tab-content {
+			display: none;
+			position: absolute;
+			right: 0;
+			left: 0;
+			margin-top: -1px;
+			padding-top: 80px;
+			box-sizing: border-box;	
+			width: 100%;
+			height: 220px;
+			border: 1px solid #ccc;
+			text-align: center;						
+		}
+
+		.wrapper-tab
+		.tab-group
+		label {
+			display: inline-block;
+			width: 100%;
+			text-align: center;
+			line-height: 28px;
+			background-color: #eee;
+			border: 1px solid #ccc;
+			cursor: pointer;
+		}
+
+		.wrapper-tab
+		.tab-group
+		.tab-radio {
+			display: none;
+		}
+
+		.tab-radio:checked + label {
+			position: relative;
+			background-color: #fff;
+			border-bottom-color: #fff; 
+			z-index: 1;
+		}
+
+		.tab-radio:checked ~ .tab-content {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper-tab">
+
+		<div class="tab-group">			
+			<input id="radio1" class="tab-radio" type="radio" name="tab" checked>
+			<label for="radio1">选项卡1</label>
+			<div class="tab-content">
+				<p>我是选项卡1中的内容^_^</p>
+			</div>
+		</div>
+
+		<div class="tab-group">			
+			<input id="radio2" class="tab-radio" type="radio" name="tab">
+			<label for="radio2">选项卡2</label>
+			<div class="tab-content">
+				<p>我是选项卡2中的内容^_^</p>
+			</div>
+		</div>
+
+		<div class="tab-group">			
+			<input id="radio3" class="tab-radio" type="radio" name="tab">
+			<label for="radio3">选项卡3</label>
+			<div class="tab-content">
+				<p>我是选项卡3中的内容^_^</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

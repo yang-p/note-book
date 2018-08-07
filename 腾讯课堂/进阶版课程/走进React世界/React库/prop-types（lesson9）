@@ -1,0 +1,25 @@
+prop-types
+			作用：检验组件中props中属性的类型
+
+
+prop-types的使用：
+			1. 下载prop-types   
+							第一种下载方式：	npm i prop-types -D
+							第二种下载方式： 直接下载prop-types.js文件
+
+				注意点：
+						prop-types只有在开发环境下才有效，所以下载的prop-types文件必须是
+						开发环境的文件，比如非压缩版文件。
+
+			2. 在js文件里面引入  import propTys from 'prop-types'
+
+			3. 两种使用方法：
+					假设有一个为App的组件
+					1. App.proptypes = {
+						name : PropTys.number
+					}
+
+					2. 在组件内部声明静态属性
+						static proptypes = {
+							name : PropTys.number
+						}

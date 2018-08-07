@@ -1,0 +1,68 @@
+
+.wrap() 	为目标元素包裹一层元素，
+			例子：$('li:first').wrap('<div></div>')为第一个li元素包裹一个div元素，
+				  $('li').wrap('<div></div>')为所有的li都包裹一层div元素。
+				  $('li').wrap(function(index){return index%2==0?'<div></div>':''})
+				  为能被2整除的所有的li元素包裹div元素。
+
+.wrapInner() 在目标元素内部嵌套一层直接子元素，并且会将目标元素原来的内容剪切到嵌套的元素里面。
+			 <div><span>111<span></div> ===><div><p><span>111<span></p></div>
+
+.wrapAll() 	为目标元素外部包裹一层元素，但是在为一组目标元素包裹时，
+			若该组目标元素还有另外的同级元素，而warpAll方法只会包裹目标元素，
+			所以会破坏dom结构。
+			包裹步骤：
+			 以ul li为例子，如果目标元素是li元素，那么从文档的最顶端开始，
+			 从上往下先找第一个li元素，进行包裹，然后将后面的li元素依次添加进去。
+
+unwrap   删除目标元素的上一层直接父元素结构，但是结构化标签无法删除，html、body、head。
+
+.end() 		回退操作,回退到上一次选择的元素节点
+			例子：$('li').eq(0).end() 此时选择的元素是所有li元素，
+						end方法后面的其他操作会覆盖前面的操作。
+				  $('li').end() 此时end方法后面的其他操作无效。
+
+.siblings() 选择目标元素节点的所有兄弟节点
+			用法：
+			无参数时，选择的是所有兄弟节点
+			有参数时，$('li:first').siblings(':first/last/eq(index)/odd/even')
+
+.prevAll() 选择目标元素节点上面的所有兄弟节点。
+.nextAll() 选择目标元素节点下面的所有兄弟节点。
+
+.prevUntil()  从目标元素往上到某个元素，只取这两个元素的中间部分的元素
+			例子：$('li:eq(3)').prevUtil($('li:eq(0)')) 取的是索引值为1,2的li元素。
+
+.nextUntil() 从目标元素往下到某个元素，只取这两个元素的中间部分的元素
+			注意点：这两个方法里面既可以放jQuery对象也可以放原生dom。
+
+.clone()  		克隆目标元素节点,当参数为true时，还会克隆目标元素上的绑定事件。
+.clone(true)	不但克隆目标元素节点 还会克隆其绑定事件。
+
+A.add(B)      选择A和B两个元素	
+			  例子：$('li:eq(0)').add($('li:eq(1)'))将第一个和第二个li元素选择出来。
+
+.slice(startIndex,endIndex)    
+			截取或选择出某个区间的元素，包括startIndex元素，不包括endIndex个元素。
+			例子：$('li').slice(0,2)截取第0,1个li元素
+
+.empty()    清空目标元素里面的内容，$('ul').empty() === $('ul').html(' ');
+————————————————————————————————————————————————————————————————————————————
+serialize 		串联表单数据
+				$('提交按钮').click(function(e){
+					e.preventDefault();
+					$('form').serialize();
+				})	
+
+serializeArray  串联表单数据成数组
+				和上面的用法一样只是返回的一个数组，数组里面是对象形式的键值对。
+
+.attr('属性') 	获取目标元素的某个属性的属性值。
+
+.val()  		获取输入框中输入的value值。
+
+.length       获取长度，例子：$('li').length 有几个li元素返回几，
+			  其实质是$('li')是一个类数组，类数组中本来就有length属性。
+
+.each()      和原生js的区别是参数顺序不同，
+			 例子：$('li').each(function(index,ele){})

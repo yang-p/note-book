@@ -1,0 +1,47 @@
+一个函数的执行相当于在隐式的在后面加了call  test() === test.call()
+call/aplay    只有一个作用，用来改变this指向。aplay和call的区别：传参列表的不同。
+
+使用方法：  a.call(参数1，参数2，参数3....)或 a.aplay(参数1,[参数2，参数2，参数3.....])
+                    参数1是改变this指向，参数2到参数n为实参。
+call的应用场景：
+            一个字面量对象通过构造函数为自己添加构造函数的方法和属性。
+            例如：var obj = {};
+                   function Person(name,age){
+                   this.name = name; this.age = age;
+                   }
+                   var person = new Person('yp',12);
+                   person.call(obj,'yy',18);
+  //此时构造函数Pserson里面的this指向obj，obj对象里面多了 {name:'pp',age:"18"}
+     一个构造函数A需要调用另一个构造函数B的属性或方法， 那么在A里面添加一行"B.call(this,参数1， 参数2...)"代码，
+      call中的this指向构造函数A中的this对象。
+     例子：
+      function Sit(c,sitColor) {
+                 this.sitColor = sitColor;
+                 this.c= c;
+             }
+             function Model(width,height,len) {
+                 this.width = width;
+                 this.height =height;
+                 this.len = len;
+             }
+             function Car(c,sitColor,width,height,len) {
+               Sit.call(this,c,sitColor);
+               Model.call(this,width,height,len);
+             }
+                var car = new Car('red','grey',200,120,50);
+————————————————————————————————————————————————————————————
+this在不同状态下的指向：
+①预编译过程中，函数中的this指向window.
+②全局作用域中的this指向window
+③call、aplay改变函数执行时this指向
+④谁调用方法，那么该方法的this就指向谁。
+this在函数内部作为一个函数调用(不是通过构造器new创建)，往往指向全局对象。(ES5.0严格模式用下面的方法)
+
+
+
+
+
+
+
+
+

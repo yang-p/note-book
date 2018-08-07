@@ -1,0 +1,21 @@
+express简介：
+			基于nodejs平台，一款前端开发框架。
+
+
+express能做什么：
+				1.已经封装好服务器
+				2.已经封装好路由
+				3.已经封装好中间件
+				4.已经封装好网络请求
+
+
+
+express使用
+
+			1.安装Express： npm i express -D
+
+			2.引入Express： require('express')
+
+			3.实例化Express对象  let app = new Express()
+
+			4.通过对象调用各种方法	

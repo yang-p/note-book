@@ -1,0 +1,96 @@
+插件注意事项：
+				1.插件不属于webpack，但是它们依赖webpack，所以在安装插件之前，
+				  需要安装本地的webpack。
+				  而搭建环境时安装的全局webpack，只能保证能输入webpack命令。
+				  在3.x版本及以前的webpack，只需要安装 npm webpack -D即可完成依赖关系。
+				  但是在4.x版本，webpack的很多功能都转移到webpack-cli中，
+                  所以插件不仅依赖webpack、还依赖webpack-cli。
+
+                 2.正常下载的插件，在使用时会出现问题，这个问题可能是由于该插件的版本
+                 	比较低，所以需要下载一个新版本的插件。
+                 	例子： npm i html-webpack-plugin@next -D  //@next表示下一个版本
+                 		   npm i html-webpack-plugin@2.3.1 -D  //@2.3.1表示下载2.3.1版本
+
+——————————————————————————————————————————————————————————————————————————————————————————
+
+第一步安装插件的方法：
+				全称形式： cnpm install html-webpack-plugin --save -dev
+				简写形式： cnpm i html-webpack-plugin -D
+
+第二步引入插件的方法：
+				在webpack.config.js文件顶部， const Html = require('html-webpack-plugin');
+
+
+第三步调用插件的方法：
+				在module.exports对象里面添加一个属性plugins，属性值为数组形式。
+				plugin : [new Html({此处写配置项})]
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+html-webpack-plugin
+		配置属性：
+					template : '模板地址'  			template : './src/index.html'
+
+					filename : '出口html文件的文件名'  
+								如果不写filename那么系统默认添加上filename属性，并且属性值默认是index.html,
+								想要写多出口html文件，那么必须加上filename属性，并且属性值不能相同。
+
+					title  : '这是模板页面的标题'  要想让title生效必须在模板页面的title里面写上
+													<%= htmlWebpackPlugin.options.title%>
+
+					hash : true				将生成的链接消除缓存。
+										比如生成的dist文件夹里面的index.html引入的js文件会有随机的hash值。
+										例子：<script src="index.js?slanfasnflanso"></script>
+
+					minify : {			压缩html代码
+							collapseWhitespace : true  //是否折叠空格
+					}
+
+					chunks : ['index','index2']  给某个出口html文件引入具体的js入口文件，
+												这里的index、index2指的是entry对象里面的自定义属性，
+												其属性值为src文件夹里面的js文件。
+												如果没有chunks，那么出口html文件默认是加载所有入口js文件。
+
+					··········更多配置项上网查看。。。
+
+					配置多出口html文件的方法:
+								想要几个出口html文件，那就写几个new HtmlWebpackPlugin({·····})，
+								注意的是，filename的属性值必须要不同。
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+clean-webpack-plugin
+		作用：在构建之前，删除构建文件夹
+		配置属性：
+					new Clean(['dist'])
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+uglifyjs-webpack-plugin
+			作用：压缩文件，在webpack4.x以后只需要将mode改为production即可压缩。
+			不需要配置属性：
+							new uglifyjs()
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+extract-text-webpack-plugin
+			作用：将css从出口文件中分离出来，得到单独的css文件
+			配置属性：
+						new ExtractTextPlugin('css/index.css')
+						所有的css分离到dist/css/index.css文件中。
+
+			做完配置后，由于在处理css时，会经过loader部分，所以在loader部分需要修改。
+
+			module : {
+				rules : [
+					{
+						text : /\.css$/,
+						use : ExtractTextPlugin.extract({
+							fallback : 'style-loader',
+							use : 'css-loader',
+							publicPath : '../'
+						})
+					}
+
+				]
+			}

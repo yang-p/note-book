@@ -1,0 +1,27 @@
+所谓条件渲染就是平常js中常见的条件语句。
+			例子：
+					render() {
+						if(){
+
+						}
+					}
+
+列表渲染就是js中的循环语句
+				例子：
+						render(){
+							let arr1 = [];
+							arr.map((val,index)=>{
+								arr1.push(<li key={index}>{val}</li>);
+								// arr1.push(<List key={id}/>); key是一个组件
+							})
+							return (<ul><ul>)
+						}
+
+	注意点：
+			列表循环时，必须给每个列表添加一个key属性，如上例子所示。
+
+			添加key属性的注意点：
+								1.key的值必须是唯一的，所以key的值要么是后台传过来的id值。
+								要么是索引值，要么是Math.random()
+
+								2.key属性是添加到父元素上的

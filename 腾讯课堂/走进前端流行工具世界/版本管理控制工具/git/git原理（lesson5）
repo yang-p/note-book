@@ -1,0 +1,22 @@
+repository本地仓库分为两大部分：
+						workspace工作区【本地仓库里面的文件及文件夹】
+						index/stage暂存区【.git文件就是一个暂存区】
+
+本地仓库的流程：
+					git add         git commit				checkout
+		workspace------------>stage----------->repository-------------->workspace
+
+
+本地仓库和远程仓库流程：
+					push
+		repository------------> remote
+
+				fetch/clone
+		remote--------------->repository
+
+				  pull
+		remote------------->workspace	
+
+				
+
+remote远程仓库：

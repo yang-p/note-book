@@ -1,0 +1,189 @@
+定时器：
+		属于window上的对象，内部的this指向window
+
+
+查看滚动条滚动距离：
+				window.pageXoffset、 window.pageYoffset（IE8及其以下的浏览器不兼容）
+				document.body.scrollTop/scrollLeft、 document.documentElement.scrollTop/scrollLeft
+
+查看可视区窗口(html文档区域)的尺寸：
+				window.innerWidth window.innnerHeight(IE8及以下浏览器不兼容)
+				document.documentElement.clientWidth/clientHeight(IE8及以下的标准模式下，任意浏览器都兼容)
+				document.body.clientWidth/clientHeight(适用于IE8及以下的怪异模式下的浏览器)
+				判断标准模式和怪异模式的方法： document.compatMode 如果返回CSS1Compat表示标准模式，BackCompat怪异模式。
+
+查看元素的尺寸：
+				dom.offsetWidth dom.offsetHeight
+查看元素的位置：
+				dom.offsetLeft dom.offsetTop看父级是否有定位，如果有定位那么该方法是相对有父级定位的。	
+返回最近的有定位的父级：
+				dom.offsetParent 如果没有则返回body
+
+让滚动条滚动：
+				window对象上的三个方法，scroll/scrollTo滚动到某个地方	  scrollBy实现滚动条滚动累加或累减操作
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+脚本化css
+	只能用style属性来操作css，并且还是间接操作
+		style是一个类数组
+		当要用style修改保留字属性时，比如float，应在float前面加上css，cssFloat
+		复合属性拆开来写
+
+	查看元素的css属性
+						用style属性来擦看元素的css样式，只能查看行间样式
+						window.getComputedStyle(ele, null)[prop] 查看的是元素的最终状态下的css样式
+						该方法有三个注意点：
+											IE8及以下浏览器不兼容
+											只能进行查看操作
+											返回的数据都是绝对值
+											第二个参数如果不为null，那么就可以获取伪元素
+
+						IE独有查看样式的方法：
+											 ele.currentStyle[prop]
+
+_________________________________________________________________________________________________________________
+绑定事件:
+onclick事件，相当于在行间样式写click事件，一个元素只能写一个onclick方法，如果有多个该方法，那么后面的会覆盖前面的。
+dom.addEventListener 一个元素可以绑定该方法，但是如果他们的处理函数都是同一个，那么只执行一次 dom.addEventListener(type,function(){}, false)
+dom.attachEvent IE独有的方法，和addEventListener类似，不论该方法同时用一个处理函数，有多少该方法仍然执行多少次，attachEvent(on + type,function(){})
+
+解除事件：
+			dom.onclick = null;
+			dom.removeEventListener()
+			dom.detachEvent()
+			后两种如果选择的是匿名函数，那么解除绑定无效
+
+事件冒泡(自底向上)：
+事件捕获：dom.addEventListener(type, function(){}, true)
+			触发顺序，先捕获，后冒泡
+
+下列事件没有冒泡
+				focus、blur、change、submit、reset、select
+
+取消冒泡事件：
+				event.stopPropagation() 不支持IE9以下的浏览器
+				event.cancelBubble = true IE浏览器独有
+
+取消默认事件：
+				return false 只适用于句柄事件
+				event.preventDefault() IE9以下不支持
+				event.returnValue = false 兼容IE
+事件源对象：
+				event.target     火狐独有
+				event.srcElement IE独有(两个属性，谷歌都支持)
+
+事件委托：
+				事件冒泡和事件源对象的结合，
+				优点：不需要循环，当有新的子元素添加进来的时候不需要再绑定事件
+
+只有mousedown和mouseup方法才能判断出鼠标的左右键，左键为0，右键为1，判断按键是事件对象中的button属性。
+
+键盘事件：
+			keydown > keypress > keyup
+			keydown和keypress的区别：
+									keydown可以监测到除了fn辅助键以外的按键，但是无法区分字符的大小写，
+											该事件对象的swich属性的值代表所按的那个键在键盘上的顺序是多少。
+									keypress只能监测ASCII代码中的字符按键，该事件对象中的charCode属性返回的是
+											该字符按键所对应的ASCII码。
+											string.fromCharCode(e.charCode)返回的是ASCII码对应的字符串。
+
+文本框事件：
+			change事件，先聚焦文本框，然后失焦，判断此时文本框的value是否改变，若改变，则触发该事件。
+			input事件，当文本框内容改变时，就触发该事件。
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————
+重排：
+		元素的宽高变化、位置变化、删除、添加、显藏状态变化（重排是效率最低的）
+重绘：
+		改变一小部分，比如元素的背景、字体颜色变化
+
+		js的解析和加载会阻塞页面的原因： js操作可以修改dom结构；js是单线程	
+
+由于有些js文件并不是操作dom的，比如初始化数据，又或者是需要按需加载，此时需要异步加载js文件。
+
+JavaScript异步加载的三种方案：
+			1. defer属性，<script src = '..' defer='defer'></script>只有IE能用，只有等到dom文档全部解析完后才能执行	
+						该方法也可以异步加载script标签的内部代码。
+			2. async属性, w3c标准，只能加载外部js脚本，并且加载完外部脚本后就执行。
+			3. 创建script标签，因为script标签的src属性是异步加载。
+				注意点：
+						代码执行远比文件加载快，所以当script标签插入到页面的时候，js文件可能还没加载完，
+						此时要执行js文件的代码有两种方式，
+						第一种定时器延时执行，缺点就是有的文件加载快有的文件加载慢，
+						第二种onload事件可以判断src是否加载完，如果加载完就执行oScript.onload里面代码。
+						但是该方法不支持IE。
+						在IE中，script标签有一个readyState属性，其初始的属性值为loading，当加载完成后属性值变为
+						completed或loaded，并且还提供一个onreadystatechange的监听事件.
+				使用onreadystatechange的注意点：
+												由于该监听事件是舰艇1状态变化的，所以src加载得非常快，那么可能就监听不到。
+			function loadScript(url, callback){
+					var oScript = document.createElement('script');
+						if(script.readyState){
+						oScript.onreadystatechange = function () {
+							if(script.readyState == 'complete' || script.readyState == 'loaded'){
+								tools[callback]();
+							}
+						}
+						}else {
+							oScript.onload = function () {
+								tools[callback]();
+							}
+						}
+						oScript.src = url;
+						//tools是一个对象，将要加载的js文件中的所有函数放在里面，记住callback的实参为字符串形式。
+			}	
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+js时间线：
+··········1.创建Document对象，开始解析web页面，将html元素和元素的内容添加到document对象中，此阶段document.readyStat == 'loading'
+2.遇到link标签时，开启新的线程加载外部css文件
+3.遇到script加载js，并且没有defer或async属性，浏览器加载js并阻塞,直到加载完才继续解析文档	
+4.遇到script加载js，并且有的份儿或async属性，浏览器开启新的线程加载js，而async属性是加载完就立即执行(异步禁止使用document.write)
+5.遇到img标签，先正常解析dom结构，然后开启新的线程加载src
+6.当文档解析完成，document.readyState == 'interactive'
+7.此时文档解析完成了，接着设置有defer属性的js脚本开始执行
+8.此时文档解析完成了，接着document对象触发了DOMContentLoaded事件，此时可以进行事件监听。
+	注意点：
+			document.DOMContentLoaded事件只能用于addEventListener，它里面的语句是在文档解析完成后就执行的，比window.onload快多了。
+9.当所有的文件加载并执行完后，document.readyState == 'complete', window对象触发load事件	
+10.程序运行以正常方式进行。
+
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+正则表达式：
+			字面量形式： var reg = /要匹配的内容/i|g|m
+							i代表忽略匹配内容的大小写
+							g代表全局匹配，当第一次匹配成功后，又继续下次匹配，匹配成功过的片段，就不再看了。
+							m代表多行匹配
+			构造对象形式：
+						var reg = new RegExp("要匹配的内容", "igm属性")	
+			字面量和构造对象组合：
+							var reg = /abc/igm;
+							var reg1 = new RegExp(reg);
+							注意点： 如果不用new关键字，那么reg1和reg的属性用的都是同一个地址。
+
+
+特殊匹配字符：
+				\ 转义字符，将该字符后面紧跟着的字符转义。 \n换行符
+				[] 表达式,表达式里面代表匹配范围，一个表达式匹配一个字符。
+				() 也算是表达式，当里面加‘|’符号时，表示或，比如reg = /(a|b)/
+				^ 在表达式里面代表非，在表达式外面代表目标字符串是否以该字符后面的一个字符开头。
+
+		元字符：	表达式里面可以写元字符，并且还可以是多个。	
+				\w 范围是0-9A-z以及下划线, \W取反， w的全称是word
+				\d 范围是0-9 \D取非数字
+				\s空格和换行符   范围是[\n\r\t\v\f]
+				\b匹配单词边界 \B匹配非单词边界  
+				\u 范围是unicall里面的所有字符，即汉字、字母、特殊字符，写法范围\u0000-\uffff，后面四位数表示16进制。
+				. 范围是[^\n\r]
+
+		量词：
+				n+ {1~infinite}
+				n* {0~infinite}
+				n{1, } 后面不写表示infinite
+				n{x} 匹配x个n
+				n{x,y}匹配x到y个n
+				n$ 匹配任何以n结尾的字符串
+
+正则表达式的方法：
+					reg.test(str) 判断str里面的某个片段是否和reg匹配，返回布尔值。
+字符串的方法：
+					str.match(reg) str里面的片段和reg相匹配，那么就返回匹配的片段

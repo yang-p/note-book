@@ -1,0 +1,33 @@
+地理位置：geolocation
+
+		windo对象的navigator对象里面一个对象。
+		window.navigator.geolocation
+
+	geolocation的(原型上的)三个方法：
+			getCurrentPosition(success,error,options) 获取当前地理位置。该方法不能直接执行，需要传参数。
+					
+					success  返回成功的回调函数(这个必须传，后面两个参数可以不传)。
+							 执行success回调函数的时候，会有一个Potion对象的参数传进来。
+
+					error    可选参数，返回失败的回调函数
+								失败返回一下三个参数中的其中一个：
+											code = 1 用户拒绝
+											code = 2 获取不到
+											code = 3 连接超时
+
+					options  配置参数
+								enableHighAccuracy 是否需要高精度位置，默认为false
+								timeout				请求超时时间（单位ms），默认为infinty
+								maximumAge	信息过期时间，默认值为0，即无条件的获取新的地理位置
+
+
+
+			watchPosition(fn) 注册监听器，在设备的地理位置发生改变的时候自动被调用。
+								只要maximumAge设置的时间过期了，就会重新获取地理位置信息。
+								参数和getCurrentPosition相同
+								var id = geolocation.watchPosition(fn);
+
+			clearWatch()	清除watchPosition的id值，就可以达到清除watchPosition。
+							clearWatch(id)
+			
+

@@ -1,0 +1,55 @@
+两种存储方式：cookie storage 【IE8以后才能使用】
+
+storage (localStorage永久储存、sessionStorage临时存储)
+
+		localStorage受文档源（同一个域）的限制
+		sessionStorage既受文档源的限制，又只能在自己的窗口才能访问，即同一个window下。
+
+localStorage存数据：
+					只能存字符串，要想存对象、数组就只能将它转换成json格式储存。
+					storage以点的形式储存，比如，localStorage.name = 'yanpeng';
+					storage储存的数据在控制台下的Application下的storage里面。
+			取数据：
+					以点的形式取出来，比如localStorage.name
+
+storage的API：
+			  setItem
+			  			localStorage.setItem('newkey','value') 添加新的属性和属性值
+			  getItem  
+			  			localStorage.getItem('oldkey') 获取已有属性
+			  removeItem
+			  			localStorage.removeItem('oldkey') 清除已有的某个属性
+			  clear
+			  			localStorage.clear() 清除localStorage下的所有属性
+
+
+————————————————————————————————————————————————————————————————————————————————————
+cookie
+		同样是存储信息到用户的设备上，数据量较小，大约4k左右。
+		默认是临时储存，即关闭浏览器后失效
+
+		设置cookie存储期限：
+							document.cookie = "name=scott;max-age=1000"
+
+		navigator.cookieEnabled  检查是否启用了cookie
+————————————————————————————————————————————————————————————————————————————————————
+
+解决缓存特殊字符时，乱码问题：
+encodeURLComponent() 对特殊字符进行编码，然后再进行缓存
+decodeURLComponent() 从缓存中取出来，然后解码
+
+————————————————————————————————————————————————————————————————————————————————————
+
+特性							cookie 				localStorage 			sessionStorage
+
+数据的生命周期 		由服务器生成，可设置失效时间	除非被清除，否则永久有效	仅在当前会话下有效，关闭页面
+					如果是浏览器端生成cookie,则默认								或浏览器后，被清除。
+					是关闭浏览器后失效。
+
+存放的数据大小		4k左右							一般为5M				一般为5M
+
+与服务器端通信		每次都会携带在http头中，使用cookie    不参与服务端通信，仅在客户端中保存
+					过多，会带来性能问题
+
+易用性				源生的cookie接口不友好，需要手动封装		源生接口可接受，可再次封装来对Object和
+																Array有更好的支持

@@ -1,0 +1,53 @@
+查看滚动条的滚动距离
+window.pageXoffset/pageYoffset (IE8及以下版本浏览器不兼容)
+IE8及以下的浏览器查看滚动条方法：
+document.body.scrollLeft/scrollTop
+document.documentElement.scrollLeft/scrollTop
+IE的这两个方法的两个特性：
+①在IE8及以下浏览器下，一个能兼容某一个版本但另一个却不一定能兼容这个版本。
+②当这两个方法同时应用在同一版本IE浏览器时，某一个方法的横向或纵向滚动条距离一个不为0，另一方法的横向或纵向的滚动条距离个一定为0。
+利用这一特性，将这两个方法求出来的值相加就可以解决两个方法可能不兼容同一个版本问题。
+——————————————————————————————————————————
+查看可视区窗口的尺寸
+window.innerWidth/innerHeight (IE8及以下版本浏览器不兼容)
+document.documentElement.clientWidth/clientHeight 只要是标准模式下，任意浏览器都兼容
+document.body.clientWidth/clientHeight 适用于怪异/混杂模式下的浏览器。去掉DOCTYPE
+判断当前网页处于什么模式的方法：document.compatModel 若值为CSS1Compat则为标准模式，"BackCompat"则为怪异模式。
+——————————————————————————————————————————
+查看元素的几何尺寸
+domEle.getBoundingClientRect(); 兼容性很好（es5新增方法，作为了解）
+       该方法返回一个对象，这个对象里面有domEle的6个属性，top、 left、 right、 bottom、 width、 height。
+       left和top表示该元素的左上角X、Y坐标，right和bottom表示该元素右下角X、Y坐标。
+       height和width在老版本IE中未实现，但是用right - left、bottom - top 即可得出元素的width和height的值。
+       该方法得到的数据并不是实时性的。
+
+ 查看元素尺寸  dom.offsetWidth、 dom.offsetHeight (查看的是包含了padding的宽高)
+ 查看元素位置  dom.offsetLeft、 dom.offsetTop
+              注意点：当该元素不论是通过margin还是本身就是嵌套在另一个元素中，忽略自己的定位属性，
+              当将它嵌套的(父)元素有定位属性时，以最近的一个有定位属性的(父)元素为参照物，该元素的
+              offsetLeft/offsetTop值就是相对于参照物的左上角坐标值。若父元素没有定位属性，则以文档为参照物。
+              以文档为参照物时，横向要考虑body的默认8排序，纵向考虑margin塌陷BUG。
+ 判断该元素的父级元素是否有定位：dom.offsetParent  返回有定位的最近的父级元素，若无，返回body， body.offsetParent 的返回值为null。
+——————————————————————————————————————————
+让滚动条滚动
+window上有三个方法：scroll() scrollTo()、 scrollBy()
+      上面三个方法括号里面的参数为(X ,Y),其中scroll()和scrollTo()功能相同。
+       X坐标的值，相当于横向滚动条最左端距离网页左端的距离，
+       Y坐标的值，相当于纵向滚动条最顶端距离网页顶端的距离。
+   不论scroll或scrollTo方法执行多少次或滚动条起始位置在哪儿，最终位置始终由X、Y的值决定。
+   scrollBy方法实现滚动条的累加，每次执行该方法时，该方法的X、Y的值(值可为负数)与上一次执行方法的值进行相加。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

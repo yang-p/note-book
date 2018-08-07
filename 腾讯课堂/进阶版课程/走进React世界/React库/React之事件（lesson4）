@@ -1,0 +1,38 @@
+
+React的事件都是直接在元素上绑定
+——————————————————————————————————————————————————————————————————————————————
+
+矫正组件中事件的this指向问题：
+					1.	在元素上用bind矫正this
+						<div onClick={this.fnDown.bind(this)}></div>
+
+					2. 在控制器里面用bind矫正this
+						<div onClick={this.fnDown}></div>
+						constructor(){
+								this.fnDown = this.fnDown.bind(this);
+						}
+
+					3. 在元素绑定事件上用箭头函数
+					<div onClick={()=>this.fnDown}></div>
+
+					4. 函数本身使用箭头函数
+					<div onClick={this.fnDown}></div>
+						fnDown = () => {};
+————————————————————————————————————————————————————————————————————————————
+事件源对象遇到传参问题：
+					在事件函数中，如果不传其他参数，那么事件对象就传给第一个参数。
+					当既要传事件对象又要传其他参数时，那么事件对象会传给最后一个参数。
+
+————————————————————————————————————————————————————————————————————————————
+阻止事件冒泡：
+				event.nativeEvent.stopImmediatePropagation();
+
+阻止默认事件：
+				event.preventDefault()
+
+
+————————————————————————————————————————————————————————————————————————————
+React中的onChange
+				在原生js中onchange事件是输入框失去焦点才触发，而oninput事件
+				是当输入框的value发生改变时触发。
+				而React中的onChange事件实现的功能相当于原生js的oninput事件。

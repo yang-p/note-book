@@ -1,0 +1,24 @@
+
+package.json里面放置的是依赖模块/插件
+
+
+对象
+
+scripts				
+					作用：该对象是npm的一个配置功能
+					用法：npm run scripts下的属性 属性对应的属性值可以写webpack的命令。  
+			
+devDependencies
+					作用：里面放用于开发环境的插件
+Dependencies
+					作用：里面放用于生产环境的插件
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+属性						属性值
+
+name 					当前项目的名称(即，当前项目文件夹名称)
+version					当前项目的版本
+description				对该项目的描述
+main					index.js （目前只知道当配置文件名写错时，运行webpack生成的出口文件是index.js）
+author					项目的开发人员
+

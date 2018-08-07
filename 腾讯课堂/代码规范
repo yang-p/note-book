@@ -1,0 +1,57 @@
+HTML规范：
+用两个空格代替table制表符
+标签的属性的属性值用双引号，
+单标签结束不用加斜线
+
+为每个页面的第一行添加标准模式<!DOCTYPE html>
+为html根元素指定lang属性
+设置IE的兼容模式，<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+设置字符编码，<meta charset="utf-8">
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+属性规范大全：
+	标签的属性书写顺序：
+				class
+				id, name
+				data-*
+				src, for, type, value, href
+				title, alt
+				role, aria-*
+
+	布尔属性：HTML5中不写属性值
+
+
+	JavaScript生成的标签：性能低，不易查找和编辑。
+
+css规范：
+		用两个空格代替制表符tab。
+
+		书写选择器时为其单独占一行，并且与左花括号保持一个空格,右花括号单独占一行。
+												div {
+													....
+												}
+		属性的分号与属性值之间应该有一个空格,并且以分号结尾。color: red;
+		 
+		以逗号分隔的，逗号后面应该添加一个空格，
+		但是形如rgb()这种函数写法，的内部的逗号后面不要加空格。
+
+		一个选择器组中，每个选择器都应该独占一行。
+												   body,
+												   div,
+												    p {
+
+												     }
+		对于属性值小于1的数字，省略前面的0。
+		避免给属性值为0的数字单位。
+		十六进制值全部小写，并且尽可能用简写形式的十六进制。
+
+
+		属性的声明顺序：
+				position	 (z-index、及其定位属性、上下左右属性)
+				box			 (display、float、width、height、margin、padding)
+				Typographic  (font-*、color、text-*)
+				Visual    	 (background-*、border-*)
+				Misc     	 (opacity)
+
+		对于只有一行的声明样式，写成一行 body { background-color: red; }
+		避免复合属性的简写形式，		
+

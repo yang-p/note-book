@@ -1,0 +1,15 @@
+设置定时器：
+          setInterval(函数,time) 每经过time后，就执行一次该函数，一直循环
+          setTimeout(函数,time)  延迟time后，再执行函数，并且只执行一次
+  注意点：
+        两个定时器都是window上的方法，内部函数的this指向window。         
+        定时器只会识别一次time的值，当再赋值给time时，定时器只会用识别的那个值。
+        定时器的time值与实际执行的time值不准。                
+        定时器的另一种不常用的写法，比如：setInterval("console.log('a')",time) 前面的执行语句用字符串包裹住。
+                                                    这种写法容易导致类似eval()的隐患
+清除定时器：
+          定时器会返回一个数字，这个数字代表唯一标识，所以最好是用变量timer去接收它。
+          清除定时器的方法：clearInterval(timer)     clearTimeout(timer);
+     一个标准的定时器写法：
+                        var timer = setInterval( function(){代码块...if(){ clearInterval(timer) }}, time)
+                        var timer = setInterval(fun,time) function fun(){代码块...if(){ clearInterval(timer) }}

@@ -1,0 +1,37 @@
+子组件：
+		children属性在哪里？
+
+				每个组件都有一个props对象，它用来接收组件传过来的参数，也就相当于函数的arguments，
+				而props对象里面有个默认的属性----children属性，它就是子组件。
+		
+				let {a,b,c,d,children} = this.props;
+
+		children的属性值怎么来？
+				<Child a="aa" b="bb">
+					<div>你好<div>
+				</Child>
+				组件里面的内容就是children的属性值
+
+				注意点：
+						组件要想有内容，只能写成这种形式<Child></Child>
+
+——————————————————————————————————————————————————————————————————————————————————-
+
+子组件和父组件数据通信
+			1. 父组件的数据传给子组件
+					<Child a={this.state.msg1} b={this.state.msg1}>	
+					父组件的属性值传给嵌套组件的属性
+
+			2. 子组件的数据传给父组件
+					父组件：<Child callback={this.fn} />
+					子组件：this.props.callback('子组件的属性')	
+
+
+——————————————————————————————————————————————————————————————————————————————————
+ref的注意点：
+			res的两种写法：
+							1.字符串形式 <div ref='aaa'></div>
+								this.refs.aaa
+
+							2.回调函数的形式<div ref={(aaa)=>this.bbb = aaa}></div>
+							this.bbb;

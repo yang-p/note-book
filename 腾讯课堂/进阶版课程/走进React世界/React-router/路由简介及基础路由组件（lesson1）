@@ -1,0 +1,140 @@
+
+路由原理：
+			根据当前地址，匹配相应的组件
+
+原生js实现路由的两种方法：
+						1. H5的history API
+						2. hash
+
+——————————————————————————————————————————————————————————————————————————
+
+react本身不带路由，react-router库可以实现路由。
+react-router
+		包含三部分：
+					1. react-router 提供所有的核心组件、函数、整个路由
+					2. react-router-dom 运行在浏览器中的环境
+					3. react-router-native 运行在react-native环境
+
+		由于我们只需要在浏览器上使用，所以只需要下载react-router-dom即可
+
+
+——————————————————————————————————————————————————————————————————————————————————
+
+react-router中的组件：
+			
+两个根路由组件： <BrowserRouter/> 、 <HashRouter/>
+				作用：
+						1. 决定路由是以location形式，还是以hash形式。
+						2.下面的所有组件都必须在根组件中才能正常运行。
+				用法：
+						ReactDOM.render(
+						<HashRouter>
+							<App />
+						</HashRouter>
+						, document.getElementById('root'));
+
+						ReactDOM.render(
+						<BrowserRouter>
+							<App />
+						</BrowserRouter>
+						, document.getElementById('root'));
+
+
+两个根组件的区别：
+	1.
+		HashRouter在地址栏中有#
+		BrowserRouter在地址栏中没有#
+	2.
+		HashRouter 重复点击同一个链接会报错
+		BrowserRouter 重复点击同一个链接不会报错
+
+	3.
+		HashRouter 用于纯静态页面
+		BrowserRouter用于和后台交互
+
+
+
+<BrowserRouter />   用于和后台交互
+
+<HashRouter />		用于制作纯页面
+
+				注意点：当重复点击同一个链接时，会在控制台下报错，但是并不影响程序的执行。
+
+————————————————————————————————————————————————————————————————————————————————————————————
+
+Route    
+	作用：根据路径，就展示相应的组件
+	用法：
+			<Route path="/home" component={Home}>
+	属性：
+			path   		属性值为路径
+
+			component   属性值为要调用的组件
+
+			exact		没有属性值，当设置该属性时，Route使用'准确匹配原则'
+
+			render      属性值为回调函数，函数返回的是html元素
+
+						render = {()=><h1>我是render<h1>}
+
+	注意点：
+			1. Route默认使用'模糊匹配原则'。											
+
+			2. Route组件对path的属性值为默认的模糊匹配，
+				例子：
+						假设有两个Route组件，他们的path分别为
+						path='/'和path='/home'
+						此时他们的调用的组件都是同一个，其中按照从上往下原则，
+						哪个Route组件在上，那么下面的那个就使用
+
+			3. path的属性值也可以写成这种形式， path='/:id'
+				应用场景：详情页
+
+			4. 如何制作404页面
+				去掉path属性， 然后在所有Route组件的最后面放这个Route组件。
+				 <Route component={NotFund} />
+
+			5. Route组件中render属性可以实现，判断用户是否登录
+				例子：
+		<Route path='/user',render={()=>isLogin ? <User /> : <Login />} />
+		<Route path='/user',render={()=>isLogin ? <User /> : <Redirect to='/login'/> />}/>
+					路由到用户界面，判断用户是否登录(判断isLogin属性的布尔值)，当为true
+					时，调用User组件，否则调用Login组件(或重定向到'/login')。	
+
+
+
+
+
+
+
+
+Link   
+		作用：代替a标签，响应Route组件
+	    用法：
+			 <Link to="/home"></Link>
+
+NavLink
+		作用：在Link的基础上，实现当前路由的高亮
+		属性：
+				activeStyle  在NavLink中直接设置样式，当路由匹配成功时，使用该样式。
+				exact        NavLink默认使用的是'模糊匹配原则'，所以根据情况添加exact属性。
+		用法：
+			<NavLink to='/home' activeStyle={{color:red;}}/>
+
+
+Switch 
+		作用：相当于switch-case方法,只选择其中一个，当选中某一个时，就break。
+		用法：
+				<Switch>
+					<Route/>
+					<Route/>
+				</Switch>
+
+Redirect
+		作用：实现路由跳转,一般和和Route组件放一起
+		用法：
+			<Redirect from='/' to='/home'>
+			当路由为根路径时，跳转到/home路径
+
+		注意点：
+				当exact属性不好控制Route的path时，那么就用该组件去解决。

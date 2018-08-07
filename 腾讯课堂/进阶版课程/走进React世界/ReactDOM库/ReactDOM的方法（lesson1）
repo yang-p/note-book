@@ -1,0 +1,4 @@
+1. ReactDOM.render()
+		作用：		将react元素渲染到页面上
+		使用方法： ReactDOM.render(渲染谁，将渲染的内容插入到那个html元素内部)
+		例子：	ReactDOM.render(<h1>hello world</h1>, docuemnt.getElementsByTagName('body')[0]);

@@ -1,0 +1,13 @@
+表单域要用fieldset标签包裹起来，将fieldset的border设置为0，将legend的display设置为none。
+每个input标签对应的说明文本用lable标签包裹，然后为input设置id属性，最后在lable里面设置"for = someId".
+表格标题要使用caption，表头用thead，主体用tbody，尾部用tfoot包围。
+
+css
+
+怪异模式和DTD
+ 浏览器的标准模式，和怪异模式(向后兼容)
+ 典型的例子是：IE对盒模型的处理
+             怪异模式的width = 2padding + 2border + content  标准模式的width = content
+怪异模式的触发与DTD(Document Type Dfinition)有关
+   漏写DTD声明,其他浏览器会按标准模式执行，但是在IE老版本浏览器中会触发怪异模式。
+   

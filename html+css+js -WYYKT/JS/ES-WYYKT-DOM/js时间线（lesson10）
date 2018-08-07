@@ -1,0 +1,41 @@
+js时间线的具体步骤:
+第一步：创建Document对象，开始解析web页面。-————解析html中的元素及内容，并将解析到的元素节点
+        和文本节点添加到dom树上。
+        这个阶段的document.readyState = 'loading';
+
+第二步：遇到link外部css，创建新的线程加载link中的外部css文件，并继续解析文档。
+
+第三步：遇到script外部js，并且script标签没有设置async或defer属性，浏览器加载外部js文件，并阻塞html解析其他元素，
+        等待外部js文件加载完成，然后执行js脚本，最后才继续解析文档。
+
+第四步：遇到script外部js，并且script标签设置了async或defer属性，创建新的线程加载js，并继续解析文档。
+       当script设置的是async属性，那么加载完js脚本就开始执行(异步script标签禁止出现document.write())
+
+第五步：当遇到带有src属性的标签，如img标签，先正常解析dom结构，然后浏览器异步加载src。
+
+第六到八步：当文档解析完成，即dom树构建完成，document.readyState = ‘interactive'。
+                            所有设置了defer属性的script标签会按顺序执行。
+                            document对象触发DOMContentLoaded事件，表示浏览器可以监听用户触发的事件。
+                            DOMContentLoaded事件只能用于document.addEvenListenner写法才有效。
+
+第九步：当async加载并执行、img等加载完后，即页面解析完成，document.readyState = 'complete',window对象触发load事件。
+————————————————————————————————————————————————————————————
+js时间线简化：创建Document对象——>web页面解析完成——>web页面解析和加载完成
+
+
+注意点:script标签也是dom的文档节点，只要script标签没解析完dom树就没构建完。
+一个页面中的图片未加载成功，代表页面未加载完成，document的状态码就不会变成‘complete',所以无法触发window.onload事件的。
+
+
+
+
+
+
+
+
+
+
+
+
+
+

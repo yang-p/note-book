@@ -1,0 +1,35 @@
+当有一个耗时操作时，可以异步到其他地方进行运算，只需要得到运算结果就行。
+
+		【Worker必须满足同源策略】
+		【worker是异步开启一个新的线程进行运算】
+
+	index.html页面	
+		let worker = new Worker('./worker.js');//创建Worker实例
+		worker.postMessage(10);//发送数据给worker.js
+		worker.onmessage = function(e){} //worker.js传数据过来时，触发onmessage事件
+
+	worker.js页面
+		onmessage = function(e){ //接收index.html页面传过来的数据
+			let aaa = deal(e.data);//执行deal方法，进行数据处理
+			postMessage(aaa); //将处理好的数据发送出去
+		} 
+		function deal (){
+			.....//处理数据的函数
+		}
+
+
+————————————————————————————————————————————————————————————————————————————————————
+
+结束worker的方法：
+			worker.terminate() 
+							在实例化Worker对象的文件中使用
+							作用：断开与worker.js的连接【推荐用terminate】
+
+			close()   	
+						在worker.js中的onmessage的处理函数中使用
+						作用：worker.js自动终止运算。
+
+
+————————————————————————————————————————————————————————————————————————————————————
+
+worker只是window的子集，只能实现部分功能，不能获取到window,document

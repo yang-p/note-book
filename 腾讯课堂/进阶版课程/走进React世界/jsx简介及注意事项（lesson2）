@@ -1,0 +1,52 @@
+什么是jsx：
+			相当于JavaScript语法的一个扩展。
+
+jsx的用法：	
+			let a = <p>hello world!!!</p>
+
+jsx的注意事项：
+			1.多个标签时，必须用一层父标签将他们包裹住
+				错误示范： let a = <h1>hello</h1><p>world</p>
+				正确示范：let b = <div><h1>hello</h1><p>world</p></div>
+
+			2.可以随意缩进
+					let c = <div>
+						<h1>hello</h1>
+						<p>world</p>
+					</div>
+
+			3.单标记必须闭合
+				错误示范： let a = <img>
+				正确示范：let b = <img />或 let b = <img></img>
+
+
+			4.jsx语法里面写js代码。必须要用{}把js代码包裹住。
+					let a = <div>{这里面放js代码}</div>
+
+			5.给html元素添加类选择器不能用class，而是用className
+
+			6.html元素的style属性必须写成json格式，但是由于json又是js语法，所以还需要在外面加一层{}
+				let a = <div style = {{background:'red',width:'40px'}}></div>
+
+			7.给html元素绑定事件时，事件名称必须是除了首个单词的首字母小写，其他单词的首字母必须大写
+				let a = <div onMouseOver = {}></div>
+
+			8.大括号里面不能直接输出对象，比如let a = <h1>{new Object()}</h1>然后将其输出到页面上，
+				此时会报错，要输出该对象应该将它转换成非对象类型，比如字符串。
+
+
+————————————————————————————————————————————————————————————————————————————————————
+
+react开发模式：
+			1.直接将react相关文件引入到页面中
+			2.基于webpack构建
+
+——————————————————————————————————————————————————————————————————————————————————
+第一个开发模式的步骤：
+	在使用react之前需要引入三个模块:
+					react模块----react框架的核心模块
+					react-dom模块----操作虚拟dom
+					babel模块   ---- babel将jsx语法转换成浏览器能识别的js代码
+
+	jsx代码写在哪里：
+						给script标签设置type属性，属性值为'text/babel'或者'text/jsx',该属性值是为了让babel库识别。

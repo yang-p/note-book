@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>transtion</title>
+	<style>
+		.sq {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100px;
+			height: 100px;
+			background-color: orange;
+			animation: move 5s ease-in-out alternate infinite;
+		}
+
+		.btn {
+			margin-left: 500px;
+		}
+		@keyframes move {
+				0% {
+					left: 50px;
+					top: 0;
+				}
+				50% {
+					left: 200px;
+					top: 0;
+					background-color: yellow;
+				}
+				100% {
+					left: 200px;
+					top: 200px;
+				}
+		}
+		::selection {
+			background-color: yellow;
+		  }
+	</style>
+</head>
+<body>
+	<div class="sq"></div>
+	<button class="btn">点击暂停</button>
+	<p>asdlasjadslknfsalkfanlfasnfsalafsnlkaf,na</p>
+
+	<script>
+		 var oBtn = document.getElementsByClassName('btn')[0];
+		 var oSq = document.getElementsByClassName('sq')[0];		 
+		 function state(dom1,dom2){
+		 		var flag = true;
+	 			dom1.onclick = function (dom) {
+					if (flag) {
+
+						dom2.style.animationPlayState = "paused";
+						this.innerHTML = "点击播放";
+						flag = false;	
+					}else{
+						dom2.style.animationPlayState = "running";
+						this.innerHTML = "点击暂停";
+						flag =true;
+					}
+				}
+		 }
+		 state(oBtn,oSq);
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+在vue-cli中的使用：
+			第一步，下载axios, npm i axios
+
+			第二步，导入axios,在main.js中import axios from 'axios'
+
+			第三步，Vue.prototype.$http = axios;
+
+			注意点：
+					axios的post方法，传输数据给服务器时：
+							let parmas = URLSearchParmas();
+							parmas.append(key,value);//key指的是要传的变量，value指的是变量值。

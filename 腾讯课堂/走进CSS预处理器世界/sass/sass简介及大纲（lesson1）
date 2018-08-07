@@ -1,0 +1,7 @@
+Sass是由Ruby语言写的，因此必须先安装Ruby，然后在安装sass
+
+sass是一个文本文件，其后缀名为.scss
+
+编译scss格式的文件：
+					sass t.scss        将t.scss文件内容进行编译后并将其内容打印出来。
+					sass t.scss t.css  将t.scss文件内容编译后并将其内容保存在t.css文件中。

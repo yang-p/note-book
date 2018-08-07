@@ -1,0 +1,17 @@
+第一步、引入http模块：let http = require('http')
+
+第二步、创建服务器并监听端口：
+			http.createServer(function(request,respone){}).listen(6666)
+
+允许其他服务器跨域：
+	respone.setHeader('Access-Control-Allow-Origin','*') //*表示允许所有服务器进行访问
+
+获取get请求的url地址：
+	request.url	
+获取post请求的数据：
+	request.on('data',function(data){
+		//监听dada事件
+	})
+	request.on('end',function(data){
+		//当post请求方式传过来的数据发送完毕后，触发end事件
+	})

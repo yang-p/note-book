@@ -1,0 +1,27 @@
+vuex:
+		专门为vue开发的状态管理模式
+
+vuex的几个核心部分：
+					state
+						和data的作用都是用来存放数据，区别是data存放的是私有数据，state存放的是全局数据。
+					getters
+						相当于state的计算属性，getters里面的函数的第一个参数的实参值是state,所以想要获取
+						state对象的数据，必须传一个参数用来接收state对象。
+					mutations
+						里面的函数的第一个参数也是state对象，第二个参数为其他，要想触发mutations里面的某个函数
+						执行，那么需要在组件中执行this.$store.commit('mutations对象中的某个函数名'，该函数的第二个参数)
+						注意点：
+								mutations里面的方法必须是同步方法
+					actions
+						1、里面的函数同样有两个参数，第一个参数为context，第二个为value，
+							context是和store实例对象具有相同的方法和属性的对象，所以访问state和getters属性时，
+							可以通过context.state、context.getters访问。
+							value参数和mutations的函数的第二个参数作用一样，都是相当于git commit时的附加信息。
+						2、里面的函数内部可以是异步的，核心语句是context.commit('mutations里面的函数名'，value)
+						3、在组件中执行this.$store.dispatch('actions的某个函数名',value)
+
+引入vuex:
+			npm i vuex -S
+			创建store文件夹，在该文件夹下创建store.js文件，并引入vue和vuex
+			用Vue.use对vuex进行注册
+			在main.js中引入store.js文件

@@ -1,0 +1,5 @@
+linux环境下安装node的前提条件：
+	安装好centos系统，
+	开启网络服务，
+	通过yum install wget安装wget,
+	通过wget安装nodejs(nodejs安装在执行该命令时，所在的目录下)

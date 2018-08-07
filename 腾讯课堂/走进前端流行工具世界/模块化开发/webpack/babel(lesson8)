@@ -1,0 +1,5 @@
+babel的作用：
+			用来编译js代码，比如ESNext、jsx
+
+使用babel需要下载几个包：
+						babel-core、 babel-loader、 babel-preset-env

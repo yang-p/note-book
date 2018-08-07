@@ -1,0 +1,25 @@
+webpack-dev-server
+第一步安装：cnpm i webpack-dev-server
+
+第二步调用：
+			由于webpack-dev-server不属于插件行列，所以不需要在webpack.config配置文件中引入。
+			只需要在module.exports里面新建一个devServer对象。
+
+
+{
+	devServer : {
+		//设置服务器访问的基本目录
+		contentBase : path.resolve(__dirname,'dist'), //contentBase的属性值必须是绝对路径
+		//设置服务器ip地址，默认可写为localhost
+		host : 'localhost',
+		//设置端口
+		port : 8090,
+		open : true, //自动打开页面，也可以将该属性写在scripts里面，
+					//"dev" : "webpack-dev-server -open --mode development"
+
+		hot : true, //开启热更新
+					// hot是webpack自带的一个插件，默认状态是disabled，所以需要去开启它。
+					//开启步骤，在webpack.config.js顶部引入 const Webpack = require('webpack')
+					//接着在plugins里面，new Webpack.HotModuleReplacementPlugin()
+	}
+}

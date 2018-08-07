@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>小转盘</title>
+	<style>
+		* {margin: 0; padding: 0;}
+		
+		.turntable-wrapper {
+			position: relative;
+			width: 300px;
+			height: 150px;
+			margin: 40px auto;
+		}
+		/*转盘*/
+		.turntable {
+			position: absolute;
+			bottom: 0;
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			background-color: yellow;
+			animation: rotates 5s linear forwards paused infinite;
+		}
+		
+		.turntable .pic {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 50px;
+			height: 50px;			
+			border-radius: 50%;
+			background-image: url('css/111.jpg');
+			background-size: contain;
+			transform: translateX(-50%) translateY(-50%);
+		}
+
+		/*针扣*/
+		.pointer {
+			position: absolute;
+			left: 40px;
+			top: 15px;
+			width: 10px;
+			height: 80px;
+			boder: 1px solid #000;
+			background-color: blue;
+			border-radius: 10px 10px 100% 100%;
+			z-index: 1;
+			transform-origin: 5px 0;
+			transform: rotate(-60deg);
+			transition: all .3s ease-in-out; 
+			
+		}
+
+		/*播放暂停按钮*/
+		.play-btn {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			width: 100px;
+			height: 40px;
+			font-size: 20px;
+			letter-spacing: 2px;
+			border: 0;
+			border-radius: 5px;
+			outline: none;
+			cursor: pointer;
+		}
+
+		.play-btn:active {	border: 1px solid #ccc;}
+
+		 /*播放时，针扣的状态*/
+		.actived { transform: rotate(-30deg);} 
+
+		/*转盘转动动画*/
+		@keyframes rotates {
+				0% {
+					transform: rotate(0deg);
+				}
+				100% {
+					transform: rotate(360deg);
+				}
+		}
+	</style>
+</head>
+<body>
+
+	<div class="turntable-wrapper">
+		<div class="pointer"></div>
+		<div class="turntable">
+			<div class="pic">
+				<img src="" alt="">
+			</div>
+		</div>
+		<button class="play-btn">播放</button>
+	</div>
+
+	<script>
+		// 获取转盘、针扣、播放按钮的元素节点
+		var playBtn = document.getElementsByClassName('play-btn')[0],
+			oTurntable = document.getElementsByClassName('turntable')[0],
+			oPointer = document.getElementsByClassName('pointer')[0];
+
+		// turnTable实现整个转盘的效果
+		function turnTable(turntable, pointer, playButton){
+			var flag = true;
+			playButton.addEventListener('click', function () {					
+				if (flag) {					
+					pointer.classList.add("actived");	
+					playButton.innerHTML = "暂停";				
+					flag = false;
+					setTimeout(function () {
+						turntable.style.animationPlayState = "running";
+					},250)
+				}else {
+					
+					pointer.classList.remove("actived");
+					playButton.innerHTML = "播放";	
+					setTimeout(function(){
+						turntable.style.animationPlayState = "paused";
+					},300)
+					flag = true;
+				}				
+			})
+		}
+		turnTable(oTurntable, oPointer, playBtn);
+	</script>
+</body>
+</html>

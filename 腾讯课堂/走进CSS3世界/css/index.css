@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'signpainter';
+    src: url('../fonts/signpainterhousescript.eot'); /* IE9 兼容模式 */
+    src: url('../fonts/signpainterhousescript.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/signpainterhousescript.woff') format('woff'), /* 现代浏览器 */
+         url('../fonts/signpainterhousescript.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/signpainterhousescript.svg#grablau') format('svg'); /* Legacy iOS */
+   }
+
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	.wrapper{
+		margin: 40px auto;
+		width: 440px;
+		height: 50px;
+		background-color: rgba(0,153,204,.8);
+		border-radius: 5px;
+		font-size: 20px;
+		box-shadow: 5px 5px 0 2px rgba(102,204,204,.4);
+	}
+
+	.wrapper
+	li {
+		float: left;
+		padding: 0 15px;
+		 margin-top: 10px; 
+		line-height: 30px;
+		list-style: none;
+		font-family: "signpainter";
+		border-right: 1px dashed rgba(204,255,204,1);
+		text-shadow: 6px 6px 3px rgba(0,0,51,1);
+		
+	}
+
+	li:last-of-type { border-right: 0;}

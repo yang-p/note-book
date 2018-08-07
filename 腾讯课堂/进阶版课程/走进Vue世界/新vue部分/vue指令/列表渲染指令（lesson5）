@@ -1,0 +1,14 @@
+
+循环数组：v-for = '(item,index) in array';
+循环对象：v-for = '(value,key,index) in object';
+
+注意点：	
+		1、直接改变原数组或原对象的元素，是不会触发v-for进行重新渲染
+			解决办法：
+						vue.$set(vue.array.push(.....))
+						Vue.set(vue.array.push(......))
+
+		2、改变数组或对象指向新的数组或新的对象，会触发v-for进行重新渲染
+
+v-if和v-for指令的配合使用：
+		<div v-for='(item,index) in array' v-if='item%2 == 0'></div>

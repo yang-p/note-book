@@ -1,0 +1,54 @@
+1)属性名的拼接:
+对象.属性---->系统隐式的转换为---->对象['属性']  如果属性不加引号，则认为是变量。
+  注意点：   例子：用for in循环一个对象
+                for(var prop in obj){console.log(obj.prop)}
+                //由于系统隐式的将obj.prop转换成obj['prop'],所以如果
+               //该对象没有prop属性，打印的全是undefined。因此应写为console.log(obj[prop])
+2)对象的枚举及hasWonproperty：
+          对象的枚举可以将自身和原型链上的属性遍历出来，但是不会遍历出来原型链上系统默认的属性值。
+          hasOwnProperty()方法可以判断某个属性或方法为true时是来自该对象，为false时是来自原型链。
+          obj.hasOwnProperty('属性名')或用在在for in循环时，obj.hasOwnProperty(prop)。
+          in操作符也可以判断某个属性是否属于对象的，不区分是不是原型链上的属性，只要满足就是ture。
+          注意点：属性一定要加引号，要不然报错,  ‘属性’in obj;
+
+3)instanceof的作用：
+①判断A对象是否是 构造函数B 构造出来的，如果是返回ture。
+用法 A instanceof B；
+原理：看A对象中的原型链上 有没有 构造函数B的原型。
+4)判断一个引用值属于对象还是数组的三种方法：
+①constructor方法
+②instanceof方法
+③Object.prototype中的toStirng方法 Object.prototype.toString.call([])。
+
+5)进制数的提升：
+        一位数变成两位数，个位数为0，十位数为1，就叫进制数，当进制数大于10时，超过9的就从字母a开时，因为
+        要保持它为一位数。
+        十进制数10（一零）为十，二进制数10（一零）为二，当一零后面有n个零时，那么就是进制数的(n-1)次方.
+
+6)JQuery实现方法的连续调用的原理
+         在一个对象中，有多个方法时，要想实现 对象.方法1.方法2.方法3这样的连续调用，只需要在方法后面写return this；
+
+7）逗号操作符
+     1,2 返回的是2
+     函数体后面跟一个带有形参的括号不报错的原因：逗号操作符，将最后一个值返回出来。
+     立即执行函数只能执行一个函数，当有多个函数时必须用逗号隔开，因此执行的是最后一个函数。
+
+8) arguments.callee
+        作用：返回arguments所在的函数引用
+        应用：用立即执行函数写递归时，由于立即执行函数会忽略函数名，所以 return  n * arguments.callee(n - 1)。
+
+9）将很多字符串连接在一起效率最高的方法
+          将这些字符串放进数组arr中，然后 arr.join("");
+
+10) 一个数组中得到最小的数字
+    首先假设第一个数字为最小的数字，然后遍历循环。
+    function minNum(arr){
+       var min = arr[0];
+      for(var i = 1; i < arr.length; i ++){
+          if(min > arr[i]){
+            min = arr[i];
+          }
+      }
+      return min;
+    }
+   

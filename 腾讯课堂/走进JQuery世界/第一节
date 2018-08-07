@@ -1,0 +1,121 @@
+查询jQuery文档的三个地方：
+①jQuery官网中的APIDocumentation ②css88.com ③jQuery123.com
+
+由于现在的jQuery压缩版有85kb，在移动端属于重量级库，所以移动端用zepto。
+zepto（jQuery的迷你版，包含了jq的大部分方法，还有touch事件，click由于会有300ms的延迟，所以移动端用touch代替。）
+
+新版本的jQuery和旧版本的jQuery的区别：
+旧版本兼容ie8及以下的浏览器（1.8版本以下）
+新版本不兼容IE8及以下的浏览器，并且jQuery的代码在onload事件执行后才执行。
+注意点：变量不要使用a、b、c、d，因为压缩之后，变量会被替换成26个英文字母。
+—————————————————————————————————————————————————————————————————————————
+$() <==> jquery() //$()是jQuery()的简写形式，其实质是一个函数执行
+jQuery(function (){return new innit;})
+jQuery选择器： 	
+ 			$()选择出来的dom元素不需要循环可以直接处理，而js必须要循环才能处理.
+
+$()里面可以是：css选择器、原生dom、函数、jquery对象、selector/content、原始数据类型。
+		$('#div') === $("document.getElementById('div')") === $($('#div'))
+
+	   css选择器:   $('#div')
+		 原生dom:   $("document.getElementById('div')")
+    原始数据类型：  $(123)/$('ssada')/$(null)/$(undefined)/$(boolean)
+            函数：  $(function(){})
+      jQuery对象:   $($('#div'))
+  select/context:   $('select','context')
+
+注意点：
+ 	$()可以是一个参数，也可以是两个参数，当为两个参数时$('select','context'),
+ 	第一个参数为选择的目标元素，第二个参数为第一个参数的执行期上下文。
+
+ 	$()里面不论写什么都不会报错。
+
+ 	$()里面放函数的内部实现写法：
+ 	$(function (){}) === $().ready(function (){})
+
+jQuery的特有选择器：
+            $('ul>li:first') 选择第一个li
+            $('ul>li:eq(index)')  选择第index个li 
+            	index值可以为负，当为负时内部函数实现了加上一个length，
+            	但是当加上一个length还为负时，则找不到元素。
+
+            $('ul>li:odd') 选择索引值为奇数的li
+            $('ul>li:even')选择索引值为偶数的li
+ 
+jQuery方法：
+           	filter()		filter(function (){return XXX;})。
+            not() 			和filter写法完全相同，但是实现的功能完全相反。
+            each()			
+注意点：原生js的数组中的方法的形参顺序是ele,index而jQuery的形参顺序是index，ele。
+
+既能赋值又能取值的方法：
+innerHTML ===> .html('string')  .html()表示取值
+innerText ===> .text('string')
+setAttriabute===> .attr('属性','属性值')
+getAttriabute===> .attr('属性')
+.prop()   和.attr()方法一样，但是prop方法只能对元素的先天特性进行设置和查看。
+.css()  取值相当于getComputed(),赋值相当于dom.style.
+
+
+$(this)指的是谁调用就指向谁。
+
+
+几个表示状态的属性在attr和prop函数的区别：
+  checked、selected、disabled状态属性不需要属性值，写了该属性表示true，不写表示false)
+  在attr中表示该属性的初始状态的值，返回该属性或undefined
+  在prop中表示实时状态的值，返回true/false，因此可以用来判断当前的属性状态。
+——————————————————————————————————————————
+.addclass()   添加类名 
+               addclass方法可以放函数，$('li').addClass(function(index){
+                return index%2 == 0 ? 'aa':'bb';//index值代表li的索引值
+                                        //必须返回字符串，该字符串就是类名。
+               })
+.removeClass()移除类名
+               和addclass一样里面也可以添加函数，如果removeclass里面什么都不写，
+               表示清除目标的所有类名。
+
+.toggleClass() 删除或添加类名
+                  该方法有可以有一个参数也可以有两个参数，
+                  当为一个参数时.toggleClass('aa')//判断目标否有aa这个类名，如果有就删除aa,没有就加上aa。
+                  当为两个参数时，.toggleClass('aa',true/false)
+                  如果为true，表示为目标添加aa，为false表示为目标删除aa。
+.next()  下一个兄弟节点
+.prev()  上一个兄弟节点
+.index() 自身在所有兄弟节点中的索引值，
+       但是比如$('li').index()返回的是第一个节点的索引值。
+
+A.insertBefore(B) A插入到B的前面，有剪切功能
+B.before(A) A在B的前面，有剪切功能
+C.appendTo(D)  将C插入到D里面 ，添加到子元素的最后面
+D.append(C)   在D里面添加C  (上同)
+prependTo 和appendTo类似，区别是添加到第一个子元素前面。
+prepend
+
+jQuery创建一个标签的方法：$('<ul><li>内容</li></ul>')
+          注意点：双标签如果只写了一半，那么系统会将另一部分补齐，
+                  但是设置的内容不会显示出来。
+remove和detach的区别：
+         都是删除目标标签及属性及内容；
+         remove删除的标签，该标签绑定的事件就不存在了，
+         detach删除的标签，该标签绑定的事件仍存在。
+
+$('li').get(index)返回的是dom结构   
+——————————————————————————————————————————————
+事件的绑定：
+ bind(老版本)由于是绑定在$(document),消耗性能
+ on('事件类型','事件源对象','插入内容',function(e){})  
+  注意点：事件源对象和插入内容为可选参数，当on事件有三个参数时，
+          并且第二个参数本来写的是插入内容，但是系统会认为是事件源对象，
+          所以第二个参数最好是写为{属性:'属性值'}，插入的内容被放在
+          事件对象e中的data属性中，那么调用时 e.data.属性 。  
+once() 只执行一次事件。
+解除事件绑定：
+          off('事件类型')
+——————————————————————————————————————————
+innerWidth()  内容区+padding区的宽度。
+outWidth()    内容区+padding区+border区的宽度。
+              outWidth(true)表示内容区+padding+border+margin的宽度
+
+
+
+

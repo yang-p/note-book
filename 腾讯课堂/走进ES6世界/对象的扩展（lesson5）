@@ -1,0 +1,41 @@
+对象的属性的简写表达方式:
+					当属性名和属性值相同时，只写属性名。
+let foo = 1;
+let obj = {foo}
+
+
+对象的方法的简写表达方式：
+				对象的方法不要写成箭头函数
+					let obj = {
+							getName () {   //getName 去掉了:function
+								···
+							}
+					}
+
+对象属性的赋值：
+let name = 'name',
+	age = 'age';
+	let obj = {
+		[name] : 'yp',
+		[age] : 18
+	}
+
+
+对象属性的可枚举性：
+
+
+Object.is(target1,target2)
+			作用：判断target1和target2是否绝对等于，相当于===的增强版
+
+			注意点：它能判断两个NaN为true，而===判断出来的是false
+
+
+Object.assign(obj,obj1,obj2)	
+			作用：将obj1、obj2、obj3···这些对象中可枚举的属性全部放在obj1中。
+					obj1、obj2、obj3也可以是字符串，只不过会将字符串拆分成字符放在对象里面。
+
+
+对象的属性遍历：
+		Object.entries()
+		Object.keys()
+		Object.values()

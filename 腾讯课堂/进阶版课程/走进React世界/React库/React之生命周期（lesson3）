@@ -1,0 +1,14 @@
+和state对象一样，组件的生命周期也只能是由类定义的。
+
+生命周期的构造函数：
+					1. componentWillMount   组件挂载前触发，在render方法执行前触发该方法。
+							此方法里面一般用来异步获取数据。
+
+					2. componentDidMount    组件挂载后，render方法执行完后触发该方法。
+							此方法里面可以通过获取dom元素的方法获取render渲染到dom中的元素。
+
+					3. componentWillUpdate  组件更新前
+					4. componentDidUpdate   组件更新后
+					5. componentWillUnmount 组件卸载
+
+					6. componentWillReceiveProps

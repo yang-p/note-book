@@ -1,0 +1,12 @@
+Date()自执行，返回年月日和标准时间
+date方法：
+		 getDate()当月的号数
+		 getDay() 星期几，星期天为0
+		 getMonth()第几月，1月是0开始。	
+		 getFullYear() 当前年份
+		 getSeconds()	
+		 getMinutes()
+		 getHours() 	获取的时分秒记录的是当前Date创建对象的时刻。
+		 
+
+

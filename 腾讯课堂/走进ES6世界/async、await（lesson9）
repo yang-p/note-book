@@ -1,0 +1,26 @@
+async
+		作用：和promise、generator一样，都是解决关于异步的问题。
+
+		async的特点：
+					① await只能放在async函数中。
+					② 相比generator函数，语义化更强
+					③ await后面可以是一个promise对象，也可以是字符串、数字、布尔值。
+					④ async函数返回的是一个promise对象。
+					⑤ 当await后面是一个reject状态的promise对象时，会终止后面的所有代码。
+
+		async的注意点：
+						根据async的特点的第五条，所以应该将所有的await放在try语句里面。
+
+
+		async函数的定义：
+						在函数前面加一个async关键字， async function fn() {...}
+
+		await的作用：
+						
+						配合async函数使用，await在async函数内部，写法像yield。
+					async function fn() {
+						try{
+							let aaa = await ...; 
+							let bbb = await ...;//只有上一个await后面的东西执行完后，这个才会执行。
+						}catch(e){...}
+					   }

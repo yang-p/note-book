@@ -1,0 +1,8 @@
+显示当前的git配置：
+					git config --list	
+
+设置提交仓库时的用户名信息：
+							git config --global user.name '用户名或姓名'
+
+设置提交仓库时的邮箱信息：
+						git config --global user.email '邮箱'							

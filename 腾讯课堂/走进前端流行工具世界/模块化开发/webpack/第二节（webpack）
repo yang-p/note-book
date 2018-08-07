@@ -1,0 +1,40 @@
+webpack的作用：
+				具有grunt、gulp对于静态资源自动化构建的能力(自动完成编译、压缩、合并等工作)，
+				并且还你不了requireJS在模块化方面的缺陷，同时兼容AMD和CMD的模块规范。
+
+
+CDN用户访问流程：
+				1.首先用户在浏览器输入地址，然后dns解析，如果DNS本地没有缓存该地址对应的IP地址，
+				  则发送给DNS服务器进行解析，
+				2.此时DNS服务器会将该地址发送给智能DNS负载系统解析，
+				3.该系统将会选择最近响应速度最快的cdn服务器的IP地址给用户，
+				4.用户得到ip地址后向该cdn服务器发送请求，如果没有想要的请求内容，那么该cdn服务器
+				  会向原web站点请求数据并缓存起来，然后响应给用户。
+
+搭建webpack环境：
+				1.下载node.js，然后安装。
+				2.打开cmd，输入node -v 判断是否安装成功，如果打印出版本信息，则安装成功。
+				3.然后输入npm install webpack@3.5.5 -g 进行安装webpack
+				4.安装完成后，输入webpack -v 检查webpack安装情况。
+				5.在cmd中切换到项目所在的目录(简便方法，输入cd，然后将该项目文件夹拖到cmd中)，
+					输入npm init对该项目进行初始化。
+				6.初始化完成后，该项目文件夹下会自动生成package.json文件。
+
+使用webpack：
+				1.在项目文件夹下创建html文件、src文件夹、webpack.config.js文件
+				2.在src文件夹下创建js、css、images文件夹
+				3.
+
+
+
+webpack -w指令：
+				自动监听文件，每当文件改变并保存后webpack -w会自动打包该文件，因此不需要每次更改
+				文件后就在cmd中手动打包一次。
+				退出该指令，只需要ctrl+c两次即可。
+
+webpack的loader加载器：
+				作用，做一些预处理工作。
+
+				第一步：在cmd中的webpack项目文件夹下输入 npm install babel-loader，
+						安转完成后输入webpack保存。
+				第二步：

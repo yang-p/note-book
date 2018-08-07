@@ -1,0 +1,28 @@
+try{
+console.log('a');
+console.log(b);
+console.log('c');
+}
+catch(e){console.log('f');
+}
+console.log('d');
+正常情况下，当执行到console.log(b)时，会报错并终止后面的程序执行，
+被try包裹时，当执行到console.log(b)时，无论后面的语句是否有错，它后面的语句不会执行，
+但是在try外面的语句正常执行。
+
+一旦try中有报错，系统会将try中的错误信息进行打包，隐式的提交到Error对象中，
+Error对象有两个属性message和name。
+Error对象通过形参e将两个属性传到catch里面。
+注意:打包的错误信息是第一个出错的语句。
+————————————————————————————————————————————————————————————
+Error.name的六种值对应的信息：
+①EvalError         eval()的使用与定义不一致
+②RangError             数值越界
+③ReferenceError    非法或不能识别的引用数值      使用未声明的变量或对未声明函数的调用
+④SyntaxError       发生语法解析错误       此错误使js代码不会进行解释执行
+⑤TypeError         操作数类型错误       es5.0的严格模式执行es3.0的某些方法，比如arguments.callee 、caller、with
+⑥URIError          URI处理函数使用不当
+
+Error.message的常见信息：XX is not defined。
+
+无论是那种错误，都不会影响另一个script标签的执行。

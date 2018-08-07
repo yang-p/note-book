@@ -1,0 +1,15 @@
+在html的元素上加上draggable属性，并将属性值设置为true
+
+拖拽相关的事件(前提是该元素设置了draggable属性，并且属性值为true)：
+		dragstart 	被拖拽元素 开始被拖拽时触发（鼠标按下并拖动）
+		dragend		被拖拽元素 拖拽完成时（鼠标抬起）
+		dragenter	目标元素 被拖拽元素【鼠标进入才触发】进入目标元素（该事件是设置在目标元素上的）
+		dragover	目标元素 拖拽元素在目标元素上移动
+		drop		目标元素，被拖拽的元素在目标元素上并且鼠标立即放开，触发的事件
+					【drop需要阻止dragover的默认行为才会触发drops事件】
+					【drop的默认事件是自动打开被拖拽进来的文件，所以根据需求进行是否阻止默认事件】
+
+
+DragEvent的事件对象：
+		传值：e.dataTransfer.setData("data",e.target.id)
+		取值：e.dataTransfer.getData("data")

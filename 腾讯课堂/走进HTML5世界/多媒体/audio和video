@@ -1,0 +1,77 @@
+audio音频：
+			<audio src=""></audio> 最简单的写法，但是页面不会显示
+			加上controls属性出现了简单的播放按钮、进度条、音量调节图表。
+
+audio和video的属性：
+			autoplay，自动播放
+			controls，设置控件，属性值为controls
+			preload，预加载，规定是否在页面加载完毕后再加载视频
+					属性值：auto，适量加载视频内容							
+			loop，是否循环播放
+			poster，video独有，当视频不可播放时，用一张图片代替，否则是空白
+
+多类型资源的写法：
+			<audio id='music'>
+			<source src="aaa.mp3" type="audio/mp3">
+			<source src="aaa.ogg" type="audio/ogg">
+			</audio>
+			type属性只是为了让浏览器更快的识别资源的类型。
+
+脚本创建audio标签：
+			由于video没有构造函数，所以不能通过new来创建，而audio的构造函数是Audio。
+
+			创建audio标签：
+						    var audio = new Audio(在这里面写资源地址);
+						    var audio = new Audio();  audio.src = '在这里写资源地址';
+			设置属性：
+						由于audio的四个属性是它天生就有的，所以用.的形式即可。
+						其中controls和loop的属性值可以写ture也可以写本身，但是必须是字符串形式。
+
+			currentSrc媒体数据的url地址，比如audio.currentSrc,返回的是音乐的地址，但是由于src是异步的，
+			所以会返回空，目前只有放在window.onload中才会返回出资源地址。
+
+
+方法：
+		play()
+		pause()
+		load()重新加载资源，调到资源的第一帧
+		canPlayType() 判断浏览器是否支持该媒体格式，例如: if(canPlayType(aaa.mp3)){}
+属性：
+		volume表示播放音量，范围为[0,1],默认为1
+		muted，将属性值设为true表示静音，相当于audio.volume=0,设置为false则回到静音之前的音量。
+		注意点：
+				1.在处理音量时，涉及到了浮点数，但是js对于操作数字会出现偏差。
+				2.音量超过[0,1]，会报错，所以在处理音量大小时需要判断当前音量。
+
+		playbackRate 用于指定媒体播放速度
+					属性值：
+							1.0表示正常播放
+							大于1表示快进
+							[0,1]表示慢放
+							负值表示回放
+					注意点：playbackRate的属性值太大或太接近于0，都不会出现声音，因为这不是正常人
+							的听力频率，而当属性值为负值时，浏览器并不支持回放效果。
+
+		currentTime 设置或返回视频或音频播放的当前位置。该属性可以设置快进和慢放
+		duration	设置或返回视频或音频播放的总时长。
+
+		played 返回已经看过的时间段，
+		buffered返回当前已缓存的时间段
+		seekable返回用户可以跳转的时间段
+		注意点：
+				这三个属性都是TimeRanges对象，有length属性，start和end方法，length的属性值表示
+				当前时间段，start和end分别表示该时间段的开始和结束的时间点。
+
+查询媒体播放状态：
+		paused 为true表示播放暂停
+		seeking为true表示播放器正在调到新的播放点，audio.onseeking监听播放点的变化
+		ended，如果播放完媒体后停下来，那么属性值为true
+
+事件：
+		play触发开始播放
+		pause触发暂停播放
+		loadedmetadata 浏览器获取完媒体的元数据触发
+		loadeddata浏览器已经加载完当前帧数据，准备播放时触发
+		ended当前播放结束后触发
+
+		error，在事件加载发生错误时触发，MediaError对象的code属性返回一个数值，表示音频或视频的错误状态。

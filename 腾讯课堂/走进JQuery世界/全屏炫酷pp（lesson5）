@@ -1,0 +1,23 @@
+img标签用div包裹住。h和p标签用div包裹。
+功能按钮用span标签，跳转按钮用a标签。
+点加斜杠代表当前路径：./
+多行打点：
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 6;
+		-webkit-box-orient: vertical;
+在不知道元素的宽高时进行居中：
+         position:absolute;
+         left:50%;
+         top:50%;
+         //利用css3的平移属性，括号的百分比指的是相对于自身元素的宽高的百分比。
+         transform:translateX(-50%);
+         transform:translateY(-50%);
+
+避免和其他文件作用域产生冲突，最好是将js代码放在立即执行函数里面。
+
+去除兄弟节点中的带有活跃状态的节点的高性能方法：$('.active').removeClass();
+
+问题：
+ 	连续点击左右按钮	设置flag为true和false的两种状态。
+ 	点击当前活跃小圆点 	判断点击的slider索引值不等于小圆点的索引值。

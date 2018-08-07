@@ -1,0 +1,35 @@
+总体注意点：
+			每一行结束必须加分号。
+
+##全局参数配置
+worker_processes  1; ##开启CPU的内核数为1(开启的CPU内核数和电脑的CPU内核数有关)
+
+events {
+	use epoll; ##使用epoll事件模型(详解请看下边)
+    worker_connections  1024; ## 1个内核里，允许有1024个人同时访问
+    				
+}
+
+错误日志	错误日志文件	错误类型
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+
+#pid        logs/nginx.pid; ##记录进程的id,防止启动多个副本
+
+http{
+	
+}
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+事件模型：
+			事件模型分为两种：
+							标准事件模型	epoll/Selct
+							高效事件模型	kqueue
+			nginx默认采用的是标准事件模型中的epoll
+
+连接数：
+			注意点：不论是window、mac还是Linux，一个内核默认最大值都是1024，
+    				 想要连接数大于1024，那么需要修改内核的默认最大连接数。

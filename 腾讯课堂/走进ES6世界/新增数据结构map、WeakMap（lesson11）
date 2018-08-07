@@ -1,0 +1,16 @@
+数据结构map的特点：
+				类似json，json的key只能是字符串类型，但是map的key值可以是任意类型
+
+map的使用：
+			let map = new Map()
+
+map的方法：
+			map.set(key,value); 给map对象添加
+			map.get(key|value);	获取map的value值
+			map.has(key) 判断map对象里面有没有key
+			map.delete(key) 删除key-value
+			map.clear() 清空map对象的所有key-value
+
+
+——————————————————————————————————————————————————————————————————
+WeakMap的特点：	key值必须是对象类型

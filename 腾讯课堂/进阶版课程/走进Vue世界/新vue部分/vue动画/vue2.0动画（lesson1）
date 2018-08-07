@@ -1,0 +1,21 @@
+1、要运动的元素必须放在transition或transition-group容器中
+2、transition-group中，每一个成员需要有自己的key
+		<transition>
+			....//此处放要运动的元素
+		</transition>
+		<transition-group>
+			....//此处放要运动的元素1
+			....//此处放要运动的元素2
+			....//此处放要运动的元素3
+		</transition-group>
+
+
+transition的属性：
+
+动画的生命周期函数：
+					before-enter 元素进入前
+					enter        元素进入过程中
+					after-enter	 元素进入后
+					before-leave 元素离开前
+					leave        元素离开过程中
+					after-leave   元素消失后

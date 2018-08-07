@@ -1,0 +1,60 @@
+绑定事件的处理方法
+任何元素都有事件属性，而绑定事件就是将这个事件与一个函数相连接。
+①句柄事件
+dom.onXXX = function () {代码块}      以on开头的事件属于句柄事件
+兼容性非常好，但是一个事件只能绑定一个处理函数。当绑定多个时后面的会覆盖前面的。
+这种方法相当于在HTML的行间添加事件。
+在行间的写法<div onclick = "fun();或者'函数里面的执行语句'"></div>
+②
+  dom.addEventListener(事件类型，触发函数，false) IE9以下不兼容
+  该方法的两种写法：
+                 div.addeventlistener('click',function(){},false)
+                 div.addeventlistener('click',函数引用,false)
+  一个元素的事件可以绑定多个触发函数，当绑定多个处理事件时，后面的不会覆盖前面的。
+  如：         下面的两个处理函数不是同一个
+      div.addeventlistener('click',function(){},false)
+      div.addeventlistener('click',function(){},false)
+      但是同一种事件类型用同一个处理事件，只执行一次：
+      div.addEventListener('click',test,false)
+      div.addEventListener('click',test,false)
+
+   原理：addeventlistenner里面的绑定函数如果是同一个函数，那么后面的覆盖前面的。
+
+
+③IE独有事件
+  dom.attachEvent('on'+事件类型，处理函数);
+  和addeventlistener功能类似，区别是绑定多少个事件就执行多少次。
+__________________________________________________________________________
+①和②中的处理函数的this指向调用的那个元素，而③中的处理函数的this指向window
+解决③中的this指向问题
+    dom.attachEvent('on' + 事件类型, function (){ 处理函数test.call(dom);})
+    function test(){console.log(this)//这个this指向dom}
+————————————————————————————————————————————————————————————
+解除事件绑定方法：
+ 针对①：
+        dom['on' + type] = null/false; 将这句放在处理函数里面的末尾
+ 针对②:
+        dom.removeEventListenner(原绑定事件类型，原处理函数引用名，false);//若原处理函数是匿名函数，则无法解除绑定。
+ 针对③：
+       dom.detachEvent('on' + 事件类型，原处理函数引用名)；//若原处理函数是匿名函数，则无法解除绑定。
+
+————————————————————————————————————————————————————————————
+鼠标事件：
+         click点击、mousedown按下、mousemove移动、mouseup松开、
+         contextmenu右键菜单、mouseover经过、mouseout离开、mouseenter经过、mouseleave离开(后两种是html5的)
+          click == mousedown + mouseup;
+         在事件对象中有一个代表鼠标左键或右键或滑轮的属性，当属性值为0，代表左键，为1代表滑轮，为2代表右键。
+DOM3规定：click只能监听鼠标左键，要想判断鼠标是按得左键或右键只能用mousedown或mouseup监听
+
+键盘事件：
+         keydown、keypress、keyup
+        执行顺序： keydown > keypress > keyup
+        keydown可以监测到除了fn辅助键之外的其他键，但是keydown无法识别字符的大小写
+        keypress只能检测到字符类的按键(只要该字符在ascaii码中，就能被监测到)，能区分字符大小写。
+        String.fromCharCode(变量.charcCode) 返回ascaii代码，如果变量时keypress的事件对象，那么按那个键就返回相应的字符。
+
+文本操作事件：
+        input事件：当在文本框中每进行一次输入或每进行一次删除时，都会触发该事件。
+        change事件：判断文本框聚焦和失去聚焦时，状态是否发生改变，若改变则执行处理函数。
+        focus事件 聚焦
+        bulr事件  失去焦点

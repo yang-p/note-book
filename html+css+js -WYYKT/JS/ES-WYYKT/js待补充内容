@@ -1,0 +1,19 @@
+字符串中字节长度
+            当Unicode值小于等于255时字节长度为1，比如字母、空格、英文符号，
+            当Unicode值大于255时，字节长度为2，比如汉字、中文符号；
+数字和toString
+          数字不能和toString直接使用，比如123.toSting ，系统会默认为时"123."是个浮点型，控制台会报错，所以使用变量去接收
+          数字，然后给变量加上toString。
+javascript中的0.14*100问题
+         fiexed()为保留小数点后两位有效数字，但是当0.14*100时就会出现精度问题
+         JavaScript的有效计算范围，小数点前16位，小数点后16位；
+         所以在使用小数的时候需要对小数进行向上取整Math.ceil(浮点数);和向下取整Math.floor(浮点数);
+关于string类型
+         string的底层是一个数组，比如charAt方法可以将字符串中的每个字符提取出来，
+         也可以用数组进行遍历如：var a = "abc";  a[i]。
+
+关于typeof和()的问题：
+         typeof(new Array)._proto_.constructor(); ==> "object"
+         由于括号优先，所以先执行new Array ，所以拆分成了 typeof []._proto_.constructor();
+         然后执行[]._proto_.constructor() => Array()
+         

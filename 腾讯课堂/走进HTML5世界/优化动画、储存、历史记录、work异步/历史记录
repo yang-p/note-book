@@ -1,0 +1,28 @@
+history对象
+			网页访问后的历史记录存放在栈中。【栈存储】
+
+history对象的属性和方法：
+
+		history.length 返回历史记录的条数
+		history.back() 返回上一个历史记录
+		history.forword() 返回下一个历史记录
+		history.go(-1) 负号表示向前翻，后面的数字表示翻到第几条，正号表示向后翻。
+		history.pushState(state,title,url) 添加一条历史记录
+		history.replaceState(state,title,url)替换当前的历史记录
+
+				state，一个与指定网址相关的状态对象，popstate事件触发时，该对象会传入回调函数中，
+						如果不需要该对象，此处可以写null。
+				title   新页面的标题，但是所有浏览器都会忽略这个值，此处可以填null
+				url    必须与当前页面处在同一个域，浏览器的地址栏将显示这个网址。
+
+		注意点：
+				1、pushState和replaceState都不会使浏览器刷新
+				2、pushState和replaceState都不会触发popstate事件
+			    3、state是popstate事件的事件对象的一个属性，该属性的属性值只有在与其
+				   对应的页面中才有，所以通过该属性可以判断
+				4、通过修改hash和hashchange事件实现历史记录的管理。
+
+事件
+	1、popstate		历史记录发生改变时触发【调用pushstate或者replaceState不会触发该事件】
+
+	2、hashchange	当页面的hash值改变时触发，常用于构建单页面应用。

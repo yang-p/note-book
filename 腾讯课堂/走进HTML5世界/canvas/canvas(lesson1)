@@ -1,0 +1,198 @@
+canvas的应用场景
+图表、游戏、动画、codepen.io
+用canvas做动画的好处是不用频繁操作dom元素。
+IE9以下版本的浏览器不支持canvas
+
+canvas的使用：
+1. 创建canvas标签，并设置宽高，例如 <canvas id="canvas" width='500px' height='500px'></canvas>
+2. 用js选择出canvas标签(画布) var oCanvas = document.getElementById('canvas');
+3. 获取canvas的上下文对象(该对象可以看做是画笔)	var oContext = oCanvas.getContext('2d');
+	画笔是在画布上生成的。
+
+4使用画笔方法：
+			线段：
+				oContext.moveTo(x, y); 画笔的默认起始位置是画布的左上角，x和y代表坐标没有单位只有正负。
+				oContext.lineTo(x,y); 从当前点货起始点绘制直线到坐标为(x, y)的位置。
+				oContext.stroke();描边，此方法是实现画笔从一个点到另一个点的连接，如果要画三角形之类的，
+									应该先将坐标点设置好，最后再添加这个方法。
+				oContext.lineWidth = 20; 设置线段宽度
+				oContext.closePath(); 将起始点和终止点连接起来进行闭合。
+				oContext.fill();填充，将起始位置和终止位置假装连起来填充里面的区域，默认填充颜色为黑色。
+				oContext.fillStyle = '颜色';  设置填充颜色
+				oContext.strokeStyle = '颜色'; 设置线条颜色
+				oContext.beginpath(); 
+
+			注意点:
+					1.当设置线条宽度时，它的放置位置是设置的坐标点位于线条的中心，比如宽度为40的线条，那么坐标点位于20的位置；
+					2.当要使起点坐标和中点坐标闭合时，那么一定是一个显得多余或缺失的形状，所以closePath方法完美解决了这一问题；
+					3.fill和stroke方法都是作用在同一条路径下的所有子路经，后面的strokeStyle或fillStyle会替换前面的strokeStyle或fillStyle方法；
+					4.moveTo方法虽然是将画笔从一个地方放在另一地方，但是它仍然是再同一个路径；
+					5. 想要在完成一条路径后开始新的一条路径，那么在新的路径开头加上beginPath方法；
+
+
+			矩形：
+				 oContext.rect(x, y, width, height); x和y代表当前画笔所在的位置，width和height表示这个矩形的宽度和高度，没有单位；
+				 oContext.fillRect(x, y, width, heght); 相当于rect和fill方法的结合；
+				 oContext.strokeRect(x, y ,width, height);相当于rect和stroke方法的结合；
+				 oContext.clearRect(x, y, width, height); 清除某个区域，以x和y为坐标点width为宽height为高形成的矩形区域，该区域的内容被清空；
+
+			注意点:
+					fillRect和strokeRect方法是独立的一条路径，该路径设置的线条宽度和颜色不会影响下一个路径，
+					比如先用strokeRect画一个矩形，然后再用strokeRect画一个矩形，这两个矩形不是同一个路径的，
+					因此想要改变矩形的线条宽度和颜色不需要加beginPath方法，直接在fillRect和strokeRect方法前面写上就行。
+
+
+			弧度：
+				 oContext.arc(x, y ,r, 起始弧度, 结束弧度, 弧形的方向)
+				 		x和y表示该弧形的中心点坐标，r表示半径，
+				 		起始弧度默认为0度,0度在以中心点为原点，x正半轴的(r, 0)上，除了0度之外，求弧度必须用Math.PI,Math.PI代表180度。
+				 		求一个普通弧度的小技巧：Math.PI/180*想要的弧度；	
+				 		弧度的方向默认为顺时针，0代表顺时针，1代表逆时针。
+				 		求扇形：先把弧画出来，然后以中心点为起点画一条线与弧度连起来，最后使用closePath方法将他们闭合。
+
+			圆角:
+				 oContext.arcTo(x1, y1, x2, y2, r)
+				 x和y表示画笔起点位置，x1,y1坐标和(x,y)坐标形成一条线段，(x1,y1)和(x2,y2)两点形成一条线段，两条线段以(x1,y1)为连接点连接这两条线段，
+				 画一个半径为r的圆，将这个圆放在这两条线段的夹角处，使这两条线段分别与该圆相切。
+				 此时画笔的坐标为，(x1,y1)和(x2,y2)两点形成的直线，与圆相切的点就是画笔的位置。
+
+
+			贝塞尔曲线：
+					二次贝塞尔曲线， quadraticCurveTo(x1,y1,ex,ey);
+										x1,y1控制点
+										ex,ey结束点
+					三次贝塞尔曲线， bezierCurveTo(x1,y1,x2,y2,ex,ey);
+										x1,y1,x2,y2控制点
+										ex,ey结束点
+
+
+	坐标轴转换：
+				1. translate(dx,dy) 重新映射画布上(0,0)的位置，
+					(相当于移动了画布，但并不是改变canvas在页面上的位置和大小。)
+				2. scale(sx,sy) 缩放当前绘图
+					(sx和sy分别表示x轴和y轴方向的缩放倍数，当为1时表示不缩放。)
+				3. rotate(Math.PI)旋转当前绘图
+				4. save()保存当前图像状态的一份拷贝,存放在栈中。
+				4. restore() 从栈中弹出储存的图形状态并恢复。
+					(由于图形状态是存在栈中，当有多个图形状态时，要取某个图形状态就需要执行几次该方法。)
+				5. setTransform(a,b,c,d,e,f)先重置再变换
+					(如果前面设置了平移、缩放、旋转，那么该方法会将前面的全部清空掉)
+				参数：水平缩放a、水平倾斜b、垂直倾斜c、垂直缩放d、水平移动e、垂直移动f
+				6. transform(a,b,c,d,e,f)在之前的基础上变换
+					(和setTransform的区别就是不会清空曾经设置的。)
+
+	填充图案：
+				1. createPattern(image,"repeat|repeat-x|repeat-y|no-repeat");
+					iamge可以是图片、video、canvas。
+				图片填充方法：
+							var oImg = new Image();
+							oImg.src = '';
+							oImg.onload = function () {
+							var ofill = content.createPattern(oImg,'no-repeat');
+								content.fillStyle = ofill;
+							}
+				注意点：
+						图片一定要加载完了才能放进canvas中，否则填充色为黑色。
+				
+				canvas元素填充方法：
+							比如有两个canvas元素canvas1和canvas2，将canvas2填充到canvas1中。
+							var fill = content1.createPattern(oCanvas2,'no-repeat');
+							context.fillStyle = fill;
+
+	渐变：
+			createLinearGradient(x1,y1,x2,y2); 线性渐变
+			使用方法：
+						var bg = context.createLinearGradient(0,0,0,120);
+						bg.addColorStop(0,'red');
+						bg.addColorStop(0.5,'orange');
+						bg.addColorStop(1,'yellow');
+
+			createRadialGradient(x1,y1,r1,x2,y2,r2);径向渐变
+
+			addColorStop(p, color)该方法是在某个位置设置颜色
+
+	阴影：
+			shadowColor       阴影颜色
+			shadowOffsetX     x轴偏移量
+			shadowOffsetY     y轴偏移量
+			shadowBlur		  
+			注意点：
+					阴影不会受到平移、缩放、旋转的影响。
+
+	文本：
+			fillText('文本',x, y)
+			strokeText()		将文字镂空
+			measureText('文本')
+			context.font = '字体大小 字体样式';
+			context.textAlign = 'left|center|right';
+			context.textBaseline = 'top|middle|bottom';
+			注意点：
+					(x,y)代表文字放置在某个地方，如果将它当做一个小圆点，那么它默认在文字的左下角。
+					通过textAlign和textBaseline方法可以改变小圆点在文字的什么位置，但是小圆点的坐标
+					不会改变，因此文字会相应的移动。
+
+	线段样式：
+				context.lineCap ='butt|square|round'  线两头以什么形式展示
+						butt默认展示形式，square的每一端比butt多出一截lineWidth一半的宽度。
+						round和square一样，但是它将多出来的那一截变成了圆角。
+
+				context.lineJoin = 'round|miter|bevel'; 线段相交的地方以什么形式展示
+						miter默认展示样式，round圆角，bevel将相交的部分切掉一块。
+
+				context.miterLimit 当lineJoin为miter时，用于控制斜接长度，当超过改长度时lineJoin
+				就会变成bevel。
+
+	裁剪：
+			context.clip()当前路径外的区域不再绘制，配合save和restore方法来使用。
+			context.save();
+
+			
+
+	合成：
+			context.globalCompositeOperation =  'source-over'; 默认值
+			新像素和旧像素的合成，比如开启两个路径画两个圆，此时圆就被称为像素，后画的圆称为新像素，
+			默认情况下，如果两个像素是重叠的，那么新像素会盖在旧像素上面。
+
+			共有11种值，其中常用的有source-over、destination-over、copy。
+			source-atop  去掉新像素没有和旧像素重叠的部分
+			source-in    在source-atop的基础上去掉旧像素。
+			source-out		source-atop的补集
+			destination-over  和source-over相反，旧像素盖在新像素上面
+			destination-atop  去掉旧像素没有和新像素重叠的部分
+			destination-in    在destination-atop的基础上去掉新像素
+			destination-out
+			copy
+			lighter     分别去掉新像素和旧像素重叠的部分，只留下两者没有重叠的部分。
+
+			
+	全局透明度：
+				context.globalAlpha = '0.5'; 作用于全局的画布，不论下面开启了多少条的路径。
+
+	绘制图片：
+				context.drawImage(iamge,x,y)  x和y表示放置image的起始位置
+				context.drawImage(image,x,y,x1,y1) x1和y1表示放置image的区域的宽高。
+				context.drawImage(iamge,x4,y4,x3,y3,x,y,x1,y1)
+									x4,y4表示从某个位置截取图片，类似于background-position
+										
+									x3,y3表示截取图片的大小
+									x,y和x1,y1和上面四个参数的一样。
+
+	将canvas内容导出：
+				canvas.toDataURL()  该方法是canvas元素本身的对象，而不是其上下文对象。
+				该方法会将canvas内容抽取成一张编码格式为base64的图片
+
+
+	获canvas像素信息：
+				1. context.getImageData(x,y,dx,dy);
+					canvas是由每一个像素组成的，比如500X500的canvas就有500*500个像素。
+					每一个像素又是有rgba组成，即整个画布的颜色500*500*4。
+
+
+
+
+
+	命中检测：
+				1. context.isPointInPath(x,y)，检测(x,y)这个点是否在路径的区域内。
+				2. context.isPointInStroke(x,y)检测(x,y)这个点是否在路径的线上
+				注意点：由于fillRect和strokeRect是单独路径，所以不能用检测方法。
+

@@ -1,0 +1,43 @@
+所有vue组件都是Vue实例
+Vue中组件分为全局组件和局部组件：
+	全局组件：
+				Vue.component('组件名',{template:`html元素`})
+
+	局部组件：
+			写法一：
+				new Vue({
+					el:'#app',
+					components:{
+					'组件名':{
+								data(){
+									return {
+										msg:'yang'
+									}
+								},
+								template:'html元素'
+							}
+						}
+					})				
+
+			写法二：
+			<template id='aaa'>
+				<div>//作为根标签包裹住其内部标签
+
+				</div>
+			</template>
+				new Vue({
+					el:'#app',
+					components:{
+					'组件名':{
+								data(){
+									return {
+										msg:'yang'
+									}
+								},
+								template:'#aaa'
+							}
+						}
+					})
+
+			注意点：局部组件只能拿到自身实例对象的data里面的数据。
+

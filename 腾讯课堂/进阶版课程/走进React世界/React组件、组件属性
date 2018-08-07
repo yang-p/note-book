@@ -1,0 +1,71 @@
+什么是组件：
+			在react中，组件就是js的'类'的概念。
+
+定义组件：
+			要么按照ES5中的构造函数写法，要么ES6的class写法。
+
+			注意点：组件名的首字母大写，虽然不会报错，但是无法识别为组件。
+
+			例子：
+					function Title() {return <h1>hello</h1>;}
+
+					class Title extends React.Component { //Component方法是生成组件的对象
+						render(){
+							return <h1>hello</h1>;
+						}
+					}
+
+
+函数定义组件和类定义组件的区别：
+					1.生命周期不同： 函数无生命周期，类有生命周期
+					2.状态不同： 函数无状态，类有状态
+					3.this指向： 函数的this指向比较杂乱，类的this指向靠谱
+
+
+
+
+
+组件的调用:
+			以上面定义的例子为前提，有两种调用形式， <Title /> 或 <Title></Title>
+
+——————————————————————————————————————————————————————————————————————————————————————
+组件属性：
+			组件定义时，let Title = (props) => {} 或 let Title = ({name,age}) => {}
+						props参数是一个对象
+
+			组件调用时，<Title name='yp' age='18'>
+						name,age属性将作为props对象的属性传递到Title函数里面。
+
+			注意点：
+					1.组件属性是只读状态，不能进行修改;只能通过state更改属性，详情请看state篇。
+					2.类定义的组件中的return方法，return后面的东西最好是用()包裹起来。
+
+
+
+————————————————————————————————————————————————————————————————————————————————————————
+组件的嵌套
+			let Title = (props) => <h1>{props.name}</h1>;
+
+			let Abc = () => {
+				render() {
+					return <Title name='yp'>;
+				}
+			}
+
+——————————————————————————————————————————————————————————————————————————————————————————
+组件属性类型检测：
+					在1.5x版本以前react库自带PropTypes
+					在1.5x版本之后，PropTypes被分离到proper-type库中。
+
+
+
+		检测类型的两种写法：
+							在类里面写	static propTypes() {}
+							在类外面写，Title.propTypes = {}
+		检测属性的写法：
+						name.propTypes.string
+						name.propTypes.number
+						name.propTypes.bool
+						name.propTypes.func
+						name.propTypes.array
+						...

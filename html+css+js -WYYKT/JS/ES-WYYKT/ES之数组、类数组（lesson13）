@@ -1,0 +1,102 @@
+数组(一种特殊的对象)
+创建数组的两种方法：
+        var arr = [];//数组字面量
+        var arr = new Array();//构造方法创建
+        数组的所有方法都来自Array.prototype
+        数组中只有逗号或逗号与逗号之间没有参数，console会报undefined。 cvbnfs
+数组字面量和构造方法创建的区别：
+        数组字面量的中括号里面的参数无论是什么类型只代表数组中的元素，
+        new Array()的括号里面只有一个参数且为数字时，它代表数组的长度，若该数字为浮点型则报错。
+数组的读和写：对数组进行增删改查都不会报错，返回的是具体的值或undefined。
+————————————————————————————————————————————————————————————
+数组的常用方法：
+      在原数组基础上修改：push、pop、shift、unshift、sort、reverse、splice
+      push：在数组的最后一位的后面添加数据，push可以有一个实参值也可以有多个实参值，当多个实参值时按顺序排列在数组中。
+      pop：将数组的最后一位进行剪切，无实参值。
+      unshift：在数组的第一位前面添加数据，当多个实参值时，按顺序排列在数组中。需要splice配合。
+      shift：将数组的第一位进行剪切。
+      reverse：将数组的元素顺序倒过来，当再次用reverse方法时，元素的顺序还原了。
+      splice：有三个参数用逗号隔开，splice(从第几位开始，截取长度，在切口处添加新的数据)
+             splice作用：俗称切片方法，常用于为数组添加多个数据， splice(0,0,新数据)
+            注意点：在使用splice方法时，第一个参数由于可以为负，
+                    所以在使用时需要判断 pos += pos > 0 ?  0 : this.length;
+      sort：sort的默认方法排序是按照ascll码的顺序从小到大排列。因此需要在括号里面自定义方法才能实现数字大小的排序。
+             具备条件： 必须有两个参数，有有返回值。
+                       当返回值大于0，将后面的数放在前面，返回值等于0，顺序不变， 小于0，前后顺序不变。
+            array.sort(function(a ,b){return a - b;//表示对数组进行升序排列})
+            array.sort(function(a ,b){return b - a;//表示对数组进行降序排列})
+            array.sort(function(a ,b){return Math.radom() - 0.5;//表示对数组进行乱序排列})
+            提升:一个arr数组中有n个对象，每个对象中有age属性，属性值为数字，根据年龄从小到大排序。
+                  arr.sort(function (a,b){return a.age - b.age;}
+
+
+      不改变原数组：concat，join——>split、toString、slice
+                    ES5新增：foreach、filter、reduce、reduceRight
+       concat：将两个数组的副本连接起来形成一个新的数组      arr.concat(arr1) 将arr1的副本拼接在arr的副本后面。
+                
+       toString():将数组的所有元素以一个字符串返回出来，元素与元素之间用逗号隔开，元素为undefined和null时，
+               由于没有toSting方法所以不显示，但是仍用逗号隔开，元素为其他三个原始类型名称时返回一个函数体。
+       slice：从数组中复制一段元素，不改变原数组；
+               slice(a，[b])
+               当a为正时代表数组的下标值，a为负数时代表从数组最后一个元素向左数的长度；
+               b为可选参数，b代表长度，从数组第一个元素开始数到b，截取a到b的闭区间元素，如果
+               b不写，那么从下标a开始取到数组的最后一位。当a和b都不写，那么截取整个数组。
+               
+       join:   和toString()类似，只是返回的元素与元素之间分割符可以自己定义，
+                join() == toString()
+                  join("分隔符") 括号里面的标准写法为字符串类型即要加引号。
+
+       split： 与join互逆，将字符串拆分为数组
+               split("拆分符") 该拆分符在数组中以逗号存在，被拆分的字符串在数组中仍然是字符串类型。
+
+     forEach() 源码封装看tools.js
+               arr.forEach(function(ele,index){})
+               ele表示arr中的键，index表示索引值。
+
+     filter() 源码封装看tool.js
+              arr.filter(function(ele,index){return ture})
+             循环一个数组，当返回值为true时，将该属性的键返回出去，否则跳过进行下一个键的判断，里面的‘true’可以写成其他数据类型，但是系统会隐式转换为布尔类型。
+             并且里面可以写if条件判断语句。
+    
+     map()  源码封装看tool.js
+            arr.map(function(ele,index){return ele;}) 
+            return可以自定义返回什么东西，但是返回的东西会作为新的数组中的键。 
+           该方法相当于浅层克隆，当数组中的键为引用类型时，克隆的是地址，
+           所以通过map方法返回出来的数组和原数组指向同一个地址。
+
+   reduce()   
+            arr.reduce(function([preValue],ele,index){},[obj])
+            preValue 和obj是可选参数，preValue指向obj，当不写obj时，
+            preValue指向数组的第0位，ele从数组的第1位开始。
+
+reduceRight() 从数组的最后一位开始。 
+
+___________________________________________________________________________________________
+类数组(是对象，不是数组，但是通过添加属性可以使它也具备数组的特性)
+      属性为索引(数字)属性，必须要有length属性，最好加上push属性。
+      一个基本的类数组如下(根据情况添加相应的属性进去)：
+      var arr = {
+       "2" : 属性,
+       "3" : 属性1,
+       "4" : 属性2,
+    length : 3,
+      push : Array.prototype.push
+      }
+      Array.prototype.push = function (target){
+              this[this.length] = target;
+               this.length ++;
+               }
+     注意点：push一个元素时，与里面的length属性有关，比如上面的length属性值为3，那么从索引1开始数，第三位就是索引3，
+             当添加元素时，覆盖里面本来就存在的索引2的值，并且length加1.
+          类数组在控制台会显示属性值，要想使类数组和数组的显示形式一样，需要在类数组添加 splice : Array.prototype.splice
+
+
+
+
+
+
+
+
+
+
+

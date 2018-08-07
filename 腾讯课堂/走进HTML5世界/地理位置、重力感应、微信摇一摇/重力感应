@@ -1,0 +1,19 @@
+devicemotion事件
+				作用：监听加速度变化
+				window.addEventListener('devicemotion',function(){})
+
+devicemotion事件所包含的属性：
+				1、 accelerationincludingGravity 重力加速度
+								（分为x、y、z三个方向的重力加速度，其中z轴需要乘以9.8）
+				2、acceleration 重力加速度（需要陀螺仪支持）
+				3、rotationRate(alpha,beta,gamma) 旋转速率
+				4、interval 获取时间间隔
+				以上属性均为只读属性。
+
+deviceorientation事件
+				作用：监听设备在方向上的变化
+
+deviceorientation事件所包含的属性：
+			1、 alpha 设备沿z轴上的旋转角度，范围为0~360
+			2、beta 表示设备在x轴上的旋转角度，范围为-180~180描述的是设备由前向后旋转的情况
+			3、gamma 表示设备在y轴上的旋转角度，范围为-90~90描述的是设备由左向右旋转的情况

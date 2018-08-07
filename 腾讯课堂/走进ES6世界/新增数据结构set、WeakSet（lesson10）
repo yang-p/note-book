@@ -1,0 +1,53 @@
+数据结构：数组、对象、set、map
+
+
+
+set数据结构特点：
+				1.类似数组，但里面不能有重复的值。
+				2.set对象可以进行链式调用，比如：set.add('a').add('b')。
+				3.set不存在索引值，它的索引值就是value值，不论是用for-of还是
+					用forEach循环，得出的索引值都和value值相等。
+				4.Set只能放数组，如果放对象就会报错，比如new Set({a:1,b:2}),
+					但是它可以通过add方法放对象类型的变量，比如 set.add(obj)。
+
+					
+set的用法：	let set = new Set(['a','b','c']);
+
+
+set的增删查：
+			先实例化一个set对象，let set = new Set();
+
+			增：	set.add('aaaa'); 添加的元素放在已有元素的后面
+					
+			删： set.delete('aaaa')	要删除的元素原本存在set里面，那么返回true
+									否则，要删除的元素不在set里面，那么返回false。
+					
+			查： set.has('aaaa'); 返回布尔值false，因为上面已经把aaaa删除了。	
+
+set的属性：
+			size   查看set里面的元素个数
+
+set的方法：
+			clear() 清除set里面的所有元素
+			forEach()
+			for-of
+
+
+让set使用数组的filter和map方法： [...set].map(val=>{})
+				
+
+___________________________________________________________________________________
+set的一个简单应用：
+		数组去重：
+					let arr = [1,2,3,1,2,4,5,6];
+					let newArr = [...new set(arr)];	
+
+____________________________________________________________________________________
+
+WeakSet
+		按照官方标准，set只能存放数组，因此WeakSet是用来存放对象的。
+		但是WeakSet和Set一样，都没法直接存变量，并且WeakSet还没有size属性和clear方法。
+
+		所以，不建议用WeakSet。
+
+		

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="wrapper">
+		<ul>
+			<li id="item">1</li>
+			<li id="cas">2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+	</div>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script>
+		function test(demo){
+			console.log(demo);
+
+		}
+		test($('li[id ~= "a"]').html());
+	</script>
+</body>
+</html>

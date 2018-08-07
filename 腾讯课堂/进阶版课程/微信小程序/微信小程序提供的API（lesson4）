@@ -1,0 +1,3 @@
+wx.getLocation 获取地图信息
+
+wx.getSystemInfo 获取设备信息

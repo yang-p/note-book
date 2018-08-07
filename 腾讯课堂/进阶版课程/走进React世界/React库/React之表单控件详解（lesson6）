@@ -1,0 +1,30 @@
+
+在react中表单分为受控表单和非受控表单
+
+
+
+React表单注意点：
+				1. 给value属性设置了值，input框、textarea文本框不能进行修改。
+					设置了checked属性时，只能为选中状态，不可更改。
+
+				2. textarea的值建议设置到value属性上。
+
+				3. select的value属性，属性值为某个option的value值时，就选中哪个
+					option，并且不可改变。 不建议使用option中的selected属性。
+
+				4. input/textarea 会有onChange事件，这个事件相当于原生js的oninput事件。
+
+				5. label元素的for属性，在React中是htmlFor
+
+什么是受控表单？
+				给input框设置value值，给radio、checkbox、select设置checked、selected，
+				然后配合onChange事件，将state里面的属性进行更改。
+
+什么是非受控表单？
+				给value、checked、selected属性前面加default，
+				比如defaultValue、defaultChecked、defaultSelected。
+				在value属性和状态属性前面加default，此时就和原生js的value属性和状态属性一样。
+
+				获取某个input的defaultValue值，在input上添加ref属性。
+				例子： <input type="text" name="user" ref="usrname" defaultValue="杨鹏" />
+						let user = this.refs.username.value;

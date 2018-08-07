@@ -1,0 +1,45 @@
+什么是nodeJS：
+			1.node是基于Chrome V8引擎的JavaScript运行环境(从v8内核将JavaScript部分分离出来)。
+nodeJS的特点：
+			1.轻量高效、因为它使用了事件驱动、非阻塞I/O的模型。
+			2.单线程(错误的说法，其内部是多线程，只是进行了封装，)
+
+nodeJS的应用：
+			1.node的包管理器npm，是全球最大的开源库生态系统。(当安装node时，会自动安装npm)
+
+前端使用node的理由：
+					1.JavaScript运行环境
+					2.运行速度非常快(v8引擎以及non-block)
+					3.node的包管理工具npm
+
+下载及安装node：
+				node中文官网下载对应系统的最新版nodeJS软件即可
+				下载完毕后，默认情况一步步安装即可
+				打开cmd，输入node -v 如果输出node的版本信息，那么代表node安装成功。
+				输入npm -v 如果输出npm的版本信息，那么代表npm也安装成功了。
+				输入node，然后输入js代码，比如console.log('hello,world')如果输出'hello world'
+						那么代表node环境可以运行JavaScript代码。
+
+如何用node运行编辑器的js代码:
+			1.在存放js文件夹(假设为index.js文件)目录打开cmd命令，输入 node index.js
+			2.用webStrom，因为webStrom编辑器自带命令行工具，在该编辑器中切换到js文件夹，
+				然后右键单击‘run index.js’
+			3.仍然是webStrom自带的命令行工具，点击右下角'Terminal'，通过cd命令切换到存放
+			  index.js文件夹的目录，然后输入node index.js
+——————————————————————————————————————————————————————————————————————————————————————————————————
+V8引擎的介绍：
+		JavaScript引擎的作用:  
+								让电脑识别js代码
+								JavaScript代码 ===> JavaScript环境转换 ====> 电脑能识别 。
+								JavaScript代码====> 电脑展示的还是js代码
+		V8引擎是用什么写的：
+								底层使用C++
+
+
+————————————————————————————————————————————————————————————————————————————————————————————
+
+插件扩展：
+
+nodemon      当js文件内容有改变时，会自动启动node服务器
+			安装：需要全局安装、本地安装： npm i nodemon -g    npm i nodemon -D
+			使用：nodemon server     //server是一个js文件名，该文件有node服务器

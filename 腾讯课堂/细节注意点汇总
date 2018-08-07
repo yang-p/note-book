@@ -1,0 +1,1 @@
+1). 定时器里面的function的this指向window。

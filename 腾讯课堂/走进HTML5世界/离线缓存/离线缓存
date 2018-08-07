@@ -1,0 +1,50 @@
+离线缓存是html5的API: window.applicationCache
+缓存带来的作用：
+				1、用户可以在离线时使用他们
+				2、减少服务器的负载
+				3、客户端加载速度更快
+
+实现缓存的步骤：
+			1、在html标签添加manifest属性，属性值为以后缀名为manifest的文件路径
+			2、编写后缀名为manifest的文件
+				该文件分为三部分：
+							CACHE MANIFEST 【此标题下出现的文件在首次下载后被缓存】
+								1、CACHE: 
+										html/index.html //需要缓存的文件
+
+								2、NETWORK: 
+										js/jquery.js  //不需要缓存的文件
+
+								3、FALLBACK:
+										html/index.html //当页面无法访问时的回退页面
+
+			3、在服务器上设置内容类型
+					manifest文件的MIME类型是text/cache-manifest
+
+注意点：
+		引用的后缀名为manifest文件必须和html页面同源，同域
+
+
+缓存状态：
+		window.application.status
+				0 	未缓存
+				1 	空闲（缓存为最新状态）
+				2	检查中
+				3	下载中
+				4	更新就绪
+				5	缓存过期
+
+主动更新缓存：applicationCache.undate()
+
+applicationCache缓存相关的事件：
+				undateready事件，当有新的缓存并更新完成后触发
+				progress事件，	当有新的缓存，并处在下载过程中，不断触发此事件
+								该事件的事件源对象中有两个属性loaded和total，
+								loaded: 代表已经加载完成的文件
+								total:	总共需要更新的文件数
+				
+				checking事件，  正在检查
+				obsolete事件，  缓存过期
+				cached事件，	空闲，缓存为最新状态
+				error事件，		报错
+				noupate事件，	检查更新结束，没有需要更新 

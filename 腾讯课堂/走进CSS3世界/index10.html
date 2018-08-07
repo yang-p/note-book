@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.wrapper {
+			width: 0;
+			height: 0;
+			
+			border: 20px solid transparent;
+			border-left-color: #ccc; 
+		}
+		.top {
+			border-color: transparent; 
+			border-top-color: #ccc; 
+		}
+		li {
+			width: 400px;
+			height: 50px;
+			margin: 50px auto;
+			list-style: none;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li>
+			<div class="wrapper"></div>
+		</li>
+	</ul>
+	
+	<script>
+		var oWrapper = document.getElementsByClassName('wrapper')[0],
+				oLi  = document.getElementsByTagName('li')[0],
+				flag = true;
+			oLi.addEventListener('click',function(){
+				if (flag) {
+					flag = false;
+					oWrapper.className = "wrapper top";
+				}else{
+					oWrapper.className = "wrapper";
+					flag = true;
+				}
+					
+			})
+				
+	</script>
+</body>
+</html>

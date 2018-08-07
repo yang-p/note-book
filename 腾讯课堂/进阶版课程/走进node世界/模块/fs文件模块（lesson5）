@@ -1,0 +1,88 @@
+
+1.流程：引入fs模块 ---> 调用方法 ---> 异常捕获
+
+2.读取文件(fs.readFile / fs.readFileSync)
+			同步读取文件方法：
+							let read = fs.readFileSync('文件路径加文件名','编码格式')
+			异步读取文件的方法：				
+							fs.readFile('文件路径加文件名','编码格式',(arr,data)=>{
+								if(err) throw err;
+							})
+
+			注意点：
+					1.第一个参数的文件名要写上后缀
+					2.第二个参数，由于读取的文件内容为二进制，所以需要进行转换，一般转换成utf8格式。
+					3.同步没有回调函数，但是会返回一个对象。
+					4.异步的回调函数中的第一个参数是用来接受文件读取失败后的错误信息，
+					  第二个参数接受文件读取成功时的读取内容。
+
+
+3.写入文件(fs.writeFile / fs.writeFileSync)
+		    同步写入文件方法：
+							let read = fs.writeFileSync('文件路径加文件名','写到指定文件夹的内容')
+			异步写入文件的方法：				
+							fs.writeFile('文件路径加文件名','写到指定文件夹的内容',(arr,data)=>{
+								if(err) throw err;
+							})	
+
+			注意点：
+					1. 指定的文件夹下不存在指定的文件名时，系统会创建一个指定的文件名的文件夹。
+
+
+4.删除文件(fs.unlink)
+			fs.unlink('要删除的文件',(err)=>{
+					if(err) throw err;
+					console.log('文件删除成功');
+			})
+
+			注意点：
+					1.回调函数可写可不写
+					2.当要删除的文件不存在时，触发error状态，回调函数会抛出异常。
+
+
+
+5.创建文件夹(fs.mkdir / fs.mkdirSync)
+		同步创建文件夹： fs.mkdirSync('文件夹名称')
+
+		异步创建文件夹： fs.mkdir('文件夹名称',(err)=>{if(err) throw err;})
+
+		注意点：
+				1.当要创建的文件已经存在时，再次执行创建该文件会报错。
+
+
+
+
+6.删除文件夹(fs.rmdir / fs.rmdirSync)
+		同步删除文件夹： fs.rmdirSync('文件夹名称')
+
+		异步删除文件夹： fs.rmdir('文件夹名称',(err)=>{if(err) throw err;})
+		
+		注意点：
+				1.当要删除的文件夹，它里面包含有文件，那么删除不了该文件夹。
+					所以，应该先删除里面的文件，再删除该文件夹。
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————
+读写数据流
+
+	流程：引入fs模块 ---> 创建读或写数据流对象
+
+	创建写入数据流对象：
+					let writeStream = fs.createWriteStream(__dirname + 'example.txt');
+						writeStream.write('要写入的内容')
+
+
+
+	创建读取数据流对象：
+					let readStream = fs.createReadStream(__dirname + 'example.txt','utf8');
+
+	将读取的数据流放在目标文件：
+
+				第一种：data事件
+									readStream.on('data',(chunk)=>{
+								//chunk指的是读取的数据的数据流，数据流可能有一个或多个。
+									writeStream.write(chunk);
+								})
+
+				第二种：管道pipe方法
+								     readStream.pipe(writeStream);

@@ -1,0 +1,182 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+	name="viewport"	表示定义视口大小
+	width=device-width 元素的宽度以当前设备宽度为准
+	user-scalable=no 是否允许用户缩放，此处为否
+	initial-scale=1.0 初始的缩放比例，此处为1
+	minimum-scale=1.0, maximum-scale=1.0 最小和最大的缩放比例，此处都为1所以不缩放。
+
+——————————————————————————————————————————————————————————————————————————————————————
+	目前所有的响应式布局都是用媒体查询。
+
+	Media Query(css3)是Media Type(css2)的增强版，Media Query == 媒体类型 and 媒体特性。
+	
+
+	媒体查询的三种引入方式：
+						1). link
+								<link media="媒体类型 and (媒体特性)" href="">
+						例子<link media="screen and (max-width:800px)" href="index.css">
+							在彩色屏幕设备上渲染宽度小于等于800px时使用index.css文件。
+
+						2). @import
+
+						3). css3新增@media 
+								例子： 
+									在style标签里面添加 @media 媒体类型 and (媒体特性1)
+																and(媒体特性2){css样式}
+									在css文件里面@media 媒体类型 and(媒体特性1){css样式1}
+												 @media 媒体类型 and(媒体特性2){css样式2} 
+							
+
+			媒体类型(用前三种)：
+					all 所有设备
+					screen 彩色电脑屏幕，默认的媒体类型
+					print 文档打印或打印预览模式
+					tv 电视	
+					speech 演讲
+					ttv 固定字母间距的网格媒体，比如电传打字机
+					handheld 手持设备
+					projection 项目演示，幻灯片
+					braille 盲文
+					embossed 盲文打印
+
+			媒体特性：
+					width 	渲染界面的宽度
+					height	渲染界面的高度
+					max-width
+					min-width
+					max-height
+					min-height
+					device-width	设备屏幕的输出宽度
+					device-height	设备屏幕的输出高度
+					color	每种色彩的字节数
+					color-index 色彩表中的色彩数
+					grid	是否基于栅格的设备
+					orientation	横屏或竖屏
+					resolution	分辨率
+					device-aspect-ritio	宽高比例
+
+媒体查询的使用格式：
+			括号 媒体特性必须写在括号里面。
+				例子: (max-width: 500px)
+
+			and 连接操作符  作用连接媒体类型和媒体特性，以及作为媒体特性与媒体特性的连接。
+				例子: @media screen and (min-width: 200px) and (max-width: 800px){}
+
+			逗号 起或的作用 分割不同的媒体类型
+				例子：@media screen and(), print and (){}
+
+			not 否定条件 只能放在@media后面和第一个媒体类型之间
+				例子：@media not 媒体类型1 and (), 媒体类型2 and (){} 
+						除了媒体类型1和2之外的才可以使用css样式。
+
+			only 对早期浏览隐藏媒体查询
+				对于新版浏览器只有仅仅的作用，写不写都一样，但是在早期浏览器中，
+				 识别媒体查询时，浏览器只会识别媒体类型，而在媒体类型前面加了only，
+				 那么它会识别为"media=only"。
+
+——————————————————————————————————————————————————————————————————————————————————————
+浏览器渲染原理
+1.处理html生成DOM树
+				细节：
+					 浏览器将html代码解析成一个DOM树，html中的每一个标签都是DOM树的一个节点，
+					 其中通过JS动态添加的html标签，也会被添加到DOM树中。
+					 DOM树的根节点是html标签(document对象)。
+
+2.处理css生成CSSDOM树
+				细节：
+					 浏览器将所有的样式(css样式和浏览器默认的样式)解析成样式结构体，在解析过程中
+					 浏览器会去掉无法识别的样式，生成CSSDOM树。
+
+3.将两树合并生成render树
+				细节：
+					 DOM树和CSSDOM树合并成render树，render树上的每个节点都有自己的样式，
+					 但是设置了隐藏属性的节点display: none和无样式的节点head不会被放在render树上，
+					 而visiblity:hidden由于会占用空间、影响布局所以会放在render树上。
+					 
+4.对render树进行布局计算
+				细节：
+					 render树创建完成后，根据css样式进行计算，
+					 布局阶段的输出结果称为"盒模型"，盒模型展示了一个元素当前的位置和大小，
+					 并且将相对单位的值转换成了屏幕上绝对像素位置。
+
+5.将render树的每一个节点绘制到屏幕上
+				细节：
+					 将计算出来的信息渲染为屏幕上每一个真实的像素点，这个阶段称为"绘制"或者栅格化。
+
+
+重排、重绘
+		重排发生在第4步，当render树中的一些节点因为尺寸、位置是否隐藏等改变时，需要重新计算，
+						  此过程称为"回流"，即重排。
+
+		重绘发生在第4步，当render树中的一些节点需要更新属性，而这些属性只是影响元素的外观风格，
+						   而不会影响布局，称为重绘。
+
+		重排重绘都会影响性能。
+
+		蓝色：网络通信和htnl解析
+		黄色：JavaScript执行
+		紫色：样式计算和布局，重排
+		绿色：重绘	
+
+		触发重排的方法：
+					由于以下属性和方法需要返回最新的布局信息，重新计算渲染树造成回流。
+					offsetTop、offsetLeft、offsetWidth、offsetHeight
+					scrollTop、scrollLeft、scrollWidth、scrollHeight
+					clientTop、clientLeft、clientWidth、clientHeight
+					getComputedStyle()、currentStyle()
+
+					由于现在的浏览器会将触发重绘重排的变动，尽可能的排成一个队列一次性执行，
+					减少了回流的次数。所以要操作以上属性和方法是时尽量放在一起。
+
+					div.style.left = div.offsetLeft + "px";
+					div.style.top = div.offsetTop + "px";
+					将重排赋给重绘，这种交叉写法，执行一次重排然后执行一次重绘
+									再然后执行一次重排最后再执行一次重绘。
+
+					var oLeft = div.offsetLeft,
+						oTop = div.offsetTop;
+					div.style.left = oLeft + "px";
+					div.style.top = oTop + "px";
+					重排放在一起，重绘放在一起，执行一次重绘和一次重排。
+
+
+——————————————————————————————————————————————————————————————————————————————
+css3动画
+transform-style: flat|preserve-3d;	设置在父元素中，该父元素作为动画的舞台，子元素就是动画。
+				flat 默认属性值 子元素为2d元素
+				preserve 子元素都是3d元素
+
+		要使具有3d属性的子元素有3d效果，那么就需要设置景深。
+		景深：人与物体的距离，值越大效果越差。
+		触发景深的两种方法：
+							1).在父元素上设置perspective: XXpx;
+							perspective的默认值为none。
+
+							2).在子元素上设置transform: perspective(XXpx);
+		
+
+		perspective-origin	设置在父元素上。
+							相当于眼睛从什么位置看舞台上的物体。眼睛所在的点俗称"透视点"。
+							默认值是 50% 50%;舞台的正中心
+
+		backface-visibility: visible|hidden; 设置在目标子元素上
+							visible默认值，背面可见，即 将该元素旋转至背面朝向透视点时可以看见。
+							hidden， 将该元素的背面朝向透视点时不可见。
+
+		css3性能优化，尽可能多的利用硬件加速，3d变形就可以使硬件GPU加速
+		比如 transform: translate(...px);----> transform: translate3d(Xpx, Ypx, Zpx);
+			 transform: rotate(...deg);----> transform: rotate3d(X, Y, Z, ...deg);
+			 注意点：
+			 		rotate3d的X、Y、Z的值为0到1，三个值的合力为旋转的中心点。
+			 		当为0时代表不在某个轴上，当两个轴为零另一个不为0时，那么就以不为0的轴旋转。
+
+			 		1).通常动画过程(一般在动画开始的时候)会有闪烁，
+			 		设置backface-visibility:hidden; perspective: 1000; //用兼容所有浏览器的写法。
+
+			 		2).translate3d的写法性能优于left。
+			 		3).尽可能少的使用盒子阴影、文本阴影、径向渐变。(他们被称为性能杀手)
+			 		4).尽可能不让动画元素在文档流中，即脱离文档流fiexed、absolute。
+
+
+

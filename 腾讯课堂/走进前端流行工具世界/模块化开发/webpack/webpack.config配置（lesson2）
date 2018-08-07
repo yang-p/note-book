@@ -1,0 +1,48 @@
+module.exports = {
+	//entry入口配置
+	//output出口配置
+	//module模块配置
+	//plugins插件配置
+	//devServer服务器配置
+}
+
+注意点：
+		入口配置和出口配置是运行的最低要求，也就是说入口配置和出口配置是必须写的。
+
+
+
+entry对象：
+			entry的属性值可以是字符串、数组、对象，常用的是对象形式。
+			当属性值为字符串时，一般是一个入口文件，一个出口文件。
+			单文件入口写法：entry : './src/index.js'  
+
+			当属性值为数组时，一般是多个入口文件，一个出口文件。
+			多文件入口写法：entry : ['./src/index.js','./src/index1.js','./src/index2.js']
+			上面的入口文件被放在一个出口文件中，放置顺序是以数组的索引顺序放置。
+
+			当属性值为对象时，一个或多个入口文件，一个或多个出口文件。
+			在4.x版本，多入口文件，一个出口文件，系统只会将第一个入口文件作为出口文件。
+			所以在出口文件需要写成 filename : [name]."index.js"   //或者是这种写法[name]-"index.js"。 
+			
+		
+							
+output对象：
+			filename属性	filename : './dist/js/index1.js'。出口目录+出口文件的文件名	
+			path属性		path : "./dist" 出口目录，一般用了path属性，那么filename属性只写出口文件名。
+						注意：
+								path属性的属性值必须是绝对路径，在node里面有一个 __dirname属性，
+								它储存的是cmd所在当前文件夹的绝对路径值。
+								所以 path : __dirname + "/dist"。
+								但是上面这种方法比较low，一般写法是 path : path.resolve(__dirname,'dist')
+								path.resolve是node的一个系统模块path中的一个方法，用来拼接路径。
+								但是要想path.resolve起作用，必须要先引入 const path = require('path');
+				
+
+plugins数组：
+				plugins : [
+						new HtmlWebpackPlugin({···此处填该插件的配置项})
+				]
+
+				
+
+devServer对象

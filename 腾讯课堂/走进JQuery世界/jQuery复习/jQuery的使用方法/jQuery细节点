@@ -1,0 +1,7 @@
+$()里面放函数，只有在页面的window.onload里面的函数执行完之后，才执行。
+其原理是，当$()里面放函数时，jQuery内部会调用ready方法，$().ready(fucntion() {})
+
+eq()方法里面可以为负数，其内部实现为负数加上length。当负数大于length值时，则选择不出来元素。
+
+凡是能循环执行某个方法时，应该立即想到在该方法里面写function(index){return xxxx}。
+比如：$('li').wrapper(function(index) {})

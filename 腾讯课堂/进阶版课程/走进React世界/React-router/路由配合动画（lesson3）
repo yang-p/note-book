@@ -1,0 +1,2 @@
+1. 下载 react-transition-group
+2.在js模块中引入import {TransitionGroup,CSSTransition} from 'react-transition-group'

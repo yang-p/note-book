@@ -1,0 +1,16 @@
+
+1.大多数nodeJS的核心API都是采用异步事件驱动架构(比如：fs/http)
+
+2.所有能触发事件的对象都是EventEmitter类的实例
+
+3.事件流程：引入events模块 ---> 创建EventEmitter对象 ---> 注册事件 ---> 触发事件
+	
+	引入模块：	const EventEmitter = require('events');
+
+	创建EventEmitter对象：
+				class MyEmitter extends EventEmitter {}
+				const myEmitter = new MyEmitter();
+
+	注册事件:	myEmitter.on('event',()=>{})
+
+	触发事件:	myEmitter.emit('event','将该参数传递到注册事件的回到函数中');

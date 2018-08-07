@@ -1,0 +1,50 @@
+iframe的作用：
+		在线编辑器、导航栏tab切换页、广告植入
+		解决ajax前进后退问题
+		跨域通信：
+			hash值(从不同页面获取到hash值)
+			window.name(该方法是将属性值刻在窗体上，只要是在该窗口下即使不同源页面都能访问window.name)
+iframe优缺点：
+	缺点：阻塞页面加载，因为有src属性，只有src属性的资源加载完才会触发onload事件。
+	解决办法：
+	在iframe触发onload事件后再执行某些事件，如oIframe.onload = function(){}。
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+以下需要满足同源策略的情况下才能进行获取对方的属性和方法：
+
+当前页面获取子窗口(iframe)的window对象的方法：
+			1). document.getElementsByTagName('iframe')[0].contentWindow
+			2). document.getElementById('id').contentWindow
+			3). window.frames['iframe的name属性的值']  //有些浏览器不支持
+	IE专用：
+			1). document.iframes[name].contentWindow
+			2). document.iframes[i].contentWindow
+
+子页面获取父级页面的window对象的方法：window.parent
+			
+后代页面获取顶级页面的window对象的方法：window.top
+		
+当前页面获取当前页面的window对象：window.self   一般用于判断
+		
+
+
+
+document.domain: 解决跨域限制最好的方法
+		两个域名必须属于同一个基础域名，并且使用的协议端口都要一致，否则无法跨域。
+		使用方法：
+					bj.58.com和tj.58.com实现跨域
+					在script标签的顶部加上 document.domain = '58.com';
+
+window.location.hash 解决子页面访问父页面数据问题
+				利用锚点#在url地址后面拼接进行传递数据，
+				利用定时器实时监测，但是非常耗性能，
+				锚点的好处就是不刷新页面。
+		子页面访问父页面方法：
+						首先在父页面为iframe的src属性设置hash参数，
+						然后在子页面设置定时器监测父页面的hash值变化。
+
+
+
+
+window.name 解决父页面访问子页面数据问题
+PostMessage

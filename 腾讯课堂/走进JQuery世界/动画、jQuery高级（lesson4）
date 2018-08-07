@@ -1,0 +1,160 @@
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+实现动画：
+.animate()   animate({属性1:'属性值1', 属性2 : '属性值2'},动画运动时间,速率,function(){})
+			例子:$('div').animate({left:300},2000,function(){console.log('ok')})
+			写多个动画有两种方式，一种是在回调函数中写animate方法，另一种是
+			利用jQuery的链式调用特性，在前一个animate方法后面添加animate方法。
+
+速率：
+		swing 	由慢到块再到慢
+		linear 	匀速运动    这两种是jQuery文件自带的。
+		.....
+		.....  需要导入jQuery.easing.js文件
+延时动画：
+          .delay()	 例子：$('div').delay(1000).animate(.....)等待一秒后执行动画。	
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++		
+停止动画：
+
+.stop([false],[false])  		结束当前运动执行下一个运动。
+.stop(true,[false]) 			阻止当前运动和后面的所有运动。
+.stop(true/false,true/false)	
+		第一个参数为false时和stop方法一样，为true时阻止所有运动。
+		第二个参数代表当前运动是正常执行(false)还是瞬间位移到目标点(true)。
+.stop(true,true) 当前运动瞬间位移到目标点，并阻止后面的运动
+.stop(false,true) 当前运动瞬间位移到目标点，并正常执行后面的运动
+
+.finish()  停止所有运动，并到达最后一个运动的目标点
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+滑动效果：
+.slideUp()   	如果元素是显示状态，通过向上滑动效果使元素隐藏 
+				目标元素的display由block变成none。
+.slideUp(speed,callback)
+
+.slideDown() 	如果元素是隐藏状态，通过向下滑动效果使元素显示。
+
+.slideToggle(speed,callback)	
+		如果目标元素的display是none则执行slideDown方法，如果是block执行slideUp。
+.toggleClass('active')
+			先检查目标元素是否有指定的类，若有则删除，没有则添加指定的类。
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+主动触发事件：
+.trigger('事件类型')  事件类型可以是自定义事件也可以是系统自带事件,自定义事件只能用on绑定。
+				trigger方法会触发事件冒泡
+					例子：$('body').on('eat',function(){console.log('aaa')})
+						  $('body').trigger('eat') 当刷新页面时console下自动打印出aaa。
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+jQuery工具方法：
+形如$().css()的叫实例方法，因为$()的执行会返回一个对象,
+						   因此css()是对象上的一个方法。(和原型有关)
+形如$.trim()的叫工具方法，$是一个函数，因此trim是函数上的一个方法。
+
+
+$.type()   判断参数的数据类型,基本数据类型和引用数据类型都能用。
+
+           原生js的instanceof在判断一个数组是否为Array或object时
+           都返回true，不准确。
+           一般instanceof的作用是用来判断继承关系。
+           constructor在同一个window下能正确判断，但是当引入
+           iframe标签时，不在同一个window下，会判断出错。
+
+$.trim() 	消除字符串里面的空格，并且只清除字符串中最右边和
+			最左边的字符与引号之间的空格。
+
+$.proxy(参数1，参数2)   改变this指向，参数1是要改变this指向的函数名，
+						参数2是该函数名指向谁。
+						ptoxy方法返回的是改变this指向后的函数声明。
+
+$.noConflict()  权限移交，由于$符号并不只是jQuery专有变量,
+				其他js库也会用到$变量，所以jQuery通过这个方法进行权限移交。
+				例子：var gg = $.noConflict('$');
+						此时console.log($('div'))会报错，
+					 	应写为console.log(gg('div'))。
+
+$.parseJSON()	     将json格式的字符串转换成对象。
+$.stringifyJSON()    将json字符串转换成json对象。
+$.makeArray() 	     将对象转换成数组。
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+jQuery高级：
+
+$.extend()  插件扩展1，提供新的jQuery工具方法。
+			例子：$.extend({
+					leftTrim : function(str){
+						var reg = /^\s+/g;
+						retrun str.replace(reg,'');
+					}
+			})
+			$.leftTrim(str) $函数可以直接取出自定义的leftTrim方法。
+
+$.extend()  第二点作用：浅拷贝对象的属性和方法。
+			例子：$.extend(obj1,obj2,obj3,....)	
+				第一个参数作为主体，将obj2、obj3...objn的属性值依次
+				放在obj1中，如果有相同的属性值，则后面的对象属性的
+				属性值覆盖前面的。
+$.extend(true,参数1，参数。。。)	深拷贝对象的属性和方法。
+				
+
+$.fn.extend()  $.fn其实质是jQuery.prototype,
+			  因此在$.fn.extend上定义方法就是在jQuery原型上定义。
+			  在原型上定义的方法被称为实例方法，因此$().leftTrim()。
+++++++++++++++++++++++++++++++++++++++++++++++++			  
+回调函数队列：
+$.Callbacks()	返回的是一个用来放置一组回调函数的对象，var cb = $.Callbacks()
+				cb.add()  	添加回调函数到cb对象中。
+							使用方法：
+							         cb.add(函数名1) 只添加一个函数
+							         cb.add(函数名2)
+							         cb.add(函数1,函数2,...)
+							         cb.ad([函数1,函数2,...]) 
+				cb.fire()	触发cb对象中的回调函数。每执行一次fire方法
+							就会执行一次cb对象中的所有已在的回调函数。
+	$.Callbacks方法的四个参数：
+				once 	只执行一次fire方法 $.Callbacks('once')
+				unique	添加多个相同的回调函数，fire时只会执行一次该回调函数。
+				memory	在fire执行之后又添加回调函数，那么新的回调函数也会被触发。
+						memory和fire触发函数的不同是，fire每次执行的是cb对象中所有
+						的回调函数，memory只会执行新添加的。
+
+				stopOnFalse 	如果回调函数中有return false;并且Callbacks方法有
+								这个参数，那么当执行完带有return false的函数后，
+								后面的函数都不会执行。
+
+			参数的混合使用：  $.Callbacks('once memory')参数与参数之间用空格隔开。
+
+
+
+$.Deferred()		储存有状态的回调函数对象 var dtd = $.Deferred();
+				其内部就是用Callbacks()实现的。
+				dtd.resolve() 返回成功的状态
+				dtd.reject()  返回失败的状态
+				dtd.notify()  返回进行中的状态
+		三种状态的注意点：notify可以和resolve或reject一起存在，并且可以被执行多次，
+						  但是reject和resolve自身只能执行一次。因为notify是$.Callbacks()的
+						  参数为memory，而reject和resolve在$.Callbacks()传的once。
+
+				dtd.done()	当接收到成功的状态时，done方法触发里面的函数
+				dtd.fail()	当接收到失败的状态时，fail方法触发里面的函数
+				dtd.progress()当接收到进行中的状态时，done方法触发里面的函数
+				注意点：
+					done和fail在接收到各自的状态时只执行一次的原因是，
+					Callbacks方法用了once参数。
+				例子：var dtd = $.Defered();
+					 function aa(dtd){
+							....
+							dtd.resolve();
+						}
+				dtd.done(function(){console.log('a')}).fail(...).progress(...)
+				
+			dtd.promise()  让dtd对象变成只读的对象，放置外部的操作改变状态值，
+								var aa = dtd.promise();
+							aa.resolve()或.notify()或.reject()无法改变dtd的状态。
+							但是直接用dtd.resovle()|notify()|reject()仍会改变。
+							用法：function aa(){
+								var dtd = $.Deferred();
+								...
+								return dtd.promise();
+							}
+
+$.when()
+

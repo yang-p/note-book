@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+		color: #fff;
+		font-size: 14px;
+	}
+	.mus {
+		width: 100%;
+		height: 100px;
+		background-color: #000;
+		opacity: .5;
+	}
+	.mus .wrapper {
+		position: absolute;
+		width: 600px;
+		left: 50px;
+		margin-left: 300px; 
+	}
+	.previous,.on,.next {
+		display: inline-block;
+		width: 50px;
+		height: 50px;
+		border-radius: 50px;
+		background-color: #f40;
+		text-align: center;
+		line-height: 50px;
+		cursor: pointer;	
+	}
+	.mus .msg .pic {
+		width: 80px;
+		height: 80px;
+		background-color: yellow;
+	}
+	.mus .btn,.mus .msg {
+		float: left;
+	}
+	.mus .btn {
+		margin-top: 25px;
+	}
+	.mus .msg {
+		margin: 10px 0 0 10px;
+	}
+</style>
+</head>
+<body>
+	<div class="mus">
+		<audio class="audio">
+			<source src="D:\迅雷下载\屋顶着火.mp3" type="audio/mp3">
+		</audio>
+		<div class="wrapper">
+			<!-- 三个按钮 -->
+			<div class="btn">
+				<span class="previous">上一曲</span>
+				<span class="on">暂停</span>
+				<span class="next">下一曲</span>
+			</div>
+			<!-- 歌曲信息 -->
+			<div class="msg">
+				<img class="pic" src="" alt="">
+				<h3></h3>
+				<span>/</span>
+				<div class="progress">
+					<span></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+   <script>
+
+   </script>
+</body>
+</html>

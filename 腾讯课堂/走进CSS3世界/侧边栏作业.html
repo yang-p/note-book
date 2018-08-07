@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+
+		ul{
+			position: relative;
+			width: 100px;
+			height: 153px;
+			margin: 50px 0 0 50px;
+		}
+
+		li{
+			list-style: none;
+			width: 100%;
+			height: 50px;			
+			text-align: center;
+			line-height: 50px;	
+			background-color: #ccc;
+			border-bottom: 1px solid #666;
+			cursor: pointer;
+		}
+
+		li:last-of-type { border-bottom: 0;}
+
+		li span {
+			position: absolute;
+			left: 100px;
+			top: 0;	
+			border-radius: 2px;		
+			opacity: 0;
+			transition: width 1ms linear,height 1ms linear 10ms,
+						opacity 1s ease-in-out, left 1s ease-in-out 100ms;
+		}
+
+		li:nth-of-type(1) span { background-color: #009900; }
+		li:nth-child(2) span { background-color: #0099CC; }
+		li:last-of-type span { background-color: #3300CC; }
+
+		li:nth-of-type(n+1):hover span {
+			width: 200px;
+			height: 153px;
+			left: 120px;
+			opacity: 1;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li>dg
+			<span></span>
+		</li>
+		<li>cg
+			<span></span>
+		</li>
+		<li>stg
+			<span></span>
+		</li>
+	</ul>
+</body>
+</html>

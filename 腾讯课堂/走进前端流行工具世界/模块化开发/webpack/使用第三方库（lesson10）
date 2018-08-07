@@ -1,0 +1,21 @@
+使用第三方库的两种方式：
+		1.通过npm下载第三方库，然后引入
+			npm i jquery -D
+		在需要使用jq的js模块中，引入 import $ from 'jquery'
+
+
+		2. webpack里面自带了一个插件ProvidePlugin
+
+			在webpack.config.js文件中必须先引入webpack，
+			然后再 plugins : [
+						new webpack.ProvidePlugin({
+							$ : 'jquery'
+						})
+
+			]
+
+
+			第一种和第二种方法的区别：
+					1. 第一种方法，当引入第三库库后，无论代码中是否使用它，都会被打包进去，
+						因此会产生大量冗余js代码。
+					2.第二种方法，当只有使用到引入的库时，该库才会被打包进去。

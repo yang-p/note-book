@@ -1,0 +1,89 @@
+javaScript是通过访问bom对象来访问、控制、修改浏览器。
+
+Bom对象包含以下对象：
+window
+Navigator
+History
+Location
+Screen
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+bom是最大的载体，DOM对象在window对象下，所以通过Window下的
+document属性可以访问、修改、检索文档的内容和结构。
+
+window对象：(js层级中的顶层对象，表示浏览器窗口)
+        每个浏览器窗口或框架都有属于自己的Window对象。
+        在浏览器中直接打开一个网页，那么该网页就时浏览器窗口，有自己的window对象，
+        在浏览器窗口中用iframe标签内嵌的窗口称为框架，同样有属于自己的window对象。
+
+常见的window的方法：
+         alert
+         confirm 显示一段消息，并有确定和取消两个按钮的弹出框，
+                 当选择"确定"按钮时，返回true，选择"取消"按钮时，返回false。
+         close  关闭窗口
+         open(url,name,features,replace)  
+
+                 url打开窗口的地址，
+                 name,当前窗口的窗口名,window.name才可查看，并且它的window.parent.name也是自己
+                      而iframe的window.parent.name则是将它嵌套的浏览器窗口。
+               features，设置打开窗口的宽度width=xxx，height=xxx属性之间用逗号隔开。
+                replace ，不支持该属性。
+                注意点：url、name、features都要用引号将属性和属性值包裹起来。
+                        在js中,只要不是涉及样式，那么带像素单位的属性值可以直接忽略像素单位。
+         prompt 显示一个可以输入信息的弹窗。
+         foucus
+         burs
+         moveBy 将目标元素从当前窗口的左上角位置进行移动。
+         moveTo
+         resizeBy 调整窗口的大小
+         resizeTo
+         scrollBy改变滚动条的位置
+         scrollTo
+         setInterval、setTimeOut、clearInterval、clearTimeOut
+
+window对象的属性：
+           closed   判断窗口是否关闭
+           innerHeight
+           innerWidth  返回当前窗口的文档区域的高度和宽度，当对文档区域进行缩放操作时，会影响值。
+           outerheight
+           outerweight 返回整个窗口的宽度和高度
+           length     设置或返回当前窗口的框架数量 frames.length    window.length
+           name       返回当前窗口的名称，无论里面的文档区域从一个页面跳到页面，只要不关闭该窗口，
+                      那么name的属性值就一直存在。
+           pageXoffset
+           pageYoffset 返回相对于文档区域左上角的坐标。
+           parent    返回父窗口
+           top       返回最顶层的父窗口
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Navigator对象：(包含客户端浏览器的信息)
+现在的所有浏览器都是在Netscape浏览器基础上改造的，所以共用netscap代码。
+
+     navigator对象属性：
+        appCodeName返回浏览器的代码名，以netscap代码为基础的浏览器，返回的值是‘mozilla’。
+        appName 返回浏览器的名称，所有的浏览器都是返回‘netscape’。
+        appVersion 返回浏览器版本号及版本信息
+        userAgent 返回APPCodeName + appVersion的内容。
+        cookieEnabled 判断当前cookie是否为开启状态
+        online  判断当前是否处于脱机模式，true表示有网状态，false表示没网。
+        platform 返回当前浏览器运行在什么操作系统平台。
+        plugins  返回当前浏览器所安装插件数量的一个数组
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+history对象：
+         length  返回url数量
+   history方法：       
+         back        返回前一页
+         forward     返回下一页
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+location对象：
+          hash   设置或返回从#开始的url锚
+          host   设置或返回当前主机名和端口号，如果地址栏上没有显示端口号，说明采用的是默认端口号，
+                 无法获取端口号。
+        hostname 当前主机名
+        pathname  端口号后面的文件夹路径
+        href
+        protocol  返回当前url协议，比如http、https
+        search    返回url地址中？号后面的所有内容
+
+  location的方法：
+        assign    在当前窗口添加一个新的文档，当返回上一页时，返回的是原来的那个文档。
+        replace   在当前窗口将现在的文档替换成目标文档，当返回上一页时，返回的时浏览器首页。  
+

@@ -1,0 +1,150 @@
+应用场景：
+			图表
+			图标icon
+			动态特效
+			矢量图
+
+SVG是由一堆标签来控制的，所以效率并没有用js控制的canvas高。
+
+SVG的使用：
+			svg的原理和canvas有些类似。
+			第一步， 创建<svg width=100  height=100></svg>
+			第二步，在svg标签里面添加其他标签
+					直线：<line x1='' y1='' x2='' y2=''></line> 
+						  (x1,y1)相当于moveTo的坐标，(x2,y2)相当于lineTo的坐标。
+						  此时需要在css中为line标签，添加一句 stroke: 颜色值;
+
+					矩形：<rect x='' y='' width='' height='' rx='' ry=''></rect>
+							(x,y)是矩形的左上角坐标，rx、ry分别表示x轴、y轴上的圆角大小。
+							此时，矩形默认是填充状态，颜色为黑色。
+							要想矩形是描边状态，需要在css中添加，fill:transparent; stroke:颜色;
+
+					圆形：<circle  r='' cx='' cy=''></circle>
+							r是圆的半径，(cx,cy)是圆心的坐标点。画出的圆默认是填充黑色状态。
+
+					椭圆：<ellipse rx='' ry='' cx='' cy=''></ellipse>
+							rx表示上下半径为rx的值，ry表示左右半径为ry的值，(cx,cy)为椭圆的圆心。
+
+					折线：<polyline points="x1 y1, x2 y2, x3 y3, x4 y4....."></polyline>
+							每两个点为一个坐标，坐标与坐标之间用逗号隔开(也可以不加逗号)，默认是填充黑色。
+
+					多边形：<polygon points=''></polygon>
+							和折线一样，只不过描边后是闭合的。
+
+					文本：	<text x='' y=''>这里放文本</text>
+
+					path元素： 指令区分大小写，大写为绝对路径，小写为相对路径，大小写可以同时存在。
+								并且所有的指令都在d属性里面。
+
+							    M指令和L指令：<path d='M 100 100 L 200 100 200 200'></path>				
+							    M和L分别相当于moveTo和lineTo，后面每两个点代表一个坐标,
+							    当满足polyline时，默认为填充黑色。
+								对于M来说大小写不影响，但是当L为小写时，l的点是相对于前面的点画出来的。
+								例子：<path d='m 100 100  l 200 100'></path>
+									   从坐标(100,100)开始，先向右走200，此时再以该点向下走100，
+									   最后将这个点和(100,100)连接起来。
+
+							   H指令和V指令： <path d='M 100 100 H 200 V 100'></path>	
+							   					H代表横着画，V代表竖着画。
+
+							   	Z指令：该指令配合上面的指令，将起点和终点连接起来，完成闭合操作。
+							   			不区分大小写。
+
+							圆弧指令：A指令，其后面有七个参数。
+						<path d='M cx cy A rx ry x-axis-rotation large-arc-flag sweep-flage x y'></path>
+							1.  (x,y)表示终点，(cx,cy)表示起点。
+							2.  rx和ry表示以x轴和y轴为半径的椭圆,此时将该椭圆放置在起点和终点之间，
+							    使得终点 和起点都与该椭圆相交，此时得出4条起点到终点的圆弧。
+							3.  large-arc-flag,值为1表示选择大圆弧，为0表示选择小圆弧。
+							4.  sweep-flag,值为1表示顺时针，为0表示逆时针。
+							5.  x-axis-rotation 在最终确认了某一个圆弧后，是否进行旋转以及旋转多少度。
+
+
+					贝塞尔曲线：
+								二次贝塞尔曲线<path d='M 0 0 Q x1 y1 x2 y2'></path>
+							以(0,0)为起始点，经过(x1,y1)到达终点(x2,y2)，形成一段弧线。
+							拓展：T指令，<path d='M 0 0 Q x1 y1 x2 y2 T x4 y4'></path>
+									以(x2,y2)为中心点，延长弧线，得到(x3,y3),然后将
+									(x3,y3)和(x4,y4)连接起来，此时通过贝塞尔计算又会得到
+									(x2,y2)和(x4,y4)两点间的弧线。
+
+								三次贝塞尔曲线: <path d='M cx cy C x1 y1 x2 y2 x y'></path>
+								拓展：S指令， <path d='M cx cy C x1 y1 x2 y2 x y S x3 y3 x4 y4'></path>
+
+
+					svg图形制作即源码导出网址：	editor.method.ac
+
+					渐变：
+							线性渐变  该标签需要放在defs标签里面。
+							<defs>
+							<linearGradient id='bg1' x1='' y1='' x2='' y2=''>
+								<stop offset='0%' style='stop-color:;'></stop>
+								<stop offset='100%' style='stop-color:;'></stop>
+							</linearGradient>
+							</defs>
+							<rect x='0' y='0' width='100' height='100' style='fill:url(#bg1)'></rect>
+							(x1,y1)表示起始点，(x2,y2)表示终止点
+							将渐变色放在矩形里面的方法，style="fill:url(#id)";
+
+							径向渐变，使用方法和线性渐变类似
+							<radialGradient id='' cx='' cy='' r='' fx='' fy=''></radialGradient>
+							(cx,cy)表示渐变的中心点，(fx,fy)表示终止点。r代表渐变半径
+					
+					SVG滤镜：
+								1. 高斯滤镜，实现高斯模糊
+									<defs>
+										<filter id='Gaussian_Bulr'>
+											<feGaussianBulr in='SourceGraphic' stdDeviation='20' />
+										</filter>
+									</defs>
+									将滤镜放在矩形里面的方法，style="filter:url(#id)";
+							
+SVG在css的属性：
+				stroke: 颜色;
+				fill:颜色;
+				stroke-width: 10px; 线宽为10px
+				stroke-opacity/fill-opacity
+				stroke-linecap: round|square|butt
+				stroke-linejoin: bevel|miter|round
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————
+SVG路径动画：
+	css属性
+			1. stroke-dasharray
+								当给一条直线加上该属性时，直线会被分段，每一段长度以及段与段之间
+								的间隔距离由该属性的值决定。
+								当有一个值时，比如10px，那么该直线会被划分为以10px长度的线段，并且线段
+								与线段之间的间隔距离为10px;
+								当有多个值时，比如stroke-dasharray: 10px 20px 30px 40px 50px;
+								第一段线段长度为10px，第一个间隔距离为20px，第二个线段长度为30px
+								第二个间隔距离为40px，第三个线段长度为50px，第三个间隔距离为10px
+								重复循环。
+
+			2. stroke-dashoffset	该属性结合css3的动画属性，可以使物体动起来，当值为负时，向左移动，
+									当值为正时，向右移动。	
+									注意点：
+											该属性还需要结合stroke-dasharray属性，此时将stroke-dasharray的值设为线段的长度最好。
+	JS方法
+			3. getTotalLength() 获取路径总长度
+				每条线的长度是多少乘以多少条线就是总长度，并不会因为stroke-linecap的改变而改变。
+
+			4.getPointAtLength(x)	获取路径上距离起始点x长度的坐标。
+			注意点：以上两个方法，严格来说只用于path元素上，但是chrome也能获取line元素的路径长度。
+
+
+
+			viewBox
+					<svg width='400' height='400' viewBox='0,0,40,30'></svg>
+					当设置了viewBox后，svg的大小不变，但是svg的尺寸是40宽，30高。
+
+					preserveAspectRatio	
+					xMin xMid xMax x轴方向沿左、中、右对齐
+					yMin yMid yMax y轴方向沿上、中、下对齐
+					meet slice none 设置填充方式
+					使用方法：svg.setAttribute('preserveAspectRatio','xMid yMid slice')
+
+js生成svg：
+			由于svg是xml元素，所以创建svg元素的方法为 
+			var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+			svg的属性用setAttribute方法创建。

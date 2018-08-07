@@ -1,0 +1,78 @@
+
+
+处理css文件的loader
+	第一步，下载处理css文件的loader:
+										style-loader
+										css-loader
+
+	第二步，配置
+			module : {
+					rules:[{
+							test:/\.css$/,
+							use:['style.loader','css.loader']
+					}]
+			}
+
+			当后缀名为.css文件时，使用style.loader、css.loader
+
+			loader的三种写法：
+								use : ['xxx-loader']
+								loader : ['xxx-loader']
+								user : [{loader : 'xxx-loader'}]
+
+		注意点：
+				处理css背景图路径问题。
+				路径少了../ s所以需要用publicPath属性，用法看分离css文件的插件部分。
+
+——————————————————————————————————————————————————————————————————————
+
+处理图片的loader：
+					url-loader   依赖file-loader
+					file-loader
+
+在module的rules里面进行配置：
+					module : {
+						rules : [{
+							test : /\.(jpg|png|gif$)/,
+							use : [{
+								loader : 'url-loader',
+								options : {
+									limit : 5000,
+									outputPath : 'images'
+								}
+							}]
+						}]
+					}
+
+		注意点：
+				1.由于url-loader依赖于file-loader所以可以不写file-loader
+				2.由于loader具有优化的作用，所以会将图片转换成base64格式的编码
+					所以应该加options进行配置，limit的作用是，当图片大小大于设置的
+					limit值时，图片为文件格式，当图片大小小于limit值时，图片为base64格式。
+
+				3.如果不设outputpath属性，那么图片是直接放在dist文件夹下，而我们要的是
+				  图片放在dist/images文件夹下。
+
+——————————————————————————————————————————————————————————————————————————————————————
+自动补齐css前缀的loader
+						postcss-loader
+						autoprefixer
+		第一步： 下载上面的两个loader
+		第二步，在项目文件夹下创建一个postcss.config.js配置文件
+				配置文件内容如下：
+						module.exports = {
+						    plugins : [
+						        require('autoprefixer')
+						    ]
+						}
+
+		第三步，在webpack.config.js配置文件里面的loader进行配置
+
+				module : {
+					rules : [
+						{
+							test : /\.css$/,
+							use : ['style-loader','css-loader','postcss-loader']
+						}
+					]
+				}

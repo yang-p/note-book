@@ -1,0 +1,71 @@
+DOM结构树
+Node---->
+         Document---------> HTMLDocument
+                            XMLDocument
+         Element----------> HTMLElement ----> HTMLheadElement---->   head标签
+         CharacterData----> Text              HTMLbodyElement---->   body标签
+                            Comment           HTMLtitleElement---->  title标签
+         Attr                                 更多....
+
+ DOM结构树表达的意思是，原型链的继承        
+文档标签document的原型 ————> HTMLDocument.prototype的原型 ————> Document.prototype的原型————>Node.prototype......
+head标签的原型————>HTMLheadElement.prototype————>HTMLElement.prototype ————>Element.prototype .....
+DOM的最终原型为Object.prototype
+   
+先判断div.childNodes[i].childNodes
+
+————————————————————————————————————————————————————————————
+DOM的增删改查：
+查：
+   ①getElementById方法，定义在Document.prototype上，即Element节点上不不能使用。
+   ②getElementsByName方法，定义在HTMLDocument.prototype上的方法：即非XMLDocument中的document不能使用。
+   ③getElementsByTagName方法，定义在Document.prototype和Element.prototype中
+   ④HTMLDocument.prototype定义了常用的属性，body、head属性分别指代HTML中的body标签和head标签
+   ⑤Document.prototype定义了documentElement属性，指代文档的根元素，在HTML中它总是指代html标签。
+   ⑥getElementsByClassname、querySelectAll、querySelect在Document.prototype和Element.prototype类中均有定义。
+
+注意点：定义在Element.prototype上的方法，在查询某个节点时，
+        比如在div中查询span标签，div.getElementsByTageName('span')[0]
+增：
+   document.createElement()
+   document.createTextNode()
+   document.createComment()
+   document.createDocumentFragment()
+插：
+   parentNode.appendChild(要插入的元素、文本、注释或文档碎片)  appendChild 属于剪切操作
+   parentNode.insertBefore(a ,b)        将a插入到b之前
+删：
+   parent.removeChild()  剪切式删除
+   child.remove();       彻底销毁
+替换：
+    parent.replaceChild(target,orgin) 将target替换掉orgin，属于剪切式替换（orgin仍存在，只是不在页面上）
+————————————————————————————————————————————————————————————
+Element节点的一些属性：
+innerHTML   内容可以写HTML的结构和行间样式，会生效。
+innerText(火狐不兼容)/textContent(IE老版本没有)     内容只能写文本，并且会覆盖该元素里面的所有子节点
+
+Element节点的一些方法：
+ setAttribute('属性名','属性值') 设置行间的值，className也可以改变值
+ getAttribute('属性名')       返回的是属性值   取行间的值
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

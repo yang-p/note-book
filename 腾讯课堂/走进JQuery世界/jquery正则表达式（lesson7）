@@ -1,0 +1,9 @@
+regexps.exec(str)
+	str为要匹配的字符串，regexps为正则表达式，exec为jq的一个方法。
+	返回的是一个数组，第一个元素结果为正则匹配出来的结果，
+					  第二个元素为第一个子表达式匹配出来的结果，以此类推。
+					  该数组还有index键，其值为第一次匹配出的结果的索引值。
+					  input键的值为str的值。
+	当正则表达式后面有g，并且再次执行regexps.exec(str)时，此时的index的值
+					为第二次匹配出来的结果的索引值。
+					该index相当于原生js的lastIndex。

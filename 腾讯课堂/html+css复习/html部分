@@ -1,0 +1,50 @@
+html 全称http type make language 超文本语言
+
+html标签一定要加lang属性，当有多个属性值时用逗号隔开。
+
+至少要有一个带charset属性meta标签，unicode的升级版utf-8，gb1213的升级版gbk
+
+em标签：斜体， strong标签：粗体， del标签：中划线
+
+div和span标签：无语义，容器标签，使html结构化并且可以进行捆绑操作。
+
+空格只起文本分隔的作用。
+
+html编码: 以&开头，以;结尾，常用的有&nbsp;&lt;&gt;
+
+a标签的作用：
+			超连接、锚点(a标签的全称就是他的英文首字母)、协议限定符(href:'javaScript:js代码')、打电话(href:'tel:号码')、发邮件(href:'mailto:邮箱地址')。
+
+
+form表单：
+			input标签，name属性值代表键，value的值代表值。
+			select标签的name属性值代表键，option的value值或option的内容代表‘值’，如果value和内容同时存在，那么以value为准。
+
+
+body有一个默认的margin值，8px.
+
+实现两栏布局并且其中一栏固定宽度，另一栏宽度等比缩放: 固定宽度的那一栏用absolute。
+
+
+
+margin塌陷问题：
+				有两个盒子，呈父子关系，子盒子在父盒子里面，给父盒子设置margin-top: 100px; 给子盒子设置margin-top：150px;
+				此时子盒子并没有按照我们的想法去展示，而是以margin-top: 100px;展示，给父盒子加一条上边框，子盒子才正常显示。
+				上面的方式不推荐，推荐使用bfc方式解决，改变父盒子的bfc规则(在父盒子上设置bfc)
+
+
+触发bfc(block fromat content)的方式:
+									position: absolue; float: left/right; display: inline-block; overflow: hindden;
+
+
+脱离了文档流的元素：
+					块级元素看不见它，因此该块级元素会占领脱离文档流元素的位置，并档住它；
+					而带有文本属性的元素和bfc元素都可以看到它，因此他们会排列在一行，而不会占据脱离文档流元素的位置。
+
+
+文本打点:
+			先设置文本超出部分不换行， whilte-space: nowrap;
+			然后设置超出部分隐藏，		overflow: hidden;
+			最后实现文本打点，			text-overflow: ellipsis;
+
+行级元素不能嵌套块级元素，块级元素p不能嵌套其他块级元素，a标签不能嵌套a标签。	

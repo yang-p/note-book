@@ -1,0 +1,76 @@
+怎么实现flex布局：
+					在父级元素上添加display:flex
+
+
+父级元素身上的属性：
+					justify-content  子元素呈水平的排列方式
+							属性值：	
+									center    所有子元素居中排列
+									flex-start （默认值）所有子元素居左排列
+									flex-end  所有子元素居右排列
+									space-between 两端对齐
+									space-around
+
+
+					align-items   单行子元素垂直的排列方式
+							属性值：
+									stretch 拉伸（默认值）
+									flex-start 顶端对齐（默认值）
+									center   垂直居中
+									flex-end 底部对齐
+
+					align-content  多行子元素垂直的排列方式
+									stretch 拉伸(默认值)
+									flex-start
+									flex-end
+									center
+
+
+					flex-direction   规定是纵向还是横向排列
+							属性值：
+									row 子元素从左向右呈横向排列(默认值)
+									row-reverse 子元素从右向左呈横向排列 
+									column 子元素从上到下呈纵向排列
+									column-reverse子元素从下到上呈纵向排列
+
+					flex-wrap  规定子元素是否排列在一行
+						属性值：
+								nowrap  不换行，即所有子元素在一行排列(默认值)
+								wrap     换行
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+子元素身上的属性：
+
+		flex    	排列在一行的子元素，每一个子元素占父元素的宽度的多少。
+			属性值 ： 
+					属性值只能为正整数数字，
+					排列在一行的子元素的flex属性值相加，然后自身的flex属性值除以总的
+			例子：
+				 假设有四个子元素排列在一行，其中三个元素设置了相同的flex: 1，
+				 另一个元素设置了width:100px;
+				 其中一个元素占父元素的宽度 = 1/(1+1+1)*(父元素总宽度 - 100px);
+
+
+		flex-grow    子元素宽度是否放大比例
+			属性值：
+			        0   默认比例(默认值)
+			        非0  子元素宽度充满父元素宽度
+
+		align-self    覆盖父级元素的align-items
+				属性值：
+						默认情况下，不写align-self属性，隐式的继承父元素的align-items的属性值
+						center
+						flex-start
+						flex-end
+
+		order    规定子元素的排列顺序，值越小越靠前
+			属性值：
+					0 最小的一个值 (默认值)
+
+
+
+flex布局的注意点：
+					1. 当使用了flex布局后，子元素如果设置float属性无效。
+					2. 当flex-direction设置成column时，父容器的坐标轴相当于旋转了90度，
+						所以想要水平居中，只能写align-itmes:'center';

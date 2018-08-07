@@ -1,0 +1,81 @@
+①求字节长度
+function str(a){
+var i =0,num = str.length;
+for(;i < num; i ++){
+if(a.charCodeAt(i) >255){return num ++}
+}
+return num
+}
+②数组的sort之排序(看数组那一节)
+③数组的push方法解析
+Array.prototype.push = function (target){ this[this.length] = target; this.length ++ }
+④数组去重（将数组的元素放在对象中，充当属性，而对象的属性规定不能重名）
+Array.prototype.unique = function (){
+var temp = {},//创建一个空对象
+    arr = {},//创建一个空数组，用于接收允许储存在temp里面的元素。
+     len = this.length;
+     for(var i = 0; i <len; i ++ ){
+    if( !temp[this[i]]//加非的原因是，this[i]在对象中为undefined){
+    temp[this[i]] = "一个不为假的值";//为this[i]赋值是因为，让this[i]在对象中成为“true”，经过if判断时，则为false
+     arr.push(this[i])
+    }
+  }
+}
+⑤实现点击奇数次和偶数次时的不同效果(计数器和模运算符)
+     div.onclick = function () {
+     var count = 0;
+     count ++;//必须放在if判断语句前面
+     if( count % 2 == 1){代码块1}else{代码块2}  //有几种不同的状态就模几，这里是两种不同的状态所以模2.
+     }
+⑥实现选项卡
+    for(var i = 0; i < btn.length; i ++){
+     //btn代表选项卡三个按钮的标签选择器的集合
+    btn[i].index = i;
+    btn[i].onclick = function (){
+    for(var j = 0; j < div.length; i ++){ 
+    //div代表选项卡内容区三个类选择器的集合
+    btn[i].className = "";//将所有的按钮元素的类名变为空
+    div[j].style.display = 'none';
+    }
+        this.className = "在css中设置的那个类选择器名" //将选中的这个按钮的类名还原
+        div[this.index].style.display = 'block'; //让第i个div显示出来
+    }
+    }
+⑦封装函数insertAfter
+     function insertAfter(targetNode,orginNode){
+      var afterNode = originNode.textNextSibling;
+      if(afterNode == null){this.appendChild('targetNode');
+ }else{  this.insertBefore('targetNode','afterNode')}
+     }
+⑧将子元素节点进行逆序
+  var len = div.childNodes;
+  for(var i = len.length - 1; i >= 0;i --){
+      div.appendChild(len[i]); }
+⑨自动阅读器--开关思想
+   var key = ture,
+     timer = 0;
+  dom1.onclick = function () {
+      if(key){
+      timer = setInterval(function () { window.scrollBy(0,10)},time)
+      }
+      key = false;
+  }
+  dom2.onclick = function () {
+   clearInterval(timer);
+  }
+⑩一个元素的两种不同样式状态的切换
+在css中分别写好这两种状态的样式，然后在js中为该元素添加className属性，
+
+使其属性值为一种状态的选择器名或去掉属性值为空串
+
+①一行代码实现输出20个<li></li>的方法
+function test(len){return new Array(len + 1).join("<li></li>")}
+
+
+
+—————————————————————————————————————————————————————————————————————————————————————————
+开关思想
+计数器思想
+将数组的join的分隔符换成要输出的内容。
+让类素组使用数组的方法：Array.prototype.XX方法.call(类数组);
+

@@ -1,0 +1,32 @@
+原理：将调用call方法的函数，放在目标对象中，作为该对象的方法，然后对象调用该方法执行，就解决了this指向。
+
+Function.prototype.newCall = function (){
+	var ctx = arguments[0] || window, //判断实参的第0位是否为null
+		args = [],	//创建一个空数组，用来储存实参。
+		result = null,
+		argsLen	= arguments.length;		
+		ctx.fn = this; //ctx是一个对象，将调用newCall方法的函数作为ctx对象的fn方法。
+	if(argsLen > 1){
+		for(var i = 1; i < argsLen; i ++) {
+			args.push(arguments[i]);
+		}
+		 result = eval('ctx.fn('+ args.join() +')');//使用eval来执行fn方法。
+	}else {
+		result = ctx.fn();
+	}
+	delete ctx.fn;//删除创建出的新方法fn，目的是保持原对象不变。
+	return result;
+}
+
+Function.prototype.newApply = function (ctx, arr) {
+	var ctx = ctx || window,
+		result = null;
+		ctx.fn = this;
+		if(arr){
+			result = eval('ctx.fn('+ arr.join() +')');
+		}else{
+			resilt = ctx.fn();
+		}	
+	delete ctx.fn;
+	return result;
+}

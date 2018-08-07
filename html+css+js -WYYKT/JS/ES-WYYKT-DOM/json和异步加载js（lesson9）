@@ -1,0 +1,86 @@
+json: 一种传输数据的格式，是一种对象，但是它是以对象样板，和对象没什么区别。
+     “json对象”是用来传输的，“对象”是本地用的。
+     人为规定json对象的属性名必须加双引号，就好比构造函数的函数名首字母大写。
+
+     前台向后台传输的不是json对象，而是字符串，即,将json对象加上双引号，成为字符串，
+     然后后台通过特殊方法去掉这个字符串， 最后才解析json对象里面的内容。
+
+     JSON和Math一样属于静态类，即不需要new一个对象就能直接调用属性和方法。
+
+     将json对象变成字符串的方法：
+        JSON.stringify(对象引用名);//该方法不仅为对象添加字符串，若对象中的属性没有加双引号，补上双引号。
+     将json对象的字符串形式转换成对象的方法：
+         JSON.parse(JSON.stringify(对象引用名));//去掉json对象外面的双引号，并且去掉对象属性的双引号。
+
+————————————————————————————————————————————————————————————
+异步加载：
+         渲染引擎在解析页面时，首先解析html文档，然后创建一个dom树(domTree),每解析完一个元素，就将该元素放在dom树上。
+         它只能识别该元素是什么，元素中的内容它不能识别，比如一个img元素，它里面有图片地址，当渲染引擎识别了img元素后，
+         就将img元素放在dom树上，而图片的下载却不一定完成了。
+         总结：dom树的解析完成不代表dom的加载完成。
+         domTree
+          html
+    head        body
+title、mata...     div、p、span....
+.........           .........
+        解析规则：深度解析，先解析head元素，然后解析title元素，title解析完后再解析mata元素，head解析完后才解析body。
+
+     当渲染引擎解析到css样式时，会创建一个css树(cssTree),此时cssTree和domTree会拼接在一起，形成一个randerTree(绘制树)。
+     cssTree的解析规则也是深度解析。
+     当randerTree的形成，才代表渲染引擎开始渲染页面。
+     注意点：js可以修改dom结构和样式，此时domTree和cssTree又必须从第一行开始重新解析，只要domTree或cssTree
+             的其中一个改变，原来的randerTree也失效了。 所以尽量少用js修改dom的结构和样式。
+             当重新创建出一个randerTree时，称为reflow重排(重构)。——>重排的效率是最低的。
+     repaint重绘：cssTree的样式的改变但是不影响dom节点的宽高、位置，重新生成的randerTree被称为重绘。——>效率较低。
+     产生重排的地方:dom的增加、删除、查看、dom节点的宽高变化(元素、字体宽高)、dom节点的位置变化(display的none到block)。
+
+     页面解析完成:dom树构建完成。
+     页面加载完成：渲染引擎渲染页面的完成。
+————————————————————————————————————————————————————————————
+异步加载js
+        js是单线程的原因：js能改变html的样式和结构。
+异步加载js的方法：
+         第一种：在script的开始标签里面加上defer属性，不论是引入js的script标签还是内部有js的script标签都有效。
+         特点:只有IE能用，并且只有dom完全解析完后才会被执行。
+         第二种：和defer的用法一样，在script的开始标签里面加上aysnc属性。但是它只对引入js的script标签有效。
+         特点：下载或加载完就开始异步执行
+         W3C的标准方法，IE9以上和其他浏览器都有效。
+
+         第三种(最常用)：新建一个script标签，然后在里面用js创建一个script标签，如下
+         <script>
+         var script = document.createElement('script');
+         script.type = "text/script";
+         script.src = "js文件路径";
+         //如果只有上面三步那么只是一个js文件的下载，要实现下载并立即执行，需要将该标签插入到HTML中。
+         document.head.appendChild(script);
+         test()//test是js文件中的一个函数，放在这儿用来测试能否执行
+         </script>
+         注意点：由于文件的下载和js代码的执行是异步的，并且电脑执行代码的速度是以微秒为单位的，
+                 所以可能当script标签插入html中了，js文件还没有下载完，那么test无法执行，并且会报错，
+                 其中一个解决办法是将test();放在setTimeout()中，并设置一个延迟时间，但是这种方法不灵活，
+                 所以W3C提出了一套关于当script标签下载完后就能触发函数的执行加载事件。————> script.onload。
+                 由于IE的script中没有load事件，所以IE不能使用script.onload。
+                 IE的方法：script.onreadystatechange
+                   在IE中的script中有一个状态码readyState属性，里面存了一个onloading值，当文件下载完后
+                   属性值变成了complete或loaded。 readystatechange就是监测readyState的属性是否发生改变。
+                   script.onreadystatechange = function () {
+                    //当状态码改变时，触发该函数，判断文件若加载完成，则开始执行代码块
+                         if(readyState == 'complete' || readyState == 'loaded'){代码块}
+                   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

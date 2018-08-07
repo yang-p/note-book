@@ -1,0 +1,49 @@
+作用：解决异步回调的问题
+
+Promise的使用方法：
+			构造Promise对象时，需要传一个参数，该参数是一个函数，该函数有两个参数(resolve,reject)
+			let promise = new Promise(function(resolve,reject){
+						//resolve 成功的回调函数
+						//reject 失败的回调函数
+				})	
+
+			promise.then()
+
+
+
+
+________________________________________________________________________________________________
+new Promise().then()
+
+
+Promise的实例方法：
+			then()
+					作用：监听new Promise(function(resolve,reject){})中执行的
+							是resolve还是reject，如果是resolve那么执行then里面的第一个参数，
+							如果是reject那么执行第二个参数。
+					用法：
+							then方法里面有两个参数，这两个参数都是函数，第一个参数对应resolve
+							第二个参数对应reject，并且第二个参数可以忽略不写。	
+
+							Promise对象可以实现链式调用，promise.then().catch()
+
+			catch()
+					作用：只监听new Promise(function(resolve,reject){})中reject是否执行
+
+
+Promise的方法：
+			Promise.resolve() 将现有的东西，转化成一个promise对象，只不过是resolve状态
+							 Promise.resolve()相当于 new Promise(resolve =>{resolve()} )
+
+			Promise.reject()  将现有的东西，转化成一个promise对象，只不过是reject状态
+							Promise.reject() 相当于 new Promise((resolve,reject) => {reject()})
+
+			Promise.all() 将Promise对象打包放在一个数组中，并返回一个新的promise对象
+							注意点：promise对象必须全是resolve状态才会返回。
+						例子：
+								let promise1 = new Promise.resolve('aaaa'),
+									promise2 = new Promise.resolve('bbbb'),
+									promise3 = new Promise.resolve('cccc');
+								Promise.all([promise1,promise2,promise3]).then(resolve =>{});
+
+			Promise.race() 和all方法一样，但是promise对象中的一个满足resolve状态就返回。

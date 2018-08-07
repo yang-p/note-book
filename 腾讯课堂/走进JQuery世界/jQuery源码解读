@@ -1,0 +1,10 @@
+jQuery代码放在立即执行函数里面的好处：
+		1).	匿名函数形成闭包，保护jQuery与外界发生冲突
+		2). 能第一时间得到初始化
+为了避免在多库环境下关键字重名：
+		jQuery首先将外部变量保存进来，避免被重写后没法恢复
+		var _jquery = window.jquery, _$ = window.$;
+		然后 window.jquery = window.$ = jquery;
+
+jquery的函数入口，也就是真正的构造函数：
+		jQuery.fn.init

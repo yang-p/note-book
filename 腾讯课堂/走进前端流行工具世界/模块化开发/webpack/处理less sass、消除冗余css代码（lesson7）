@@ -1,0 +1,57 @@
+less部分：
+		下载两个必须loader： less、less-loader
+
+		将less文件引入到入口文件
+		然后在module里面配置
+			不分离css版：
+						module : {
+							rules : [
+								{
+									test : /\.less$/,
+									use : ['style-loader','css-loader','less-loader']
+								}
+							]
+						}
+
+			分离出css文件版：
+					module : {
+						rules : [
+							{
+								test : /\.less$/,
+								ExtracTtextPlugin.extract({
+									fallback : 'style-loader',
+									use : ['css-loader','less-loader']
+								})
+							}
+						]
+					}	
+
+_____________________________________________________________________________
+
+sass部分
+		下载两个必须的loader： 	node-loader、sass-loader
+		将sass文件引入到入口文件中
+		在module里面配置
+			不分离css版：
+						module : {
+							rules : [
+								{
+									test : /\.(sass|scss)$/,
+									use : ['style-loader','css-loader','sass-loader']
+								}
+							]
+						}
+
+————————————————————————————————————————————————————————————————————————————————————————
+
+	下载插件purifycss-webpack 、 purify-css
+	下载额外的一个包，glob-all    作用：扫描路径
+
+	引入插件 purifycss-webpack 、 glob
+	在plugins里面进行配置：
+						plugins : [
+							new PurifyCssWebpack({
+								paths : glob.sync(path.join(__dirname,'src/*html'))
+							})
+						]
+

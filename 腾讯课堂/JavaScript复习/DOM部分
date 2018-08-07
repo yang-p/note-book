@@ -1,0 +1,29 @@
+在dom部分，一切系统生成的成组的东西，都叫类数组。
+遍历节点数：
+			parentNode最顶端的节点为#document、 parentElement 目标元素的父元素节点
+			childNode子节点()、  children子元素节点
+			nextSibling、 nextElementSibling
+			previousSibling、 previousElementSbling
+			firstChild、firstElementchild
+			lastChild、	lastElementchild
+			node.childrenCount = node.children.length		
+
+节点属性：
+			node.value text和coment节点的内容， node.type节点类型， node.name元素标签名， attribute
+节点类型：
+		元素节点1，属性节点2，文本节点3，注释节点8，文档节点9，文档碎片节点11
+节点方法：
+			hasChildNodes()
+创建节点：
+document.createElement()
+doucument.createComant()
+document.createTextNode()
+document.createFragment()
+插入节点：
+parentNode.appendChild()	将已有的东西进行插入到另一个地方，属于剪切。
+parentNode.insertBefore(a,b)将a插入到b的前面
+删除节点：
+parentNode.removeChild() 剪切式删除
+elementNode.remove() 彻底删除
+替换节点：
+parentNode.replaceChild(new, origin)

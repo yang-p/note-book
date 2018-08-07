@@ -1,0 +1,23 @@
+linux目录遵循FHS(filesystem Hierarchical standard)协议：
+		每个人的linux的根目录下都有一堆固定的的文件夹名字，这些文件夹的名字代表某一功能，
+		而我们应该根据子文件夹的功能放在对应的文件夹中。
+
+根目录下的文件夹：
+		文件夹名字		文件夹全称				文件夹类型 
+		usr			UNIX software Resource 		软件安装目录
+		var			variable					存放系统运行所需文件
+		bin 									存放可执行文件或链接到可执行文件
+		sbin									和bin差不多，但是只允许管理员访问
+		boot									存放系统开机所需文件
+		dev										连接外部设备时，该设备名会存放在dev文件夹里
+		etc										存放各种配置文件
+		home									用户目录，如果是root用户则在根目录下
+		root									root用户登录后，所在的目录
+		lib										存放Linux的函数库，驱动
+		media									存放可删除的设备，比如u盘、光盘
+		mnt										功能和media类似，只是比media后出现
+		opt										安装第三方软件
+		srv										用户主动生成的数据，对外可访问
+		tmp										存放临时文件
+		proc									存放一些状态信息，不占磁盘空间
+		sys										存放和内核相关的信息

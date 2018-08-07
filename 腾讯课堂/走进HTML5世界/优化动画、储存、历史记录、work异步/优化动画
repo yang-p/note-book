@@ -1,0 +1,28 @@
+浏览器的刷新时间为16ms左右。(1000ms 60fps)
+——————————————————————————————————————————————————————————————
+API
+requestAnimationFrame    浏览器每次刷新时就执行一次动画。
+					优点：比计时器的更流畅。
+					定时器实现的动画间隔时间越短，掉帧越多，间隔时间越长越卡顿。
+					缺点：兼容性问题。
+
+requestAnIMFrame的兼容性写法：
+window.requestAnimFrame = (function(){
+	return window.requestAnimationFrame||
+	       window.webkitRequstAnimationFrame||
+	       window.mozRequstAnimationFrame||
+			function (callback) {
+				window.setTimeout(callback,1000/60);
+			}
+}()
+
+cancelAnimationFrame 取消动画，相当于clearTimeout
+
+window.cancelAnimFrame = (function(){
+	return window.cancelAnimationFrame ||
+		   window.webkitCancelAnimationFrame || 
+	       window.mozCancelAnimationFrame||
+			function (id) {
+				window.clearTimeout(id);
+			}
+}()

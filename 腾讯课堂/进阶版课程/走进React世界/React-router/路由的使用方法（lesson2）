@@ -1,0 +1,17 @@
+路由嵌套：
+			被Route组件调用的那个组件，如<Route path='/home' component={Home}>
+			Home组件的props对象里面就有三个属性：
+												history对象
+												location对象
+												match对象
+			history对象：
+						push方法： 跳转
+						goBack方法：返回上次点击
+						go
+
+
+			location对象：
+							存放的是一些路由地址信息
+
+			match对象：
+						params存放hash带过来的数据

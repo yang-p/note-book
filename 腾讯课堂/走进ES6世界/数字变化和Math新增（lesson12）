@@ -1,0 +1,45 @@
+数字变化：
+			ES6之前的变量的变量值只能为十进制的数字
+			ES6之后的变量可以是十进制、二进制、八进制。
+			但是在使用时，系统会自动将二进制、八进制转换成十进制。
+
+
+	二进制(Binary)变量值的写法： 
+					在数字面前加上零b,并且后面的数字只能是0和1组成。
+					例子： let num = 0b0101010;
+
+	八进制(Octal)变量值的写法：
+					在数字前面加上零o,并且数字后面只能是小于8的数字组成。
+					例子： let num1 = 0o123456;
+
+_______________________________________________________________________
+
+Number类新增的方法：
+			Number.isNaN() 判断变量是否是NaN，和isNaN方法的作用一样，现在新增的
+							这个方法从代码逻辑上看，更加规范。
+
+			Number.isFinite() 判断变量是否是数字，不存在隐式类型转换。
+			Number.isInteger() 判断变量是否为整数类型
+			Number.parseInt()
+			Number.parseFloat() 这两个方法的用法和parseInt、parseFloat一样
+
+			Number.safeInteger() 判断该数字是否为安全整数，安全整数的范围是 
+								  -(2^53 -1) <= num <= 2^53-1
+								  例子： Number.safeInteger(num)
+
+Number类新增的属性：
+			Number.MAX_SAFE_INTEGER   最大安全整数
+			Number.MIN_SAFE_INTEGER   最小安全整数
+
+————————————————————————————————————————————————————————————————————————————————
+Math类
+
+Math类新增的方法：
+			Math.trunc(num)  将数字截断，也就是相当于只取整数，小数部分忽略。
+			Math.sign(num)   判断一个数是正数、还是负数、还是正0、还是-0
+								Math.sign(5)    返回1
+								Math.sign(-8)   返回-1
+								Math.sign(0)  返回0
+								Math.sign(-0)  返回-0
+
+			Math.cbrt(num)      计算一个数的立方根, 例子： Math.cbrt(27) ==> 3

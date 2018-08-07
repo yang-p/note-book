@@ -1,0 +1,23 @@
+this：
+		JavaScript的this总是指向一个对象。
+
+this到底指向谁？
+			1. 作为对象的方法调用，this指向该对象。
+			2. 作为普通函数调用,this指向全局对象，即window对象。
+			3. 作为构造器调用，this指向构造出的对象
+注意点：在标准模式中函数体中的this由于被改变，指向了window，但是在严格模式中，它不会指向任何对象，返回undefined。
+
+小技巧：
+		用原生js获取dom元素时，比如，var getId = function (func) {
+											return document.getElemnetbyId(func);
+										} 
+		但是写成， var getId = document.getElementById; 特别要注意这种写法会改变getElementById函数内部的this指向。
+		如果硬要用这种写法，那么在getElementById函数体里面用apply将this指向为document对象。
+
+call和apply的区别：
+					功能完全一样，由于apply的第二个参数传的是集合，所以比call的使用率高很多。
+
+注意点：当第二个参数为null时，this指向window对象，但是在严格模式中，this为null。
+
+使用call和apply的目的：
+						一般情况下不只是用来改变this指向，而是借用其他对象的方法。

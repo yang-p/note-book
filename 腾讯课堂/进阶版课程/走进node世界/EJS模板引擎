@@ -1,0 +1,33 @@
+EJS的特点：
+			1.快速编译和渲染
+			2.简单的模板标签
+			3.支持浏览器端和服务器端
+			4.支持express视图系统
+
+EJS的使用：
+1. 安装EJS   npm i ejs -D
+
+
+创建后缀名为ejs的文件： 
+					目的是用来放html代码
+
+ejs的HTML书写格式:
+				<%= %>里面放数据。
+				比如下方服务器文件的render方法里面传了个对象类型的参数，该参数里面有name属性。
+									<%= name %>
+
+				<% include ../public.ejs %>
+							引入其他ejs格式的文件，常常是引进公共模板时，用这种方法。
+
+				<% %>	里面放业务逻辑的js代码，比如循环。。。
+				
+				书写格式注意点: 
+								1. 当<%%>换行时，不能是这样<%hello /n world %>	 
+									而应该<% hello %> <% world %>
+
+
+让express框架服务器识别EJS文件： 
+					express.set('view engine','ejs'); //express是Express的实例对象。
+
+让服务器找到ejs文件：
+					res.render('ejs格式的文件名假设为index.ejs','可以让index.ejs拿到的数据')。

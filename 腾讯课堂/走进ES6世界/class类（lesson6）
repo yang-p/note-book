@@ -1,0 +1,78 @@
+
+class注意点：
+			①没有函数提升的功能，所以必须是先定义，才能去实例化它。
+
+class基本使用：
+			用class声明构造函数 class Person {} ==> var person = new Person()
+			类声明的两种方式： 
+							第一种：	class Person {}
+
+							第二种： const Person = class {}
+
+			类的内部写法：				
+							class Person {
+								constructor(name,age) {
+									this.name = name;
+									this.age = age;
+									this.showName = this.showName.bind(this);
+								}
+								showName () {...} // 注意，方法前面不加function
+							}
+
+			类方法的两种写法：
+							第一种：上面的普通写法， 执行该方法 new Person().showName()
+							第二种：方法名为变量的写法
+									假设有一个变量 let a = 'yp';此时该方法写成[a](){...}
+									但是要执行该方法 new Person()['yp']();
+									
+
+			类的实例写法：  let p = new Person('yp',18);
+			
+
+	注意点：
+	① constructor，不论是什么类都必须的一个方法，当new某个类时，该类的constructor就会立即执行。
+
+
+————————————————————————————————————————————————————————————————————————————————————
+类对象上的方法：
+				get()   取
+				set()	存
+
+类自身的方法：
+				类自身的方法也叫静态方法。
+				把static关键字写在方法前面，这种方法就是静态方法。
+				静态方法只能是该类去调用它。
+				class Person {
+					static showName() {...}
+				}
+				Person.showName();
+——————————————————————————————————————————————————————————————————————————————————————
+class的继承：
+			如何实现子类继承父类
+								用extends关键字  class Son extends Father {}
+
+			实现继承后还存在哪些问题？
+						1.子类的构造函数会将父类的构造函数覆盖，因此无法使用父类的属性。
+							所以，ES6规定必须在子类的构造函数里面执行super函数。			
+						class Son extends Father {
+							constructor () {
+								super(); //该函数执行相当于执行的父类的constructor
+							}
+						}
+
+						2.子类的方法和父类的方法名相同时，那么子类的方法会覆盖父类的方法。
+							比如父类有showName方法，子类也有一个showName方法，那么子类的
+							showName覆盖父类的showName方法。
+						  所以，在子类的showName方法里面加上super.showName();在执行子类的
+						  showName方法时，父类的showName反方就会被调用执行。
+			
+
+
+
+			2.子类继承父类后，没有this，所以需要用super继承父类的this
+				class B extends A {}
+				B.__proto__ 指向A
+				B.prototype.__proto__ 指向 A.prototype
+
+
+	

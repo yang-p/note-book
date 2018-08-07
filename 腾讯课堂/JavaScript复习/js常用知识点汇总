@@ -1,0 +1,63 @@
+渲染模式DOCTYPE
+     标准模式
+     怪异(混杂)模式
+
+  盒模型案例：
+      触发怪异模式不代表触发盒子模型，只有在IE6及以下浏览器才会触发盒子模型。
+         标准模式 盒子宽度=内容width + 2*padding + 2*border
+         怪异模式 盒子宽度=标准模式下内容width
+                  (padding和border放在了内容的width里面，当padding和border的2倍值小于内容width时，
+                   怪异模式下内容width=标准模式下内容width-2*padding - 2*border，
+                   当padding和border的2倍值大于内容width时，此时怪异模式内容width为0)。
+—————————————————————————————————————————————————————
+for属性使lable和input之间相关联：
+       首先为input设置id属性和属性值，然后在lable标签中添加for属性，
+       属性值为input标签中的id属性值。
+—————————————————————————————————————————————————————
+Math.random()的应用：
+              抽奖应用
+             获取0到11的随机数   Math.random()*11;
+             获取31到38的随机数  Math.random()*7 + 31;
+—————————————————————————————————————————————————————
+html元素和dom元素：
+    html元素指的是写在html标签里面的元素，dom元素指的是dom树上的元素。
+
+    具有先天特性的属性，不论在html元素还是在dom元素中修改其属性值，相应的dom元素或者html元素的该
+    属性值也会被更改，因为他们是映射关系。先天特性值得是该元素本来就拥有的属性，而不是自定义的。
+
+    在script标签中可以通过获取某个元素，从而直接查看、修改某个先天属性的属性值，
+    比如console.log(input.id) 打印input元素的id属性,但是无法操作自定义的属性。
+    而通过get/setAttrabulte方法，可以查看、设置元素的任何属性。
+——————————————————————————————————————————————————————         
+④实现图片预加载：
+ 			原理每次src外部文件加载成功后会触发onload事件。
+ 			<script>
+              var img = new Image();//为构造函数Image实例化对象
+               img.src = "url地址";
+               img.onload = function (){ //只有img的src属性为true才会执行onload事件
+                   document.body.appendChild(img);
+               }
+ 			</script>
+————————————————————————————————————————————————————————
+文档碎片
+        例子：页面中有一个ul，但是要向该ul中插入十亿个li标签。
+            var oUl = document.getElementsByTagName('ul')[0];
+            var oFrag =   document.createDocumentFragment();//创建文档碎片
+            for(var i = 0; i < 十亿; i ++){
+              var oLi = document.createElement('li');
+              oLi.innerHTML = i;             
+              oUl.appendChild(oLi);//oFrag.appendChild(oLi);用文档碎片的方法替换这句
+            }
+            oUl.appendChild(oFrag);//将文档碎片插入到ul中
+
+       //上面的写法每执行一次i，就要插入一个li到ul中，那么渲染引擎就会重新渲染一次，非常浪费效率。
+
+       //解决办法，创建一个div元素，将生成的li插入到div中，最后将div插入到ul中，
+       //但是ul和li标签之间多了一个div 标签。
+
+       //文档碎片的是第二种方法的升级版，将生成的li插入到文档碎片中，然后将文档碎片插入到ul中，
+       //li标签就可以称为ul的直接子标签了。
+
+  
+
+

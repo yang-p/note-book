@@ -1,0 +1,9 @@
+Date(); 返回当前的日期
+getDay(); 返回0-6中的某个数字，代表一个星期中的某一天，0代表星期天
+getDate(); 返回一个月中的某一天
+getMonth();返回0-11中的某个数字，代表一年中的某一月，0代表一月份。
+getFullYear(); 返回四位的数字，代表当前是哪年。
+getHours、getMinues、getsecends、getMilliseconds 返回对象创建时的时分秒毫秒。
+getTime();返回从1970.1.1零时零分零秒至今的毫秒数。
+
+setDate(); 设置对象中的某一天

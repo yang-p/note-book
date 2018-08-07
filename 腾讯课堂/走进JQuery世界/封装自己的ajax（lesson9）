@@ -1,0 +1,85 @@
+10分钟
+三次握手：当客户端向http发送请求时，tcp/ip协议必须经过三次握手才能和服务器发生链接。
+三个配置本地的集成服务器环境软件：xammp、wampserver、mampserver。
+默认端口不需要输入，浏览器会自动补齐但不会显示出来。
+
+form表单的三个属性值: method action enctype。
+  		method的两个属性值：
+  		 					get
+  		 					post
+       get和post的区别：
+                      都能请求和发送数据。
+                      get主要用来向服务器请求数据，post主要向服务器传输数据。
+                      get接收的数据具有缓存作用，一般通过加时间戳的方式解决缓存。
+  		action的属性值：
+                      要提交数据到某个地方的地址。
+  		enctype的属性值： 规定在发送表单数据之前是否进行编码
+  						          application/x-www-form-urlencoded 默认属性值。
+                        multipart/form-data(<input type='file'>)
+                        不对字符编码，在有文件上传的表单控件时，必须用它。
+
+ajax(asynchronous javascript and xml)的特点：
+			异步操作(用JavaScript以异步的形式操作xml，现在操作的是json格式)	
+
+
+ajax的操作步骤：
+       第一步需要浏览器-因为发送请求是通过浏览器完成的。
+       第二步创建ajax对象
+       第三步通过open方法初始化请求  open(请求类型，请求地址，是否异步)	
+       第四步通过send方法发送请求
+       第五步通过onreadystatechange监听实时状态信息
+       第六步readyState和status验证
+status状态码：
+		以2开头代表成功，
+		以5开头代表服务器内部错误
+		以4开头代表文件未找到
+		以3开头代表重定向错误(资源未被修改)
+readyState状态值：
+		0 未初始化，未调用send方法
+		1 读取中，已调用send方法，正在发送请求
+		2 以读取，send方法执行完成，接收到全部的响应内容
+		3 交互中，正在解析响应内容
+		4 响应内容解析完成
+onreadystatechange监听有readyState状态变化时触发事件
+responseText
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+jquery版本的ajax
+        $.ajax({
+              type: "GET|POST",
+              url: '',
+              data: '传输数据',
+              context: '回调函数的作用域', //当需要改变回调函数的this指向。
+              cache:  '是否缓存，默认为true',//原生js就是在get请求上加时间戳。
+              async: '是否异步，默认true',
+              success: '请求成功后，回调函数的函数引用',
+              error: '请求失败后，回调函数的函数引用',
+              crossDomain: '为true时可以跨域，false只能同域',//默认是不写这个属性，
+                                                    因为当跨域的时候自动为true。
+        })
+
+
+  实现跨域时需要额外添加：
+        $.ajax({
+            url: 'http://xxxx.xxx.com?xxx&callback=cb',
+            dataType: 'jsonp',  //当跨域时声明dataType为jsonp
+            jsonp: 'callback',  //根据url中回调函数
+            jsonpCallback:'cb', //根据url中回调函数的函数名，
+           //jsonpCallback和success如果同时存在，那么先执行前者再执行后者，
+           //所以一般只写其中一个。
+        })
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				

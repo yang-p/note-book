@@ -1,0 +1,5 @@
+createContext是一个函数
+		createContext函数执行会返回两个组件：Provider、Consumer
+		
+两个重要组件：
+				

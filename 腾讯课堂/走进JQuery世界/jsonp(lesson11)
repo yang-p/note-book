@@ -1,0 +1,8 @@
+解决跨域的三种方式：
+	① flash
+	② 服务器代理中转(用自己的后台文件访问其它非同域的后台文件)
+	③ jsonp
+		利用src不受同源策略的限制，同源策略最初只是为了限制XMLHTTPRequest对象。
+	④ document.domain('主域名')  此方法仅限于主域名相同子域名不同的情况下可相互访问。
+		bj.58.com	document.domain('58.com')
+		tj.58.com  	document.domain('58.com')

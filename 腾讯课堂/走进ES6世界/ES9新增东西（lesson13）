@@ -1,0 +1,31 @@
+1.命名捕获
+			语法： （？<名字>）
+
+			例子：  
+				  let str = '2018-05-09';
+				  let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+ 				  let {year,month,day} = str.match(reg).groups;
+
+
+ 		正则表达式的replace方法结合命名捕获：
+ 					     原本\d{4}表示$1,现在因为它用了命名，所以$<year>
+ 				  	例子：将上面的str字符串的时间形式替换为2018/05/09
+ 				  	      str.replace(reg,'$<year>/$<month>/$<day>')。
+
+2.反向引用命名捕获：
+			语法： k<名字>
+			 let reg = /(?<year>\d{4})-(\k<year>)/;
+			 上面的表达式，能匹配形如 let str = 'hello-hello';
+
+
+dotAll模式：
+			在以前的正则表达式中，.匹配的是除了\n之外的所有字符。
+			但是使用dotAll模式就可以让，.匹配所有字符。
+
+		怎么成为dotAll模式：
+							曾经修饰符只有i、m、g,现在多了个s
+							当给正则表达式加一个修饰符s即可开启dotAll模式。	
+
+标签函数：
+		1. 声明函数：  和普通的函数声明一样，function fn() {...}
+		2. 执行函数： fn`此处为实参`；

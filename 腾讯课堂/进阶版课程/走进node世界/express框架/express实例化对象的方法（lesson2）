@@ -1,0 +1,10 @@
+先进行实例化express对象：
+							let app = express();
+
+服务器创建：
+
+
+get()
+		app.get()
+		监听端口、ip
+		app.listen(port,'ip',()=>{})

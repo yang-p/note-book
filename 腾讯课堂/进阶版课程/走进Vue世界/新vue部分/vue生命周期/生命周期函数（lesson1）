@@ -1,0 +1,11 @@
+beforeCreate	Vue实例刚刚创建完成，但是属性还未绑定到实例化对象上。
+created			属性已经绑定到实例化对象上，但是还没开始渲染模板。
+
+beforeMount		模板渲染之前
+mounted			模板渲染之后
+
+beforeUpdate	数据更新之前
+updated			数据更新之后
+
+beforeDestroy   实例销毁之前
+destroyed	    实例销毁之后

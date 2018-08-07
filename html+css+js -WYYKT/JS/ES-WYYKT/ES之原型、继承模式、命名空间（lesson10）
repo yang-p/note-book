@@ -1,0 +1,123 @@
+原型
+    什么是原型：针对构造函数，是构造函数产生对象的公有祖先，原型是构造函数的一个属性，但是原型是对象类型。
+                 一个对象有原型(有_proto_属性)，可以人为的修改或替换原型，但是不能人为添加原型(_proto_属性)，
+
+    使用方法：构造函数a.prototype = { 属性 ： '属性值',
+              方法 : function(){this.属性},【这里的this指得是谁调用这个方法，this就是谁】 }
+    原型的作用:
+               原型和继承有关,利用这一原理,将构造函数的公共属性提取出来,写在prototype对象中,
+               避免一个构造函数创建多个对象时，每个对象都要将里面的属性和方法执行一次，提高运行效率；
+    原型的增删改查：
+                   删：delete 构造函数a.prototype.已有属性; 【delete不能对参数进行删除】
+                   查：构造函数a.prototype.已有属性 或 对象a.prototype
+
+原型的两个默认属性：
+    constructor属性:   当构造函数创建的对象调用constructor属性时，返回该构造函数引用名；
+                       最终构造函数名为Object；可以手动修改constructor的属性值为其他构造函数的名称。
+
+    _proto_ 属性: (当在构造函数里面时)
+           _proto_属性是构造函数的this对象中的一个默认属性，其默认属性值是该构造函数原型的引用名，如Person.prototype；
+           这个属性是构造对象访问原型的桥梁，可以说这个属性就是构造对象的属性，因为可以通过构造对象调用这个属性
+           来改变_proto_的属性值，其实质是将prototype默认指向原型对象，改为指向另一个新对象。
+           (属性前面有下划线，代表私有属性，前后都有下划线，代表系统自带的私有属性)。
+           (当在_proto_属性在原型里面时，形成了原型链)
+原型链
+      构造对象先从自己的构造函数中找某个属性或方法，若没有则通过this对象中的_proto_属性，在原型上面找，
+      若还是没有，则通过原型上的_proto_属性，在父对象中找，直到最终父对象object的原型链终端Object.prototype，
+      若还是没有，则返回undefined。 Object.prototype不再具有_proto_属性了。所以可以通过调用_proto_属性判断是否为原型终端。
+原型链示意图：
+      Ground.prototype = object;
+      funcyion Grund() {}
+      var grund = new Grund();
+      Father.prototype = grund;
+      function Father() {}
+      var father = new Father();
+      Son.prototype = father;
+      function Son() {
+      var this = {
+          _proto_ : Son.prototype;
+         }
+      }
+      var son = new Son();
+原型链的增删改查：
+      改：当子对象修改祖代函数的初始值类型属性的属性值时，祖代函数的属性值不变，当属性为引用值类型时(比如对象名)
+          修改该属性(对象)的具体属性时，祖代函数的属性值改变。
+      查：查看某个属性和方法可以通过本身或后代对象进行查看；
+  通过子孙对父函数进行增加或修改的特例：
+            父函数的属性为引用值，如对象   person.obj.name = '';这种修改方式为引用修改。
+————————————————————————————————————————————————————————————
+Object.create(原型,[特性])： 创建一个对象，但是对象必须有原型，所以括号里面是指向这个对象的原型的引用值。
+                        第二个参数为：可配置性和不可配置性，如可读、可写这些特点。
+                        注意点：被var 声明的属性具有不可配置性，当delete该属性时，返回false。
+                      如：var obj = Object.create(obj1);//obj接收Object.create创建出的对象，此时obj的原型指向obj1。
+
+             几乎所有的对象的最终原型都是Object.prototype,但是Object.create方法是个例外，
+             Object.create方法的括号里面要么是原型(引用类型)，要么是null，用其他原始值则报错。
+             正是因为Object.create方法的值可以为null，所以目标对象不再具有原型了。
+             undefined和null因为不具有包装类，所以不具有原型。
+             var this = Object.create(test.prototype)相当于 var this = {_proto_ : test.prototype}
+方法的重写
+           可以人为的去重写，系统也会自己重写方法。
+           比如： Object.prototype.toString ==> Number|Boolean|String|Array .prototype.toString
+           document.write方法其实就是先调用String.prototype中的toString方法，将数据转换成字符串输出到页面中。
+           比如：var num = 123；  document.write(num)==> String.prototype.toString(num);
+________________________________________________________________________________________________________________________
+继承发展史
+  1.传统形式——>通过原型链继承        过多的继承了没用的属性
+  2.借用构造函数——>call/aplay    不能继承借用构造函数的原型、每次构造函数都要执行一次借用构造函数
+  3.共享原型——>Son.prototype=Father.prototype  Son的原型指向Father的原型，当Sun的原型添加属性或方法时，
+                                                            Father的原型也对应的添加了。
+  4.圣杯模式——>在共享原型的基础上进行改进
+           例子：
+                  function Father(){}
+                     function Sun(){}
+                function inherit(Taget,Origin){
+                function F(){} //创建一个F构造函数，作为中间层
+                F.prototype = Origin.prototype;
+                Targrt.prototype = new F();
+  //由于Son的原型继承自Father的原型，而constructor在Father的原型上，这个constructor指向构造函数Father，
+  //添加这一句的目的是，让constructor指向原本应该指向的构造函数Son。
+                Target.prototype.constructor = Target;
+  //在Son的原型中添加一个属性，用来表示记载超类信息(Target最终继承自Origin) 。
+                Target.prototype.Uber = Origin.prototype;
+                }
+                F();//和下面的顺序不能换
+                var father = new Father(); var sun = new Sun();
+
+  5.高级圣杯模式
+             var inherit = (function (){
+                     var F = function (){};//通过闭包将该变量私有化
+                     return  function (Target,Origin){
+                         F.prototype = Origin.prototype;
+                         Target.prototype = new F();
+                         Target.constructor = Target;
+                         Target.prototype.Uber = Oragin.prototype;
+                     }
+             }())
+————————————————————————————————————————————————————————————
+防止污染全局变量：
+                  旧方法：命名空间
+                  现在的方法：闭包实现属性的私有化， 参考高级圣杯模式
+                   比如： var aaa = (function (){
+                                     //此处为一大堆变量
+                                     // 此处为一大堆函数体
+                                    return function (){
+                                          //此处为根据执行顺序，写一大堆函数执行。
+                                    }
+                   }())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

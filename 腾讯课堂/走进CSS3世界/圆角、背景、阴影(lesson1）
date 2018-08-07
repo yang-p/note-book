@@ -1,0 +1,107 @@
+border-radius:
+	圆形：
+		 border-radius: 50% 50%;
+	半圆：
+		上半圆：
+				border-top-left: 50% 100%;
+				border-top-right: 50% 100%;
+		下半圆：
+				border-bottom-left: 50% 100%;
+				border-bottom-right: 50% 100%;
+
+border-image：
+		border-image: url(xxx.png) number [repeat|round]
+		number 截取图片四周宽度作为背景填充部分，按照borderWidth进行伸缩，
+				number是复合属性，没有单位，取值范围为0到图片的宽高。
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+盒子阴影
+box-shadow:	X偏移量 Y偏移量 [模糊度] [投影半径] [阴影颜色] [投影方式];
+
+			偏移量指坐标的位置，当值为正时，X坐标向右移动，Y坐标向下移动。
+			模糊度值当前阴影的模糊程度，值只能为正单位px
+			投影半径指阴影的大小，这个大小是相对于默认阴影的，值为正越大。
+			阴影颜色，默认是黑色。
+			投影方式，默认是外阴影，insert设置内阴影。
+
+
+文本阴影
+text-shadow: X-offset Y-offset bulr color;
+			bulr 代表模糊度
+			color代表阴影颜色
+
+背景透明度
+RGBA:
+		Alpha和opacity的区别：
+			alpha只作用于自身的dom元素，并且只改变自身背景透明度，
+			不会对文字、边框造成影响，更不会影响子元素的背景、文字、边框。
+			opacity，改变背景透明度，会影响自身及其子元素的背景、文本边框。
+	transparent 透明色，也叫无色。
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+颜色渐变
+	线性渐变
+	linear-gradient(方向,颜色1, 颜色2)
+			例子：
+				background: linear-gradient(to bottom, red, green);
+				从上到下，颜色由红色渐变到绿色。
+				background: linear-gradient(to bottom right, red, green);
+				从左上角由红色向右下角绿色渐变。
+				background: linear-gradient(0deg, red, green);
+				数值为正按照顺时针方向旋转。为0度是颜色1在下面颜色2在上面。
+				background: linear-gradient(0deg, red 0%, green 20%, ornage 40%, bule 60%);
+				其中红色占元素的0%，
+				绿色在从下到上20%处，
+				橘黄色在从下往上40%处，
+				蓝色在从下往上60%~100%处，
+				0%~20%是红色向蓝色渐变，后面的以此类推。
+
+		注意点：方向有 to top|right|bottom|left 和 0~360deg两种写法。
+				颜色可以同时写很多个，默认情况下每种颜色会均分块级元素的
+				大小，但是也可以自己设置。
+
+
+	径向渐变
+	radial-gradient(shape at position, color[percent], color)
+		shape 代表放射的形状，可以是圆形circle,也可以是椭圆形ellipse,
+				还可以是表示直径的坐标值，比如：
+				radial-gradient( 40px 30px at center, red, green);
+					40px代表X轴方向的直径，30px代表Y轴方向的直径。
+
+		position 代表圆心的位置，以设置渐变属性的该元素为参照物,
+		可以是两个值，也可以是一个值，当只有一个值时，后面的那个值默认
+		为center即50%。值得类型可以是百分数、像素、方位(left/top..)。
+
+
+文本边界换行
+	强制换行word-wrap: break-word; 默认属性是normal
+
+引入字体
+	@font-face{
+		font-family: "自定义字体名称";
+		src: url("字体库的文件");
+	}
+	字体文件格式兼容性写法：
+	@font-face {
+	font-fimily: "aa";
+	src: url(""), /*IE9+*/
+		具体的百度一下
+	}
+
+背景图片
+	background-image 默认情况下图片是从padding区域引入直到content区域。
+	background-origin 改变最初的图片引入位置
+					  默认是padding-box,其他content-box,border-box。
+	background-clip  背景裁剪，默认属性为border-box。目前该属性只有Chrome支持。
+						border-box|padding-box|content-box|no-clip
+						以上属性表示从border区|padding区|内容区向外裁剪。
+
+	background-size		auto|长度值|百分比|cover|contain
+					auto 默认值，不改变背景图片的原始尺寸
+					长度值，成对出现，调整图片的宽高，如果只有一个值，
+							后面的值进行等比例缩放。
+					百分比，将图片的宽高按照元素的宽高的百分比设置。
+					cover，用一张图片铺满整个背景，如果比例不符，则截断图片。
+					contain， 尽量让背景图片在元素中以一整张图片显示。
+					注意点：cover和contain都不变形，他们都是按比例缩放。
+

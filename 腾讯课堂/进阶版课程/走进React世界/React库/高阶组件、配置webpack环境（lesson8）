@@ -1,0 +1,46 @@
+高阶组件：
+		高阶函数就是一个函数，只不过它的参数传的是一个组件，而返回的是一个新的组件。
+
+————————————————————————————————————————————————————————————————————————————————————
+配置react的webpack环境
+	1.下载react相应的安装包
+				babel-core
+				babel-loader
+				babel-preset-env 预设
+				babel-preset-stage-0 预设
+				babel-preset-react 预设
+				react
+				react-dom
+
+	预设一定要记得配置：
+				
+				配置文件形式，在src同级目录下创建一个.babelrc文件
+				在文件里面配置如下参数：
+							{
+								"presets":[
+										"env","stage-0","react"
+									]
+							}
+
+
+	2.在webpack.config.js配置文件里面配置
+
+		module : {
+			rules : [
+				{
+					test : /\.js$/,
+					use : ['babel-loader'],
+					exclude : /node_modules/
+				}
+			]
+		}
+
+	3.配置其他内容
+			比如：
+					服务器的开启
+					html、css文件。。。	
+
+	4.写jsx代码
+		在.js格式的文件里面写jsx代码即可，但是用jsx语法时，必须在该文件顶部引入
+				import React,{Component} from 'react';
+				import ReactDOM from 'react-dom';

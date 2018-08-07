@@ -1,0 +1,11 @@
+$mount	相当于el,但是级别没有el高，即当同时存在el和$mount时，优先选择el
+
+$data	既能查看又能修改data对象的属性及其属性值
+
+$log	只能查看data对象的属性及其属性值
+
+$el		获取原生的el所绑定的html元素
+
+$options	查看Vue实例化对象时，传入的属性，其中包括私有属性。
+
+$destory	销毁Vue的实例化对象

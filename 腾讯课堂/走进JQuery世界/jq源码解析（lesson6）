@@ -1,0 +1,64 @@
+1.20分
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+$() === jQuery()
+
+function jQuery(selector){
+	//不返回this的原因是这里的this指向window，如果用return this 那么就需要
+	//new jQuery()而我们需要的是函数执行。
+	return new jQuery.prototype.init(selector);
+}
+
+jQuery.prototype.init = function (selector)
+		//将init函数写在原型上是为了代码的整齐。
+		this[0] = document.getElementsByTagName(selector)[0];
+		length = 1;
+}
+
+	//init的原型指向object，但是object上面没有css方法，所以改变init原型指向jQuery的原型。
+	jQuery.prototype.init.prototype = jQuery.prototype;
+
+jQuery源码写法：
+			init = jQuery.fn.init = function (selector,content,root){}
+
+
+
+
+jQuery.prototype.css = function (){
+	....
+	//这里的this指向调用该方法的对象，即jQuery(selector)即init的对象，至此形成链式调用。
+	return this;
+}
+
+以上方法应该放在立即执行函数里面，作用域从window变到函数里面，避免与引入的其他js文件
+冲突，但是当执行jQuery('div').css时出现jQuery is not defined，因为这里的jQuery是在
+window对象上找的，但是没找到，所以应该在立即执行函数的最开始添加一句
+				window.jQuery = window.$ = jQuery;
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+自定义版本：
+(function(selector){
+	window.jQuery = window.$ = jQuery;
+	function jQuery(selector){return new jQuery.prototype.init(selector);}
+	jQuery.prototype.init = function (selector){}
+	jQuery.prototype.init.prototype = jQuery.prototype;
+	jQuery.prototype.css = function (){return this;}
+})(selector)
+
+jQuery版本：
+ (function(globle,factory){
+ 	factory(globle);
+ })(typeof(widndow) == 'undefined' ? window : this,function factory(globle,nogloble){
+ 	window.jQuery = window.$ = jQuery;
+ 	function jQuery(selector){return new jQuery.prototype.init(selector);}
+	jQuery.prototype.init = function (selector){}
+	jQuery.prototype.init.prototype = jQuery.prototype;
+	jQuery.prototype.css = function (){return this;}
+ })
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+1.40分
+init函数
+	init = jQuery.prototype.init = function (selector,context,root){
+			//首先判断传入的selector是否为null," ",'',undefined
+			if(!selector){
+				return this;
+			}
+	}

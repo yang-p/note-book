@@ -1,0 +1,26 @@
+ajax传输数据的四种状态：	
+	0 	未初始化，还没有调用send方法
+	1 	已经调用send方法，正在发送请求
+	2 	send方法已执行完毕，并且已经接收到响应内容
+	3	正在解析响应内容
+	4	响应内容已经解析完成，可以再客户端内调用
+
+ajax请求数据的步骤：
+				实例化XMLHttpRequest对象 let xhr = new XMLHttpRequest()
+
+				调用open方法 xhr.open('请求方法',url,是否异步默认为true)
+
+				xhr.onstatechange 监听状态变化，以便拿到响应的数据
+
+				调用send方法，发送数据 xhr.send()
+
+get的请求步骤：
+			let xhr = new XMLHttpRequest()
+			xhr.open('get',url+'?user=yp&password=123',true)
+			xhr.send()
+
+get的请求步骤：
+			let xhr = new XMLHttpRequest()
+			xhr.open('post',url,true)
+			xhr.setRequestHeader('content-type',"application/x-www-form-urlencoded ")
+			xhr.send(data)

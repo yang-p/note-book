@@ -1,0 +1,79 @@
+webpack是什么？
+				webpack是一个打包工具(模块打包器)，现在已经成为前端必不可少的工具。
+				webpack是基于command.js,因此方法和conmand的方法一样。
+
+webpack的作用：
+				1.将多个模块合成一个模块(减少服务器的压力)。
+				2.将动态资源转换成静态资源(将浏览器不能识别的转化成浏览器能识别的，如less转换成css)。
+				3.优化项目。
+
+webpack的构成：
+				1.入口文件entry
+				2.出口文件output
+				3.loaders转化器/加载器
+				4.插件plugins
+				5.devServer 开发服务器
+				6.mode 生产模式和开发模式(这是4.x新增的功能，但是webpack核心功能是以上五种。)
+
+		注意点：开发环境就是编写代码的环境，生产环境就是项目上线的环境。
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+安装webpack：
+			1.必须确保有node环境 ------ node -v
+			2.安装webpack      ------ npm install webpack-cli -g
+			3.验证webpack是否安装成功	------ webpack -v	
+			4.生成package.json文件   在本地项目文件夹下,打开cmd 输入 ------ npm init 
+			  如果没有什么严格要求，输入 npm init -y 可以跳过几个不重要步骤。
+			5. 安装cnpm  搜索‘淘宝镜像’，然后将该命令输入cmd安装。
+
+	命令注意点：
+				--save -dev 表示安装的该插件是用于开发环境的。
+				--save       表示安装的该插件是用于生产环境的。
+				这两种可以写在插件名前面，也可以写在插件名后面，不过建议写在所有插件后面。
+				安装插件时，项目文件夹会创建一个node_modules文件夹，用于保存下载的插件。
+				安装插件时，必须要加上-D或-S命令，因为package.json会创建devDependencies对象，
+							或Dependencies对象。
+							别人也是通过package.json里面的这两个对象来npm insatll还原安装插件。
+
+	命令小技巧：
+				install      可以简写为 i    ------ npm i
+				uninstall    可以简写为 un	------ npm un 
+				--save -dev  可以简写为  ------ -D
+				--save       可以简写为  ------ -S
+				安装多个插件 只需要插件名用空格隔开。 如 npm i jQuery aaa bbb -D
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+以上步骤为基础步骤
+				6. 在项目文件夹下创建一个src文件夹，该文件夹与package.json和node_module文件夹处于同一级。
+					src文件夹是最基本的文件夹，在项目文件夹下只有该文件夹，运行webpack命令，webpack会
+					自动创建dist文件夹，这就是webpack目前的0配置。
+				   在项目文件夹下创建一个dist文件夹，该文件夹与package.json和node_module文件夹处于同一级。
+
+				7. 在项目文件夹下创建webpack.config.js，该文件夹与package.json和node_module文件夹处于同一级。
+					webpack.config.js该文件是webpack的配置文件，文件名不能写错，否则出口函数会被package.json
+					文件里面的main属性的属性值index.js替换。
+					该文件夹的名称可以自定义，但是在运行前，
+					方法一：需要在命令里面输入 webpack --config 自定义的文件名 。
+					方法二：在package.json文件里面的scripts对象下，创建一个自定义属性dd，
+							属性值为"webpack --config 自定义的文件名",然后在命令里面输入 npm run dd。
+
+				8. 经常在命令行里面会报"WARNING in configuration",
+					这是因为我们没有选择模式，模式有两种，生产环境production和开发环境development。
+					因此需要在命令行里面输入 webpack --mode development,
+					也可以将该命令放在package.json下的scripts对象里面。	
+
+
+
+
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+webpack命令：
+			 npm init 	初始化项目
+			 webpack 	执行所有
+			 webpack --config webpack.config.js
+			 webpack --mode  production|development
+			 npm install 插件名 --save | --save -dev
+

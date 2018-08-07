@@ -1,0 +1,61 @@
+react没有自带动画，所以需要依赖react-transition-group
+
+	1.安装， npm i react-transition-group -D
+
+2.在js模块里面引入  import {TransitionGroup,CSSTransition} from 'react-transition-group'
+
+	3.使用：
+
+	TransitionGroup和CSSTransition是两个组件，CSSTransition必须被TransitionGroup包裹。
+
+	<TransitionGroup>
+
+		<CSSTransition timeout={500} classNames={}>
+			要运动的元素1
+		</CSSTransition>
+		<CSSTransition>
+			要运动的元素2
+		</CSSTransition>
+		<CSSTransition>
+			要运动的元素3
+		</CSSTransition>
+
+	</TransitionGroup>
+
+	注意点：
+			1. CSSTransition组件必须要有以下几个属性：
+					timeout = {动画执行时间}
+					key = #id  
+					classNames = "动画名称"
+
+
+
+			2. 动画可以手动写，也可以使用第三方库，比如animate.css
+					动画的四个阶段：
+							enter -> enter-active  -> exit-active-> exit
+
+
+				手动写动画的方法：
+						例子：
+							首先在CSSTransition组件中设置属性classNames = 'fade'
+							然后在css文件中写：
+								.fade-enter {opacity:0.01}
+								.fade-enter-active {opacity:1; transition: XXXXX;}		.fade-exit-active {opacity:0.01; transition: XXXX;}
+								.fade-exit {opacity:1}
+
+				使用第三方css动画库(比如animate.css)的方法：
+						例子：
+						首先在CSSTransition组件中设置属性classNames = {{
+							enter:'animated',
+							enterActive:'动画名',
+							exit:'animated',
+							exitActive:'动画名'
+
+						}}
+
+				3. timeout的两种写法：
+							第一种：
+									当enter和exit的动画执行时间一样时，可以简写为
+									timeout={500}
+							第二种：
+									timeout={enter:500, exit:300;}

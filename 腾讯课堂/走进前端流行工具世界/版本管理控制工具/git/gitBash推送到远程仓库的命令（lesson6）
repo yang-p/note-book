@@ -1,0 +1,18 @@
+查看本地仓库是否和远程仓库有连接：
+			git rmote -v
+
+增加远程仓库：
+			git remote add [shortname] [url]
+
+
+将本地的提交推送到远程仓库：
+			git push [remote(写shortname,它代表了远程仓库的url地址)] [branch(默认一般写master)]
+
+
+将远程仓库的提交拉下到本地：
+			git push [remote] [branch]
+
+
+将远程仓库clone下来：
+			注意点：
+					将远程仓库进行git clone时，会将本地文件夹和远程仓库进行关联。

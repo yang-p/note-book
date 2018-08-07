@@ -1,0 +1,52 @@
+symbol的定义：
+				let symb = Symbol('aaa');
+				console.log(symb); // 输出结果为Symbol(aaa)
+
+		注意点：
+				① 定义Symbol时，首字母必须大写
+				② Symbol不想其他数据类型有包装类，所以Symbol不能用new。
+				③ Symbol()返回的是一个唯一的值，即私有的东西。
+				④ Symbol()返回的值作为对象中的key时，不会被for-in循环出来，因为它是私有的。
+
+————————————————————————————————————————————————————————————————————————————————————————————
+
+generator函数
+			作用:解决异步的深度嵌套问题
+			generator函数的写法：
+								1.在普通函数的function和函数名之间加*
+								function * gen() {....}
+								2. 在generator函数内部，需要和yield配合使用。
+									function * gen() {
+										yield 'yp';
+										yield 'is';
+										rreturn 'good';
+									}
+
+			generator的使用方法：
+						上面是定义方法，接下来写的是五种使用generator的方法
+
+							第一种：手动执行generator
+
+							let gen = gen(); //generator函数直接执行会返回一个迭代器对象
+							gen.next(); // 执行内部的第一个yield，返回{value:'yp',done:false}
+										//done为false代表后面还有yield没执行。
+
+							gen.next();//执行第二个yield，返回{value:'is',done:false}
+							gen.next();//执行return，返回{value:'good',done:true}
+
+							第二种：for-of循环遍历generator
+								由于generator函数执行后返回的是一个迭代器对象，
+								所以for-of会制动循环该对象，并且for-of只循环yield，
+								不会循环return里的东西。
+								
+
+							第三种： 解构赋值
+									let [a,b] = gen();
+									console.log(a,b); // 执行结果是 yp is	
+
+							第四种： 解构赋值加扩展运算符
+									let [a,...b] = gen();
+									console.log(a,b); // 执行结果是 yp [is]
+
+							第五种： 扩展运算符
+									console.log(...gen()); //执行结果是 yp is
